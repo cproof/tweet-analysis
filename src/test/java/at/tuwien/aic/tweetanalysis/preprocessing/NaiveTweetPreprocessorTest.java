@@ -12,22 +12,22 @@ import static org.junit.Assert.*;
  *
  * @author Thomas
  */
-public class JSONTweetPreprocessorTest {
+public class NaiveTweetPreprocessorTest {
     private ITweetPreprocessor preprocessor;
     
-    public JSONTweetPreprocessorTest() {
+    public NaiveTweetPreprocessorTest() {
         
     }
     
     
     @Before
     public void setUp() {
-        this.preprocessor = new JSONTweetPreprocessor();
+        this.preprocessor = new NaiveTweetPreprocessor();
     }
 
 
     /**
-     * Test of preprocess method, of class JSONTweetPreprocessor.
+     * Test of preprocess method, of class NaiveTweetPreprocessor.
      */
     @Test
     public void testPreprocessSmilies() {

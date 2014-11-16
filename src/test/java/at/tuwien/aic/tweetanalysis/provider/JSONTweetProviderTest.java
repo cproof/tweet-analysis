@@ -16,22 +16,22 @@ import static org.junit.Assert.*;
  *
  * @author Thomas
  */
-public class CSVTweetProviderTest {
+public class JSONTweetProviderTest {
     private static final String file = "E:\\tmp\\tweets.txt";
     
     
     private ITweetProvider tp;
     
-    public CSVTweetProviderTest() {
+    public JSONTweetProviderTest() {
     }
    
     @Before
     public void setUp() throws IOException {
-        this.tp = new CSVTweetProvider(file);
+        this.tp = new JSONTweetProvider(file);
     }
     
     /**
-     * Test of getTweets method, of class CSVTweetProvider.
+     * Test of getTweets method, of classJSONTweetProviderr.
      */
     @Test
     public void testGetTweets() throws InterruptedException, ExecutionException {

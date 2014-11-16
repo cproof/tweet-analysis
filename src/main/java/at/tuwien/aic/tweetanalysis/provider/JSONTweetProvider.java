@@ -21,7 +21,7 @@ import org.codehaus.jackson.map.MappingJsonFactory;
  *
  * @author Thomas
  */
-public class CSVTweetProvider implements ITweetProvider{
+public class JSONTweetProvider implements ITweetProvider{
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final JsonParser jp;
     
@@ -30,7 +30,7 @@ public class CSVTweetProvider implements ITweetProvider{
      * @param file path to file including filename and extension
      * @throws IOException if file is not found or no valid JSON
      */
-    public CSVTweetProvider(String file) throws IOException {
+    public JSONTweetProvider(String file) throws IOException {
         JsonFactory f = new MappingJsonFactory();
         this.jp = f.createJsonParser(new File(file));
     }

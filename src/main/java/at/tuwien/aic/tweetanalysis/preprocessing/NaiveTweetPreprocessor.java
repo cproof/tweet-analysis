@@ -1,7 +1,6 @@
 package at.tuwien.aic.tweetanalysis.preprocessing;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
-import com.sun.org.apache.xerces.internal.impl.xs.identity.Selector;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -11,7 +10,7 @@ import java.util.regex.Pattern;
  *
  * @author Thomas
  */
-public class JSONTweetPreprocessor implements ITweetPreprocessor {
+public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     private final Pattern hashtagPattern = Pattern.compile("#[0-9a-zA-Z\\-_]*");
     private final Pattern userPattern = Pattern.compile("@[0-9a-zA-Z\\-_]*");
     //private final Pattern urlPattern = Pattern.compile("(http://){0,1}(www\\.){0,1}[a-zA-Z0-9]+\\.[a-zA-Z]{2,10}[a-zA-Z0-9/.?#&]*");
