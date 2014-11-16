@@ -31,7 +31,6 @@ public class JSONTweetPreprocessorTest {
      */
     @Test
     public void testPreprocessSmilies() {
-        System.out.println("preprocess");
         Tweet tweet = new Tweet();
         
         tweet.setContent("This is a tweet containing smilies like :)");
@@ -58,5 +57,65 @@ public class JSONTweetPreprocessorTest {
     }
 
 
+    @Test
+    public void testGetUrls() {
+        Tweet tweet = new Tweet();
+        
+        tweet.setContent("This tweet contains http://bit.ly/asfd as an url");
+        this.preprocessor.preprocess(tweet);
+        assertEquals(tweet.getUrls().size(), 1);
+        assertEquals(tweet.getUrls().get(0),"bit.ly/asfd");
+        
+        tweet.setContent("This tweet contains https://bit.ly/asfd as an url");
+        this.preprocessor.preprocess(tweet);
+        assertEquals(tweet.getUrls().size(), 1);
+        assertEquals(tweet.getUrls().get(0),"bit.ly/asfd");
+        
+        tweet.setContent("This tweet contains http://www.bit.ly/asfd as an url");
+        this.preprocessor.preprocess(tweet);
+        assertEquals(tweet.getUrls().size(), 1);
+        assertEquals(tweet.getUrls().get(0),"bit.ly/asfd");
+        
+        tweet.setContent("This tweet contains bit.ly/asfd as an url");
+        this.preprocessor.preprocess(tweet);
+        assertEquals(tweet.getUrls().size(), 1);
+        assertEquals(tweet.getUrls().get(0),"bit.ly/asfd");
+    }
+    
+    @Test
+    public void testGetHashtags() {
+        Tweet tweet = new Tweet();
+        
+        tweet.setContent("This tweet contains a #hashtag!");
+        this.preprocessor.preprocess(tweet);
+        assertTrue(tweet.getHashtags().contains("hashtag"));
+        assertEquals(tweet.getHashtags().size(), 1);
+        assertEquals(tweet.getContent().indexOf("#"),-1);
+        
+        tweet.setContent("This tweet contains #two2 #hashtags!");
+        this.preprocessor.preprocess(tweet);
+        assertTrue(tweet.getHashtags().contains("two2"));
+        assertTrue(tweet.getHashtags().contains("hashtags"));
+        assertEquals(tweet.getContent().indexOf("#"),-1);
+        assertEquals(tweet.getHashtags().size(), 2);
+    }
+    
+    @Test
+    public void testGetAuthors() {
+        Tweet tweet = new Tweet();
+        
+        tweet.setContent("This tweet contains an @user!");
+        this.preprocessor.preprocess(tweet);
+        assertTrue(tweet.getUsers().contains("user"));
+        assertEquals(tweet.getUsers().size(), 1);
+        assertEquals(tweet.getContent().indexOf("@"),-1);
+        
+        tweet.setContent("This tweet contains @two2 @users!");
+        this.preprocessor.preprocess(tweet);
+        assertTrue(tweet.getUsers().contains("two2"));
+        assertTrue(tweet.getUsers().contains("users"));
+        assertEquals(tweet.getContent().indexOf("@"),-1);
+        assertEquals(tweet.getUsers().size(), 2);
+    }
     
 }
