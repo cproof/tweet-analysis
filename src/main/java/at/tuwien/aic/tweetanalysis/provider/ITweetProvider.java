@@ -1,4 +1,4 @@
-package provider;
+package at.tuwien.aic.tweetanalysis.provider;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import java.util.Date;
