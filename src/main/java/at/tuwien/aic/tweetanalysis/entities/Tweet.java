@@ -13,7 +13,7 @@ public class Tweet {
     private String content;
     private List<String> hashtags;
     private List<String> urls;
-    private List<String> users;
+    private List<String> mentionedUsers;
     private String author;
     
     private Date timestamp;
@@ -150,17 +150,17 @@ public class Tweet {
     }
 
     /**
-     * @return the users
+     * @return the mentionedUsers
      */
-    public List<String> getUsers() {
-        return users;
+    public List<String> getMentionedUsers() {
+        return mentionedUsers;
     }
 
     /**
-     * @param users the users to set
+     * @param users the mentionedUsers to set
      */
-    public void setUsers(List<String> users) {
-        this.users = users;
+    public void setMentionedUsers(List<String> users) {
+        this.mentionedUsers = users;
     }
     
     public class Location {

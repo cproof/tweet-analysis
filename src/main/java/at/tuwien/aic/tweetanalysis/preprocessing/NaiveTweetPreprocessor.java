@@ -31,7 +31,7 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         content = content.replace("#", "");
         
         //same with other users
-        tweet.setUsers(this.getUsers(content));
+        tweet.setMentionedUsers(this.getUsers(content));
         //@TODO: Experiment if it makes more sense to
         //  1 leave users as they are, including the @
         //  2 remove users completely including the name
@@ -63,9 +63,9 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     }
     
     /**
-     * Get authors from the tweet, put them in the list
+     * Get the users mentioned in a the tweet, put them in the list
      * @param content text content of the tweet
-     * @return List of Authors
+     * @return List of mentioned Users
      */
     private List<String> getUsers(String content) {
         List<String> users = new LinkedList<>();

@@ -106,16 +106,16 @@ public class NaiveTweetPreprocessorTest {
         
         tweet.setContent("This tweet contains an @user!");
         this.preprocessor.preprocess(tweet);
-        assertTrue(tweet.getUsers().contains("user"));
-        assertEquals(tweet.getUsers().size(), 1);
+        assertTrue(tweet.getMentionedUsers().contains("user"));
+        assertEquals(tweet.getMentionedUsers().size(), 1);
         assertEquals(tweet.getContent().indexOf("@"),-1);
         
         tweet.setContent("This tweet contains @two2 @users!");
         this.preprocessor.preprocess(tweet);
-        assertTrue(tweet.getUsers().contains("two2"));
-        assertTrue(tweet.getUsers().contains("users"));
+        assertTrue(tweet.getMentionedUsers().contains("two2"));
+        assertTrue(tweet.getMentionedUsers().contains("users"));
         assertEquals(tweet.getContent().indexOf("@"),-1);
-        assertEquals(tweet.getUsers().size(), 2);
+        assertEquals(tweet.getMentionedUsers().size(), 2);
     }
     
 }
