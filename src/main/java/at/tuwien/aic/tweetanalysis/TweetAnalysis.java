@@ -18,7 +18,7 @@
 package at.tuwien.aic.tweetanalysis;
 
 import at.tuwien.aic.tweetanalysis.classifier.WekaClassifier;
-import at.tuwien.aic.tweetanalysis.preprocessing.PreprocessingCSVTraindata;
+import at.tuwien.aic.tweetanalysis.preprocessing.CSVPreprocessingTrainingAndTestingData;
 
 /**
  * @author Group 1
@@ -28,14 +28,14 @@ public class TweetAnalysis {
 
     public static void main(String[] args) throws Exception {
 
-        System.out.println("WEKA Test!");
+        //System.out.println("WEKA Test!");
 
-        WekaClassifier tweetTest = new WekaClassifier();
-        tweetTest.trainClassifier("training.csv");
-        tweetTest.evaluate("testing.csv");
+        //WekaClassifier tweetTest = new WekaClassifier();
+        //tweetTest.trainClassifier("training.csv");
+        //tweetTest.evaluate("testing.csv");
 
         // Then use the classifier to evaluate tweets
-        tweetTest.useClassifier();
+        //tweetTest.useClassifier();
 
         // INFO:
         // Ignore the database errors, only important if we use a database for the tweets.
@@ -43,8 +43,9 @@ public class TweetAnalysis {
 
 
         // Preporcessing Test: Read the BIG Tweetfile and try to make an simple learning CSV File
-        //PreprocessingCSVTraindata testPreprocessing = new PreprocessingCSVTraindata();
-        //testPreprocessing.extractTheTweetContent();
+        System.out.println("Prepairing training and testing Data!");
+        CSVPreprocessingTrainingAndTestingData testPreprocessing = new CSVPreprocessingTrainingAndTestingData();
+        testPreprocessing.extractTheTweetContentIntoCSV();
 
     }
 
