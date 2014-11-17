@@ -15,6 +15,7 @@ import java.util.concurrent.Future;
 /**
  * Preprocess the Training and Testing Data
  * TODO: The Training and Testing Data is not very good!
+ * TODO: More JSONPreprocessing!
  * TODO: Maybe manually fixes needed?
  *
  * <p/>
@@ -49,6 +50,10 @@ public class CSVPreprocessingTrainingAndTestingData {
         Future<List<Tweet>> f = this.tp.getTweets(size, 0, 0, null, null);
         List<Tweet> list = f.get();
 
+        //preprozess the tweets
+        NaiveTweetPreprocessor n = new NaiveTweetPreprocessor();
+        n.proprocess(list);
+
         //first 100 into Training
         writeCsvFile(list.subList(0, 99), trainingWriter);
 
@@ -64,19 +69,25 @@ public class CSVPreprocessingTrainingAndTestingData {
             writer.append("Tweet,Sentiment\n");
             writer.flush();
 
-            for (Tweet t:list) {
+            for (Tweet t : list) {
+
+                //few adjustments to the strings for better results
+                String content = t.getContent();
+                content = content.replace("\n","");
+                content = content.replace("\"","");
+
                 if (t.getContent().contains("POSITIVESMILE")) {
-                    writer.append(t.getContent());
+                    writer.append("\"" + content + "\"");
                     writer.append(',');
                     writer.append("positive");
                     writer.append('\n');
                 } else if (t.getContent().contains("NEGATIVESMILE")) {
-                    writer.append(t.getContent());
+                    writer.append("\"" + content + "\"");
                     writer.append(',');
                     writer.append("negative");
                     writer.append('\n');
                 } else {
-                    writer.append(t.getContent());
+                    writer.append("\"" + content + "\"");
                     writer.append(',');
                     writer.append("neutral");
                     writer.append('\n');

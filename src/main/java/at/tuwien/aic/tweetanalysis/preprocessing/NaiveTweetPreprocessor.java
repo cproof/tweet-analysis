@@ -21,9 +21,7 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         String content = tweet.getContent();
         
         content = replaceSmilies(content);
-        
-        
-               
+
         //remove hash symbol from the content
         //for equal treatment of tweets using hashtags
         //and tweets that use none
@@ -97,15 +95,15 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
 
         return urls;
     }
-    
+
     private String replaceSmilies(String input) {
         input = input.replaceAll(":\\)|:-\\)", "POSITIVESMILE");
         input = input.replaceAll(":\\(|:-\\(", "NEGATIVESMILE");
 
         return input;
     }
-    
-    
+
+
     @Override
     public List<Tweet> proprocess(List<Tweet> tweets) {
         for (Tweet t : tweets) {
