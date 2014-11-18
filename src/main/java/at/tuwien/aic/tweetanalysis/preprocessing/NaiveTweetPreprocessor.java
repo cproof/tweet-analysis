@@ -39,6 +39,9 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         content = content.replace("www.", "").replace("http://", "").replace("https://", "");
         tweet.setUrls(getUrls(content));
         
+        //normalize spaces
+        content = content.replaceAll("\\s+", " ");
+        
         tweet.setContent(content);
         return tweet;
     }
@@ -97,8 +100,8 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     }
 
     private String replaceSmilies(String input) {
-        input = input.replaceAll(":\\)|:-\\)", "POSITIVESMILE");
-        input = input.replaceAll(":\\(|:-\\(", "NEGATIVESMILE");
+        input = input.replaceAll(":\\)|:-\\)", " POSITIVESMILE ");
+        input = input.replaceAll(":\\(|:-\\(", " NEGATIVESMILE ");
 
         return input;
     }
