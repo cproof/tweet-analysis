@@ -54,4 +54,25 @@ public class SnowballPreprocessorTest {
         assertEquals(t2.getContent(),"Ich spielt gemeinsam mit mein Freund gest ein lang Schachparti");
     }
     
+    @Test
+    public void testPreprocess_ignoreSpecials() {
+        String special = "I like POSITIVESMILE mots bit.ly/asdf";
+        
+        List<Tweet> tweets = new LinkedList<>();
+        Tweet t = new Tweet();
+        t.setContent(special);
+        t.setLanguage("en");
+        t.getMentionedUsers().add("mots");
+        t.getHashtags().add("like");
+        t.getUrls().add("bit.ly/asdf");
+        
+        
+        
+        tweets.add(t);
+
+        this.preprocessor.preprocess(tweets);
+
+        assertEquals(t.getContent(), special);
+    }
+    
 }

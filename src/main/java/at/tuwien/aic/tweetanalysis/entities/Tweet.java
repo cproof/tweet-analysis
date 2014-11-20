@@ -1,6 +1,7 @@
 package at.tuwien.aic.tweetanalysis.entities;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -11,9 +12,9 @@ public class Tweet {
     private String id;
     
     private String content;
-    private List<String> hashtags;
-    private List<String> urls;
-    private List<String> mentionedUsers;
+    private List<String> hashtags = new LinkedList<>();
+    private List<String> urls = new LinkedList<>();
+    private List<String> mentionedUsers = new LinkedList<>();
     private String author;
     private String language;
     

@@ -1,6 +1,7 @@
 package at.tuwien.aic.tweetanalysis.preprocessing;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import org.tartarus.snowball.ext.germanStemmer;
 public class SnowballPreprocessor implements ITweetPreprocessor{
 
     private final Map<String, SnowballStemmer> stemmers = new HashMap<>();
+    private final List<String> ignoreKeywords = Arrays.asList(new String[] {"POSITIVESMILE","NEGATIVESMILE"});
     
     @Override
     public Tweet preprocess(Tweet tweet) {
@@ -27,6 +29,13 @@ public class SnowballPreprocessor implements ITweetPreprocessor{
         
         String newContent = "";
         for (String part : tweet.getContent().split(" ")) {
+            //if a username or a hashtag or a url -> do nothing, could be important
+            if (tweet.getHashtags().contains(part) || tweet.getUrls().contains(part) ||
+                    tweet.getMentionedUsers().contains(part) || ignoreKeywords.contains(part)) {
+                newContent += part + " ";
+                continue;
+            }
+            
             stemmer.setCurrent(part);
             stemmer.stem();
             newContent += stemmer.getCurrent() + " ";
