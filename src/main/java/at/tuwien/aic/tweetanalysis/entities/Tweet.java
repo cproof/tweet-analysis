@@ -15,6 +15,7 @@ public class Tweet {
     private List<String> urls;
     private List<String> mentionedUsers;
     private String author;
+    private String language;
     
     private Date timestamp;
     
@@ -161,6 +162,21 @@ public class Tweet {
      */
     public void setMentionedUsers(List<String> users) {
         this.mentionedUsers = users;
+    }
+
+    /**
+     * returns null if no language is set, lower-case ISO 3166
+     * @return the language
+     */
+    public String getLanguage() {
+        return language;
+    }
+
+    /**
+     * @param language the language to set
+     */
+    public void setLanguage(String language) {
+        this.language = language;
     }
     
     public class Location {
