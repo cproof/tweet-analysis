@@ -14,6 +14,7 @@ public interface ITweetPreprocessor {
      * @param tweet
      * @return the reference to the given tweet
      */
+    @Deprecated
     public Tweet preprocess(Tweet tweet);
     
     /**
@@ -21,5 +22,5 @@ public interface ITweetPreprocessor {
      * @param tweets
      * @return the reference to the given list
      */
-    public List<Tweet> proprocess(List<Tweet> tweets);
+    public List<Tweet> preprocess(List<Tweet> tweets);
 }

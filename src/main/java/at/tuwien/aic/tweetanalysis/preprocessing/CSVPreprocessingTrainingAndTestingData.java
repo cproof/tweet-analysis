@@ -52,7 +52,7 @@ public class CSVPreprocessingTrainingAndTestingData {
 
         //preprozess the tweets
         NaiveTweetPreprocessor n = new NaiveTweetPreprocessor();
-        n.proprocess(list);
+        n.preprocess(list);
 
         //first 100 into Training
         writeCsvFile(list.subList(0, 99), trainingWriter);

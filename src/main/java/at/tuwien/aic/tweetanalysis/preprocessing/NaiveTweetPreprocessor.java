@@ -108,12 +108,12 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
 
 
     @Override
-    public List<Tweet> proprocess(List<Tweet> tweets) {
+    public List<Tweet> preprocess(List<Tweet> tweets) {
         for (Tweet t : tweets) {
             this.preprocess(t);
         }
         
         return tweets;
     }
-    
+
 }
