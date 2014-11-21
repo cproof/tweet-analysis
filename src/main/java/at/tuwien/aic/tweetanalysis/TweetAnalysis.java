@@ -17,7 +17,9 @@
 
 package at.tuwien.aic.tweetanalysis;
 
+import at.tuwien.aic.tweetanalysis.classifier.IClassifier;
 import at.tuwien.aic.tweetanalysis.classifier.WekaClassifier;
+import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import at.tuwien.aic.tweetanalysis.preprocessing.CSVPreprocessingTrainingAndTestingData;
 
 /**
@@ -30,17 +32,19 @@ public class TweetAnalysis {
 
         System.out.println("WEKA Test!");
 
-        WekaClassifier tweetTest = new WekaClassifier();
-        tweetTest.trainClassifier("manualCreatedTrainingData.csv");
-        tweetTest.evaluate("manualCreatedTestingData.csv");
+        IClassifier tweetTest = new WekaClassifier();
 
-        // Then use the classifier to evaluate tweets
-        tweetTest.useClassifier();
+        // Use the Classifier to evaluate a Tweet
+        Tweet t = new Tweet();
+        t.setContent("Would love to know why I have not being paid! #unhappy");
+        double[] fDistribution = tweetTest.classifyTweet(t);
+
+        System.out.println("Evaluation of a String: " + t.getContent());
+        System.out.println("probability of being positive: " + fDistribution[0]);
+        System.out.println("probability of being negative: " + fDistribution[1]);
 
         // INFO:
         // Ignore the database errors, only important if we use a database for the tweets.
-        // Testing and Training Dataset from the Internet, we need our Testdata from Tuwel.
-
 
         // Preporcessing Test: Read the BIG Tweetfile and try to make an simple learning CSV File
         //CSVPreprocessingTrainingAndTestingData testPreprocessing = new CSVPreprocessingTrainingAndTestingData();
