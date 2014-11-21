@@ -3,10 +3,7 @@ package at.tuwien.aic.tweetanalysis.preprocessing;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import at.tuwien.aic.tweetanalysis.provider.ITweetProvider;
 import at.tuwien.aic.tweetanalysis.provider.JSONTweetProvider;
-import org.codehaus.jackson.map.*;
-import org.codehaus.jackson.*;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;

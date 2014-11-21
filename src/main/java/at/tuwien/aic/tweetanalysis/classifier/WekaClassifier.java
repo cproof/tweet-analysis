@@ -5,14 +5,11 @@ import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;
 import weka.classifiers.functions.SMO;
-import weka.classifiers.meta.FilteredClassifier;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.CSVLoader;
-import weka.core.tokenizers.NGramTokenizer;
-import weka.core.tokenizers.WordTokenizer;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 
@@ -26,8 +23,10 @@ import java.io.IOException;
  */
 public class WekaClassifier implements IClassifier {
 
-    private static final String _fileTestingDataset = "manualCreatedTestingData.csv";
-    private static final String _fileTrainingDataset = "manualCreatedTrainingData.csv";
+//    private static final String _fileTestingDataset = "manualCreatedTestingData.csv";
+    private static final String _fileTestingDataset = "testingData.csv";
+//    private static final String _fileTrainingDataset = "manualCreatedTrainingData.csv";
+    private static final String _fileTrainingDataset = "trainingData.csv";
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
@@ -72,11 +71,12 @@ public class WekaClassifier implements IClassifier {
 
             trainingLoader.setSource(new File(INPUT_FILE_DATASET));
             dataset = trainingLoader.getDataSet();
+            dataset.setClassIndex(1);
         } catch (IOException ex) {
             System.err.println("Exception in getCSVDataset: " + ex.getMessage());
         }
 
-        dataset.setClassIndex(dataset.numAttributes() - 1);
+//        dataset.setClassIndex(dataset.numAttributes() - 1);
         return dataset;
     }
 
