@@ -19,6 +19,11 @@ package at.tuwien.aic.tweetanalysis;
 
 import at.tuwien.aic.tweetanalysis.classifier.WekaClassifier;
 import at.tuwien.aic.tweetanalysis.preprocessing.CSVPreprocessingTrainingAndTestingData;
+import at.tuwien.aic.tweetanalysis.provider.TweetProvider;
+import at.tuwien.aic.tweetanalysis.entities.Tweet;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Group 1
@@ -46,6 +51,9 @@ public class TweetAnalysis {
         //CSVPreprocessingTrainingAndTestingData testPreprocessing = new CSVPreprocessingTrainingAndTestingData();
         //testPreprocessing.extractTheTweetContentIntoCSV();
 
+        // TweetProvider provider = new TweetProvider();
+        // List<Tweet> tweets = provider.getTweets("test", 20, new Date(114, 10, 18), new Date(114, 10, 20)).get();
+        // System.out.println("Got " + tweets.size() + " tweets");
     }
 
 

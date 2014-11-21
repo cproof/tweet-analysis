@@ -37,7 +37,7 @@ public class JSONTweetProviderTest {
     public void testGetTweets() throws InterruptedException, ExecutionException {
         System.out.println("getTweets");
         int size = 100;
-        Future<List<Tweet>> f = this.tp.getTweets(size, 0, 0, null, null);
+        Future<List<Tweet>> f = this.tp.getTweets("query", size, null, null);
         
         List<Tweet> list = f.get();
         assertNotNull(list);
