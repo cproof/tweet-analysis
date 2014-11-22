@@ -9,11 +9,14 @@ import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.converters.ArffLoader;
 import weka.core.converters.CSVLoader;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 /**
@@ -24,9 +27,11 @@ import java.io.IOException;
 public class WekaClassifier implements IClassifier {
 
 //    private static final String _fileTestingDataset = "manualCreatedTestingData.csv";
-    private static final String _fileTestingDataset = "testingData.csv";
+//    private static final String _fileTestingDataset = "testingData.csv";
+    private static final String _fileTestingDataset = "src/main/resources/testingVectorised.arff";
 //    private static final String _fileTrainingDataset = "manualCreatedTrainingData.csv";
-    private static final String _fileTrainingDataset = "trainingData.csv";
+//    private static final String _fileTrainingDataset = "trainingData.csv";
+    private static final String _fileTrainingDataset = "src/main/resources/trainingVectorised.arff";
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
@@ -34,12 +39,11 @@ public class WekaClassifier implements IClassifier {
 
 
     public WekaClassifier() {
-        _trainingDataset = getCSVDataset(_fileTrainingDataset);
-        _testingDataset = getCSVDataset(_fileTestingDataset);
+        _trainingDataset = getARFFDataset(_fileTrainingDataset);
+        _testingDataset = getARFFDataset(_fileTestingDataset);
 
         //In this case we use NaiveBayes Classifier.
         _classifier = (Classifier) new NaiveBayes();
-
         _classifier = trainAClassifier(_classifier,_trainingDataset);
 
         testClassifier(_classifier,_trainingDataset,_testingDataset);
@@ -80,6 +84,26 @@ public class WekaClassifier implements IClassifier {
         return dataset;
     }
 
+    /**
+     * Read in a new Dataset Instance from a ARFF-File
+     * @param INPUT_FILE_DATASET Path to the ARFF-File
+     * @return the Dataset Instances
+     */
+    private Instances getARFFDataset(final String INPUT_FILE_DATASET) {
+
+        Instances dataset = null;
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(INPUT_FILE_DATASET));
+            ArffLoader.ArffReader arff = new ArffLoader.ArffReader(reader);
+            dataset = arff.getData();
+            dataset.setClassIndex(0);
+        } catch (IOException ex) {
+            System.err.println("Exception in getARFFDataset: " + ex.getMessage());
+        }
+
+        return dataset;
+    }
 
     /**
      * Train the Classifier with a training data set
@@ -150,7 +174,7 @@ public class WekaClassifier implements IClassifier {
         //create a new instance
         Instance iExample = new Instance(2);
         iExample.setDataset(inst);
-        iExample.setValue(1, "Feeling sick #disguste");
+        iExample.setValue(1, tweet.getContent());
 
         inst.add(iExample);
 
@@ -180,15 +204,6 @@ public class WekaClassifier implements IClassifier {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        //System.out.println("instance after: " + outputInstances.instance(0));
-        //System.out.println("instance after: " + outputInstances.firstInstance().attribute(0));
-        //System.out.println("instance after: " + outputInstances.firstInstance().attribute(1));
-        //System.out.println("instance after: " + outputInstances.firstInstance().attribute(2));
-        //System.out.println("instance after: " + outputInstances.firstInstance().attribute(3));
-        //System.out.println("instance after: " + outputInstances.firstInstance().attribute(4));
-        //System.out.println("instance after: " + outputInstances.firstInstance().attribute(5));
 
         //inst.add(iExample);
 
