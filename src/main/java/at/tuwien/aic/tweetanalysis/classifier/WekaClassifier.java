@@ -11,6 +11,7 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 import weka.core.converters.CSVLoader;
+import weka.core.tokenizers.WordTokenizer;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 
@@ -20,7 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * The Weka-Classifier for Tweets
+ * The Weka-NaiveBayes-Classifier for Tweets
  *
  * @author Group 1
  */
@@ -53,9 +54,8 @@ public class WekaClassifier implements IClassifier {
         _trainingDataset = getCSVDataset(trainingDataset);
         _testingDataset = getCSVDataset(testingDataset);
 
-        // In this case we use "sequential minimal optimization" Classifier
-        // (Implementation of a Support vector machine).
-        _classifier = (Classifier) new SMO();
+        //In this case we use NaiveBayes Classifier.
+        _classifier = (Classifier) new NaiveBayes();
         _classifier = trainAClassifier(_classifier,_trainingDataset);
 
         testClassifier(_classifier,_trainingDataset,_testingDataset);
@@ -156,31 +156,44 @@ public class WekaClassifier implements IClassifier {
         fvWekaAttributes.addElement(classAttribute);
         fvWekaAttributes.addElement(stringAttribute);
 
-
-        //creates a new instances with one entry similar to training dataset
-        //Instances iCal = new Instances(_trainingDataset, 1);
-        //Instance inst = new Instance(iCal.numAttributes());
-        //inst.setDataset(iCal);
-
-        //inst.setValue(0,"sdfsdf");
-        //inst.setValue(1,"positive");
-
-
         // Create an empty instaces set
         Instances inst = new Instances("Rel", fvWekaAttributes, 1);
         // Set class index
         inst.setClassIndex(0);
 
-        //create a new instance
+        //create a new instance and add to instances
         Instance iExample = new Instance(2);
         iExample.setDataset(inst);
         iExample.setValue(1, tweet.getContent());
-
         inst.add(iExample);
 
-        System.out.println("instance before: " + iExample);
+        //System.out.println("instance before vectorisation: " + inst.firstInstance());
+        Instances new_inst = vectorised(inst);
+        //System.out.println("instance after vectorisation: " + new_inst.firstInstance());
+
+        double[] fDistribution = new double[] {0.0,0.0};
+        try {
+            fDistribution = _classifier.distributionForInstance(new_inst.firstInstance());
+        } catch (Exception ex) {
+            System.err.println("Exception using classifier: " + ex.getMessage());
+        }
+
+        return fDistribution;
+    }
+
+    /**
+     * Vecotrizes the Tweet for the Analysis
+     *
+     * @param input_instances The Instances to Vectorize
+     * @return the Vectorized Instances
+     */
+    private Instances vectorised(Instances input_instances) {
 
         // Set the tokenizer
+        WordTokenizer tokenizer = new WordTokenizer();
+        tokenizer.setDelimiters(" ");
+
+        // this tokenizer would be better
         //NGramTokenizer tokenizer = new NGramTokenizer();
         //tokenizer.setNGramMinSize(1);
         //tokenizer.setNGramMaxSize(1);
@@ -189,44 +202,21 @@ public class WekaClassifier implements IClassifier {
         // Set the filter
         StringToWordVector filter = new StringToWordVector();
         try {
-            filter.setInputFormat(inst);
+            filter.setInputFormat(input_instances);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //filter.setTokenizer(tokenizer);
-        //filter.setWordsToKeep(1000000);
-        //filter.setDoNotOperateOnPerClassBasis(true);
+        filter.setTokenizer(tokenizer);
+        filter.setWordsToKeep(1000000);
+        filter.setDoNotOperateOnPerClassBasis(true);
         //filter.setLowerCaseTokens(true);
 
         Instances outputInstances = null;
         try {
-            outputInstances = Filter.useFilter(inst, filter);
+            outputInstances = Filter.useFilter(input_instances, filter);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        //inst.add(iExample);
-
-        //Instance instanceToEvaluate = new Instance(1);
-        //instanceToEvaluate.setValue(stringAttribute, "sdfsdf");
-
-
-        //instanceToEvaluate.setValue(classAttribute, "0");
-
-        //instanceToEvaluate.setDataset(_trainingDataset);
-
-        //inst.add(instanceToEvaluate);
-
-
-        double[] fDistribution = new double[] {0.0,0.0};
-        try {
-
-            fDistribution = _classifier.distributionForInstance(inst.firstInstance());
-
-        } catch (Exception ex) {
-            System.err.println("Exception using classifier: " + ex.getMessage());
-        }
-
-        return fDistribution;
+        return outputInstances;
     }
 }

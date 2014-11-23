@@ -20,7 +20,6 @@ package at.tuwien.aic.tweetanalysis;
 import at.tuwien.aic.tweetanalysis.classifier.IClassifier;
 import at.tuwien.aic.tweetanalysis.classifier.WekaClassifier;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
-import at.tuwien.aic.tweetanalysis.preprocessing.CSVPreprocessingTrainingAndTestingData;
 
 /**
  *
@@ -35,11 +34,12 @@ public class TweetAnalysis {
 
         System.out.println("WEKA Test!");
 
+
         IClassifier tweetTest = new WekaClassifier();
 
         // Use the Classifier to evaluate a Tweet
         Tweet t = new Tweet();
-        t.setContent("Would love to know why I have not being paid! #unhappy");
+        t.setContent("microsoft sucks bad :(");
         double[] fDistribution = tweetTest.classifyTweet(t);
 
         System.out.println("Evaluation of a String: " + t.getContent());
