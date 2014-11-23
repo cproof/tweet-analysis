@@ -20,5 +20,19 @@ public interface IClassifier {
      */
     public double[] classifyTweet(Tweet tweet);
 
+    /**
+     * Save the actual Model of the Classifier to the Filesystem
+     *
+     * @param modelName the Path to save the Model
+     */
+    public void saveModel(String modelName);
+
+    /**
+     * Load a Model into the Classifier from the Filesystem
+     *
+     * @param modelName the Path to the Model
+     */
+    public void loadModel(String modelName);
+
 
 }

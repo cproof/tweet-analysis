@@ -141,6 +141,45 @@ public class WekaClassifier implements IClassifier {
         }
     }
 
+    /**
+     * Vecotrizes the Tweet for the Analysis
+     *
+     * @param input_instances The Instances to Vectorize
+     * @return the Vectorized Instances
+     */
+    private Instances vectorised(Instances input_instances) {
+
+        // Set the tokenizer
+        WordTokenizer tokenizer = new WordTokenizer();
+        tokenizer.setDelimiters(" ");
+
+        // this tokenizer would be better
+        //NGramTokenizer tokenizer = new NGramTokenizer();
+        //tokenizer.setNGramMinSize(1);
+        //tokenizer.setNGramMaxSize(3);
+        //tokenizer.setDelimiters("\\W");
+
+        // Set the filter
+        StringToWordVector filter = new StringToWordVector();
+        try {
+            filter.setInputFormat(input_instances);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        filter.setTokenizer(tokenizer);
+        filter.setWordsToKeep(1000000);
+        filter.setDoNotOperateOnPerClassBasis(true);
+        //filter.setLowerCaseTokens(true);
+
+        Instances outputInstances = null;
+        try {
+            outputInstances = Filter.useFilter(input_instances, filter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return outputInstances;
+    }
+
     @Override
     public double[] classifyTweet(Tweet tweet) {
 
@@ -181,42 +220,22 @@ public class WekaClassifier implements IClassifier {
         return fDistribution;
     }
 
-    /**
-     * Vecotrizes the Tweet for the Analysis
-     *
-     * @param input_instances The Instances to Vectorize
-     * @return the Vectorized Instances
-     */
-    private Instances vectorised(Instances input_instances) {
-
-        // Set the tokenizer
-        WordTokenizer tokenizer = new WordTokenizer();
-        tokenizer.setDelimiters(" ");
-
-        // this tokenizer would be better
-        //NGramTokenizer tokenizer = new NGramTokenizer();
-        //tokenizer.setNGramMinSize(1);
-        //tokenizer.setNGramMaxSize(1);
-        //tokenizer.setDelimiters("\\W");
-
-        // Set the filter
-        StringToWordVector filter = new StringToWordVector();
+    @Override
+    public void saveModel(String modelName) {
         try {
-            filter.setInputFormat(input_instances);
-        } catch (Exception e) {
-            e.printStackTrace();
+            weka.core.SerializationHelper.write(modelName, _classifier);
+        } catch (Exception ex) {
+            System.err.println("Exception saving the Model: " + ex.getMessage());
         }
-        filter.setTokenizer(tokenizer);
-        filter.setWordsToKeep(1000000);
-        filter.setDoNotOperateOnPerClassBasis(true);
-        //filter.setLowerCaseTokens(true);
-
-        Instances outputInstances = null;
-        try {
-            outputInstances = Filter.useFilter(input_instances, filter);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return outputInstances;
     }
+
+    @Override
+    public void loadModel(String modelName) {
+        try {
+            this._classifier = (NaiveBayes) weka.core.SerializationHelper.read(modelName);
+        } catch (Exception ex) {
+            System.err.println("Exception loading the Model: " + ex.getMessage());
+        }
+    }
+
 }
