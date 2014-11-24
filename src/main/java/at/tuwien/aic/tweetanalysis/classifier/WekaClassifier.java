@@ -29,10 +29,12 @@ public class WekaClassifier implements IClassifier {
 
 //    private static final String _fileTestingDataset = "manualCreatedTestingData.csv";
 //    private static final String _fileTestingDataset = "testingData.csv";
-    private static final String _fileTestingDataset = "src/main/resources/testingVectorised.arff";
+//    private static final String _fileTestingDataset = "src/main/resources/testingVectorised.arff";
 //    private static final String _fileTrainingDataset = "manualCreatedTrainingData.csv";
 //    private static final String _fileTrainingDataset = "trainingData.csv";
-    private static final String _fileTrainingDataset = "src/main/resources/trainingVectorised.arff";
+//    private static final String _fileTrainingDataset = "src/main/resources/trainingVectorised.arff";
+
+    private static final String _fileDataset = "src/main/resources/trainingAndTestingData.arff";
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
@@ -40,8 +42,15 @@ public class WekaClassifier implements IClassifier {
 
 
     public WekaClassifier() {
-        _trainingDataset = getARFFDataset(_fileTrainingDataset);
-        _testingDataset = getARFFDataset(_fileTestingDataset);
+        //split dataset
+        Instances dataset = vectorised(getARFFDataset(_fileDataset));
+        int percent = 50;
+        int trainSize = Math.round(dataset.numInstances() * percent / 100);
+        int testSize = dataset.numInstances() - trainSize;
+
+        //set dataset
+        _trainingDataset = new Instances(dataset, 0, trainSize);
+        _testingDataset = new Instances(dataset, trainSize, testSize);
 
         //In this case we use NaiveBayes Classifier.
         _classifier = (Classifier) new NaiveBayes();
@@ -75,7 +84,7 @@ public class WekaClassifier implements IClassifier {
 
             trainingLoader.setSource(new File(INPUT_FILE_DATASET));
             dataset = trainingLoader.getDataSet();
-            dataset.setClassIndex(1);
+            dataset.setClassIndex(0);
         } catch (IOException ex) {
             System.err.println("Exception in getCSVDataset: " + ex.getMessage());
         }
@@ -163,13 +172,14 @@ public class WekaClassifier implements IClassifier {
         StringToWordVector filter = new StringToWordVector();
         try {
             filter.setInputFormat(input_instances);
+            filter.setAttributeIndices("last");
+            filter.setTokenizer(tokenizer);
+            filter.setWordsToKeep(1000000);
+            filter.setDoNotOperateOnPerClassBasis(true);
+            //filter.setLowerCaseTokens(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        filter.setTokenizer(tokenizer);
-        filter.setWordsToKeep(1000000);
-        filter.setDoNotOperateOnPerClassBasis(true);
-        //filter.setLowerCaseTokens(true);
 
         Instances outputInstances = null;
         try {
