@@ -53,6 +53,9 @@ public class TweetAnalysis {
         //CSVPreprocessingTrainingAndTestingData testPreprocessing = new CSVPreprocessingTrainingAndTestingData();
         //testPreprocessing.extractTheTweetContentIntoCSV();
 
+        // TweetProvider provider = new TweetProvider();
+        // List<Tweet> tweets = provider.getTweets("test", 20, new Date(114, 10, 18), new Date(114, 10, 20)).get();
+        // System.out.println("Got " + tweets.size() + " tweets");
     }
 
 

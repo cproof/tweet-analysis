@@ -21,7 +21,7 @@ import org.codehaus.jackson.map.MappingJsonFactory;
  *
  * @author Thomas
  */
-public class JSONTweetProvider implements ITweetProvider{
+public class JSONTweetProvider implements ITweetProvider {
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final JsonParser jp;
     
@@ -34,9 +34,8 @@ public class JSONTweetProvider implements ITweetProvider{
         JsonFactory f = new MappingJsonFactory();
         this.jp = f.createJsonParser(new File(file));
     }
-    
-    @Override
-    public Future<List<Tweet>> getTweets(final int count, final int minFavoriteCount, final int minRetweetCount, final Date beginTime, final Date endTime) {
+
+    public Future<List<Tweet>> getTweets(String searchTerm, final int count, final Date beginTime, final Date endTime) {
         Callable<List<Tweet>> task = new Callable<List<Tweet>>() {
 
             @Override

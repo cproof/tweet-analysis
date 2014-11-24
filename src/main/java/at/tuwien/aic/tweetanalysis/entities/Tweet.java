@@ -1,5 +1,7 @@
 package at.tuwien.aic.tweetanalysis.entities;
 
+import twitter4j.GeoLocation;
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
  * @author Thomas
  */
 public class Tweet {
-    private String id;
+    private long id;
     
     private String content;
     private List<String> hashtags = new LinkedList<>();
@@ -23,19 +25,37 @@ public class Tweet {
     private int retweetCount;
     private int favoriteCount;
     
-    private Location location;
+    private GeoLocation location;
+
+    public Tweet() {
+        // only used for JSONTweetProvider
+    }
+
+    public Tweet(long id, String content, List<String> hashtags, List<String> urls, List<String> mentionedUsers, String author, String language, Date timestamp, int retweetCount, int favoriteCount, GeoLocation location) {
+        this.id = id;
+        this.content = content;
+        this.hashtags = hashtags;
+        this.urls = urls;
+        this.mentionedUsers = mentionedUsers;
+        this.author = author;
+        this.language = language;
+        this.timestamp = timestamp;
+        this.retweetCount = retweetCount;
+        this.favoriteCount = favoriteCount;
+        this.location = location;
+    }
 
     /**
      * @return the id
      */
-    public String getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -140,14 +160,14 @@ public class Tweet {
     /**
      * @return the location
      */
-    public Location getLocation() {
+    public GeoLocation getLocation() {
         return location;
     }
 
     /**
      * @param location the location to set
      */
-    public void setLocation(Location location) {
+    public void setLocation(GeoLocation location) {
         this.location = location;
     }
 
