@@ -4,8 +4,8 @@ import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-import javax.swing.text.DateFormatter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,7 +13,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.text.SimpleDateFormat;
 
 public class TweetProvider implements ITweetProvider {
     private final ExecutorService executor = Executors.newCachedThreadPool();
@@ -26,7 +25,8 @@ public class TweetProvider implements ITweetProvider {
             @Override
             public List<Tweet> call() throws IOException, TwitterException {
                 List<Tweet> tweets = new LinkedList<>();
-                ITwitterCredentials creds = new TwitterCredentials();
+//                ITwitterCredentials creds = new TwitterCredentials();
+                ITwitterCredentials creds = null; // todo: change back if implemented
 
                 ConfigurationBuilder cb = new ConfigurationBuilder();
                 cb.setOAuthConsumerKey(creds.getConsumerKey())
