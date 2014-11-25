@@ -107,8 +107,8 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     }
 
     private String replaceSmilies(String input) {
-        input = input.replaceAll(":-(\\))+|:(\\))+|:d|:-d|8-d|xd|x-d|=d|:o\\)|:]|:-]|:3|:>|=]|=\\)|;\\)|;-\\)|;d|;-d|\\\\o//|:'-\\)|:'\\)|:p|:-p|=p|xp|\\(:|\\(-:|^^", " POSITIVESMILE ");
-        input = input.replaceAll(":\\(|:-\\(|>:\\[|:c|:<|:-<|:\\[|:-\\[|=\\[|:\\{|:'\\(|:'-\\(|D:|\\):|\\)-:|:@|>:\\(|:-\\|\\||:\\$|=/", " NEGATIVESMILE ");
+        input = input.replaceAll(":-(\\))+|:(\\))+|:d|:-d|8-d|\\sxd|x-d|=d|:o\\)|:]|:-]|:3|:>|=]|=\\)|;\\)|;-\\)|;d|;-d|\\\\o//|:'-\\)|:'\\)|:p|:-p|=p|\\sxp|\\(:|\\(-:|\\^\\^", " POSITIVESMILE ");
+        input = input.replaceAll(":\\(|:-\\(|>:\\[|:c|:<|:-<|:\\[|:-\\[|=\\[|:\\{|:'\\(|:'-\\(|\\sd:|\\):|\\)-:|:@|>:\\(|:-\\|\\||:\\$|=/", " NEGATIVESMILE ");
 
         return input;
     }
