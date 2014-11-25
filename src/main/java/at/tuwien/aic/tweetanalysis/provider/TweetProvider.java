@@ -27,22 +27,43 @@ public class TweetProvider implements ITweetProvider {
             public List<Tweet> call() throws IOException, TwitterException {
                 List<Tweet> tweets = new LinkedList<>();
                 ITwitterCredentials creds = new TwitterCredentials();
+                int fetched = 0;
+                int pages_done = 0;
+                final int MAX_PAGES_TO_TRY = 1000;
 
-                ConfigurationBuilder cb = new ConfigurationBuilder();
-                cb.setOAuthConsumerKey(creds.getConsumerKey())
-                    .setOAuthConsumerSecret(creds.getConsumerSecret())
-                    .setOAuthAccessToken(creds.getAccessToken())
-                    .setOAuthAccessTokenSecret(creds.getAccessTokenSecret());
-                TwitterFactory tf = new TwitterFactory(cb.build());
-                Twitter twitter = tf.getInstance();
+                try {
 
-                Query query = new Query(searchTerm);
-                query.setCount(count);
-                if(beginTime != null) { query.setSince(dateFormat.format(beginTime)); }
-                if(endTime != null) { query.setUntil(dateFormat.format(endTime)); }
+                    ConfigurationBuilder cb = new ConfigurationBuilder();
+                    cb.setOAuthConsumerKey(creds.getConsumerKey())
+                            .setOAuthConsumerSecret(creds.getConsumerSecret())
+                            .setOAuthAccessToken(creds.getAccessToken())
+                            .setOAuthAccessTokenSecret(creds.getAccessTokenSecret());
+                    TwitterFactory tf = new TwitterFactory(cb.build());
+                    Twitter twitter = tf.getInstance();
 
-                QueryResult result = twitter.search(query);
+                    Query query = new Query(searchTerm);
+                    query.setCount(count);
+                    if (beginTime != null) { query.setSince(dateFormat.format(beginTime)); }
+                    if (endTime != null) { query.setUntil(dateFormat.format(endTime)); }
 
+                    QueryResult result;
+
+                    do {
+                        result = twitter.search(query);
+                        fetched = addTweetsToList(result, tweets, fetched, count);
+                        pages_done++;
+                    } while (pages_done < MAX_PAGES_TO_TRY &&
+                            fetched < count &&
+                            (query = result.nextQuery()) != null);
+
+                } catch(TwitterException e) {
+                    System.out.println("TwitterException: " + e.getMessage());
+                }
+
+                return tweets;
+            }
+
+            private int addTweetsToList(QueryResult result, List<Tweet> tweets, int fetched, int count) {
                 for (Status status : result.getTweets()) {
                     List<String> hashtags = new LinkedList<>();
                     List<String> urls = new LinkedList<>();
@@ -53,7 +74,7 @@ public class TweetProvider implements ITweetProvider {
                     }
 
                     for (URLEntity entity : status.getURLEntities()) {
-                        hashtags.add(entity.getURL());
+                        urls.add(entity.getURL());
                     }
 
                     for (UserMentionEntity entity : status.getUserMentionEntities()) {
@@ -74,15 +95,22 @@ public class TweetProvider implements ITweetProvider {
                             status.getGeoLocation()
                     ));
 
+                    fetched++;
+
+                    if(fetched >= count) break;
+
                 }
 
-                return tweets;
+                return fetched;
             }
+
+
 
         };
 
 
         return executor.submit(task);
     }
+
 
 }
