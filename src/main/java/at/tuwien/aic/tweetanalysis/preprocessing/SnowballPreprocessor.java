@@ -1,13 +1,14 @@
 package at.tuwien.aic.tweetanalysis.preprocessing;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import org.tartarus.snowball.SnowballStemmer;
+import org.tartarus.snowball.ext.englishStemmer;
+import org.tartarus.snowball.ext.germanStemmer;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.tartarus.snowball.SnowballStemmer;
-import org.tartarus.snowball.ext.englishStemmer;
-import org.tartarus.snowball.ext.germanStemmer;
 
 /**
  *
@@ -26,7 +27,11 @@ public class SnowballPreprocessor implements ITweetPreprocessor{
             return tweet;
         }
         SnowballStemmer stemmer = this.getStemmer(lang);
-        
+
+        if (stemmer == null) {
+            return tweet;
+        }
+
         String newContent = "";
         for (String part : tweet.getContent().split(" ")) {
             //if a username or a hashtag or a url -> do nothing, could be important
@@ -35,7 +40,7 @@ public class SnowballPreprocessor implements ITweetPreprocessor{
                 newContent += part + " ";
                 continue;
             }
-            
+
             stemmer.setCurrent(part);
             stemmer.stem();
             newContent += stemmer.getCurrent() + " ";
