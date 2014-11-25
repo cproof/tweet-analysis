@@ -19,7 +19,10 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     @Override
     public Tweet preprocess(Tweet tweet) {
         String content = tweet.getContent();
-        
+
+        //to lowercase
+        content = content.toLowerCase();
+
         content = replaceSmilies(content);
 
         //remove hash symbol from the content
@@ -33,15 +36,19 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         //@TODO: Experiment if it makes more sense to
         //  1 leave users as they are, including the @
         //  2 remove users completely including the name
-        content = content.replace("@", "");
-        
+//        content = content.replace("@", "");
+        content = content.replaceAll("@[0-9a-zA-Z\\-_]*", "");
+
         //normalize urls
         content = content.replace("www.", "").replace("http://", "").replace("https://", "");
         tweet.setUrls(getUrls(content));
         
         //normalize spaces
         content = content.replaceAll("\\s+", " ");
-        
+        content = content.replace("'", "");
+        content = content.replace("\"", "");
+
+        content = content.trim();
         tweet.setContent(content);
         return tweet;
     }
@@ -100,8 +107,8 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     }
 
     private String replaceSmilies(String input) {
-        input = input.replaceAll(":\\)|:-\\)", " POSITIVESMILE ");
-        input = input.replaceAll(":\\(|:-\\(", " NEGATIVESMILE ");
+        input = input.replaceAll(":-(\\))+|:(\\))+|:d|:-d|8-d|xd|x-d|=d|:o\\)|:]|:-]|:3|:>|=]|=\\)|;\\)|;-\\)|;d|;-d|\\\\o//|:'-\\)|:'\\)|:p|:-p|=p|xp|\\(:|\\(-:|^^", " POSITIVESMILE ");
+        input = input.replaceAll(":\\(|:-\\(|>:\\[|:c|:<|:-<|:\\[|:-\\[|=\\[|:\\{|:'\\(|:'-\\(|D:|\\):|\\)-:|:@|>:\\(|:-\\|\\||:\\$|=/", " NEGATIVESMILE ");
 
         return input;
     }
