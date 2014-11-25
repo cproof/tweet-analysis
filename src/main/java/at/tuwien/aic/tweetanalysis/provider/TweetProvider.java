@@ -6,9 +6,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import javax.swing.text.DateFormatter;
 import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,7 +18,7 @@ public class TweetProvider implements ITweetProvider {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
-    public Future<List<Tweet>> getTweets(final String searchTerm, final int count, final Date beginTime, final Date endTime) {
+    public Future<List<Tweet>> getTweets(final String searchTerm, final int count, final Date beginTime, final Date endTime, final String language, final GeoLocation location, final Double radius) {
 
         Callable<List<Tweet>> task = new Callable<List<Tweet>>() {
             @Override
@@ -45,6 +43,9 @@ public class TweetProvider implements ITweetProvider {
                     query.setCount(count);
                     if (beginTime != null) { query.setSince(dateFormat.format(beginTime)); }
                     if (endTime != null) { query.setUntil(dateFormat.format(endTime)); }
+                    if (language != null && Arrays.asList(Locale.getISOLanguages()).contains(language)) { query.setLang(language); }
+                    if (location != null && radius != null && radius > 0) { query.setGeoCode(location, radius, Query.Unit.km); }
+
 
                     QueryResult result;
 
@@ -112,5 +113,9 @@ public class TweetProvider implements ITweetProvider {
         return executor.submit(task);
     }
 
+    @Override
+    public Future<List<Tweet>> getTweets(final String searchTerm, final int count) {
+        return getTweets(searchTerm, count, null, null, null, null, null);
+    }
 
 }

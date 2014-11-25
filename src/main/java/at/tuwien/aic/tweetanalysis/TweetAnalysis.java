@@ -21,6 +21,7 @@ import at.tuwien.aic.tweetanalysis.classifier.WekaClassifier;
 import at.tuwien.aic.tweetanalysis.preprocessing.CSVPreprocessingTrainingAndTestingData;
 import at.tuwien.aic.tweetanalysis.provider.TweetProvider;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import twitter4j.GeoLocation;
 
 import java.util.Date;
 import java.util.List;
@@ -51,9 +52,11 @@ public class TweetAnalysis {
         //CSVPreprocessingTrainingAndTestingData testPreprocessing = new CSVPreprocessingTrainingAndTestingData();
         //testPreprocessing.extractTheTweetContentIntoCSV();
 
-        // TweetProvider provider = new TweetProvider();
-        // List<Tweet> tweets = provider.getTweets("test", 20, new Date(114, 10, 18), new Date(114, 10, 20)).get();
-        // System.out.println("Got " + tweets.size() + " tweets");
+        /* TweetProvider provider = new TweetProvider();
+        List<Tweet> tweets = provider.getTweets("hi", 200, new Date(114, 10, 18), new Date(114, 10, 25), "de", new GeoLocation(48.209206, 16.372778), 10.0).get();
+        System.out.println("\"hi\" query + date + lang + location got " + tweets.size() + " tweets");
+        tweets = provider.getTweets("hi", 200).get();
+        System.out.println("\"hi\" query got " + tweets.size() + " tweets"); */
     }
 
 
