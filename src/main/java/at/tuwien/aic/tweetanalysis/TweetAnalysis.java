@@ -77,6 +77,8 @@ public class TweetAnalysis {
         for (Tweet tweet : tweetList) {
             log.info("{}", tweet);
         }
+
+        tweetProvider.shutdown();
     }
 
     private static void testClassifier() throws IOException {

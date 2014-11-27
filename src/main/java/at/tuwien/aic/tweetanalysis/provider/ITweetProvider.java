@@ -33,4 +33,5 @@ public interface ITweetProvider {
      * @return List of matching tweets */
     public Future<List<Tweet>> getTweets (String searchTerm, int count);
 
+    void shutdown();
 }

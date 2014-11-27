@@ -3,6 +3,7 @@
 
 package at.tuwien.aic.tweetanalysis.provider;
 
+import at.tuwien.aic.tweetanalysis.Utils;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
@@ -75,5 +76,10 @@ public class JSONTweetProvider implements ITweetProvider {
     public Future<List<Tweet>> getTweets(final String searchTerm, final int count) {
         return getTweets(searchTerm, count, null, null, null, null, null);
     }
-    
+
+    @Override
+    public void shutdown() {
+        Utils.shutdownAndAwaitTermination(executor);
+    }
+
 }

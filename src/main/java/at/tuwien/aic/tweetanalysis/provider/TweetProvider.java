@@ -1,5 +1,6 @@
 package at.tuwien.aic.tweetanalysis.provider;
 
+import at.tuwien.aic.tweetanalysis.Utils;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
@@ -7,12 +8,10 @@ import twitter4j.conf.ConfigurationBuilder;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class TweetProvider implements ITweetProvider {
+
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -120,6 +119,11 @@ public class TweetProvider implements ITweetProvider {
     @Override
     public Future<List<Tweet>> getTweets(final String searchTerm, final int count) {
         return getTweets(searchTerm, count, null, null, null, null, null);
+    }
+
+    @Override
+    public void shutdown() {
+        Utils.shutdownAndAwaitTermination(executor);
     }
 
 }
