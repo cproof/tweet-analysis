@@ -67,7 +67,7 @@ public class TweetAnalysis {
     private static void testLiveData() throws InterruptedException, java.util.concurrent.ExecutionException {
         TweetProvider tweetProvider = new TweetProvider();
 
-        Future<List<Tweet>> tweets = tweetProvider.getTweets(":)", 20, null, null);
+        Future<List<Tweet>> tweets = tweetProvider.getTweets(":)", 20);
 
         List<Tweet> tweetList = tweets.get();
 

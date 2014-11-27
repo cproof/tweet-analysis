@@ -2,6 +2,8 @@ package at.tuwien.aic.tweetanalysis.classifier;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 
+import java.io.InputStream;
+
 /**
  * The Classifier for Tweets
  *
@@ -35,4 +37,5 @@ public interface IClassifier {
     public void loadModel(String modelName);
 
 
+    void loadModel(InputStream modelStream);
 }

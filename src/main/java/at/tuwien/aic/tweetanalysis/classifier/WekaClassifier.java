@@ -4,7 +4,6 @@ import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;
-import weka.classifiers.functions.SMO;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
@@ -15,10 +14,7 @@ import weka.core.tokenizers.WordTokenizer;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * The Weka-NaiveBayes-Classifier for Tweets
@@ -68,6 +64,10 @@ public class WekaClassifier implements IClassifier {
         _classifier = trainAClassifier(_classifier,_trainingDataset);
 
         testClassifier(_classifier,_trainingDataset,_testingDataset);
+    }
+
+    public WekaClassifier(InputStream model) {
+        loadModel(model);
     }
 
     /**
@@ -172,10 +172,11 @@ public class WekaClassifier implements IClassifier {
         StringToWordVector filter = new StringToWordVector();
         try {
             filter.setInputFormat(input_instances);
+//            filter.setAttributeIndices("first");
             filter.setAttributeIndices("last");
             filter.setTokenizer(tokenizer);
             filter.setWordsToKeep(1000000);
-            filter.setDoNotOperateOnPerClassBasis(true);
+//            filter.setDoNotOperateOnPerClassBasis(true);
             //filter.setLowerCaseTokens(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -197,22 +198,28 @@ public class WekaClassifier implements IClassifier {
         FastVector fvClassVal = new FastVector(2);
         fvClassVal.addElement("positive");
         fvClassVal.addElement("negative");
+//        Attribute stringAttribute = new Attribute("Tweet", (FastVector) null);
+//        Attribute classAttribute = new Attribute("Sentiment", fvClassVal);
         Attribute classAttribute = new Attribute("Sentiment", fvClassVal);
 
         Attribute stringAttribute = new Attribute("Tweet", (FastVector) null);
 
         FastVector fvWekaAttributes = new FastVector(2);
+//        fvWekaAttributes.addElement(stringAttribute);
+//        fvWekaAttributes.addElement(classAttribute);
         fvWekaAttributes.addElement(classAttribute);
         fvWekaAttributes.addElement(stringAttribute);
 
         // Create an empty instaces set
         Instances inst = new Instances("Rel", fvWekaAttributes, 1);
         // Set class index
+//        inst.setClassIndex(1);
         inst.setClassIndex(0);
 
         //create a new instance and add to instances
         Instance iExample = new Instance(2);
         iExample.setDataset(inst);
+//        iExample.setValue(0, tweet.getContent());
         iExample.setValue(1, tweet.getContent());
         inst.add(iExample);
 
@@ -243,6 +250,15 @@ public class WekaClassifier implements IClassifier {
     public void loadModel(String modelName) {
         try {
             this._classifier = (NaiveBayes) weka.core.SerializationHelper.read(modelName);
+        } catch (Exception ex) {
+            System.err.println("Exception loading the Model: " + ex.getMessage());
+        }
+    }
+
+    @Override
+    public void loadModel(InputStream modelStream) {
+        try {
+            this._classifier = (Classifier) weka.core.SerializationHelper.read(modelStream);
         } catch (Exception ex) {
             System.err.println("Exception loading the Model: " + ex.getMessage());
         }

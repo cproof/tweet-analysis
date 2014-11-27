@@ -4,14 +4,13 @@ import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-import javax.swing.text.DateFormatter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.text.SimpleDateFormat;
 
 public class TweetProvider implements ITweetProvider {
     private final ExecutorService executor = Executors.newCachedThreadPool();
@@ -43,7 +42,12 @@ public class TweetProvider implements ITweetProvider {
                     query.setCount(count);
                     if (beginTime != null) { query.setSince(dateFormat.format(beginTime)); }
                     if (endTime != null) { query.setUntil(dateFormat.format(endTime)); }
-                    if (language != null && Arrays.asList(Locale.getISOLanguages()).contains(language)) { query.setLang(language); }
+                    if (language != null && Arrays.asList(Locale.getISOLanguages()).contains(language)) {
+                        query.setLang(language);
+                    } else {
+                        /* default to english */
+                        query.setLang("en");
+                    }
                     if (location != null && radius != null && radius > 0) { query.setGeoCode(location, radius, Query.Unit.km); }
 
 

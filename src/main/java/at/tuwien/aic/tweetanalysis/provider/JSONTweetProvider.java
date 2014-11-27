@@ -4,6 +4,11 @@
 package at.tuwien.aic.tweetanalysis.provider;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import org.codehaus.jackson.JsonFactory;
+import org.codehaus.jackson.JsonParser;
+import org.codehaus.jackson.map.MappingJsonFactory;
+import twitter4j.GeoLocation;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -13,10 +18,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.MappingJsonFactory;
-import twitter4j.GeoLocation;
 
 /**
  *
