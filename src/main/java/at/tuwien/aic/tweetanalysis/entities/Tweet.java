@@ -207,6 +207,6 @@ public class Tweet {
     
     @Override
     public String toString() {
-        return "Tweet from " + this.getAuthor() + " with content: " + this.getContent();
+        return "@" + this.getAuthor() + ": " + this.getContent();
     }
 }
