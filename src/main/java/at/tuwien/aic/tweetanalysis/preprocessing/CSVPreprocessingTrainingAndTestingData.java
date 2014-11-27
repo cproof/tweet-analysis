@@ -44,7 +44,7 @@ public class CSVPreprocessingTrainingAndTestingData {
         System.out.println("extractTheTweetContentIntoCSV");
 
         int size = 200;
-        Future<List<Tweet>> f = this.tp.getTweets("query", size, null, null);
+        Future<List<Tweet>> f = this.tp.getTweets("query", size);
         List<Tweet> list = f.get();
 
         //preprozess the tweets

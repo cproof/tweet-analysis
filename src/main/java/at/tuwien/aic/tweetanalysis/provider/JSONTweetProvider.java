@@ -16,6 +16,7 @@ import java.util.concurrent.Future;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.MappingJsonFactory;
+import twitter4j.GeoLocation;
 
 /**
  *
@@ -35,7 +36,7 @@ public class JSONTweetProvider implements ITweetProvider {
         this.jp = f.createJsonParser(new File(file));
     }
 
-    public Future<List<Tweet>> getTweets(String searchTerm, final int count, final Date beginTime, final Date endTime) {
+    public Future<List<Tweet>> getTweets(String searchTerm, final int count, final Date beginTime, final Date endTime, final String language, final GeoLocation location, final Double radius) {
         Callable<List<Tweet>> task = new Callable<List<Tweet>>() {
 
             @Override
@@ -67,6 +68,11 @@ public class JSONTweetProvider implements ITweetProvider {
         
 
         return executor.submit(task);
+    }
+
+    @Override
+    public Future<List<Tweet>> getTweets(final String searchTerm, final int count) {
+        return getTweets(searchTerm, count, null, null, null, null, null);
     }
     
 }
