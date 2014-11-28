@@ -89,17 +89,17 @@ public class TweetAnalysis {
 
         TweetProvider tweetProvider = new TweetProvider();
 
-        Future<List<Tweet>> tweets = tweetProvider.getTweets("#hate", 200, null, null, "en", null, null);
+        Future<List<Tweet>> tweets = tweetProvider.getTweets(":D", 200, null, null, "en", null, null);
         List<Tweet> tweetList = tweets.get();
 
-        try (CSVWriter csvOutput = new CSVWriter(new BufferedWriter(new FileWriter("e.csv")))) {
+        try (CSVWriter csvOutput = new CSVWriter(new BufferedWriter(new FileWriter("pos.csv")))) {
             csvOutput.writeNext(new String[]{"Tweet", "Sentiment"}, false);
 
             for (Tweet tweet : tweetList) {
                 String z = tweet.getContent();
                 z = z.replace("\n", "");
 
-                csvOutput.writeNext(new String[]{z, "negative"}, false);
+                csvOutput.writeNext(new String[]{z, "positive"}, false);
             }
         }
 
