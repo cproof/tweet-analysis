@@ -22,9 +22,12 @@ import at.tuwien.aic.tweetanalysis.classifier.WekaClassifier;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import at.tuwien.aic.tweetanalysis.preprocessing.StandardTweetPreprocessor;
 import at.tuwien.aic.tweetanalysis.provider.TweetProvider;
+import com.opencsv.CSVWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -46,7 +49,8 @@ public class TweetAnalysis {
         System.out.println("WEKA Test!");
 
 //        testClassifier();
-        testLiveData();
+//        testLiveData();
+        getLiveData();
 
 //        NaiveTweetPreprocessor naiveTweetPreprocessor = new NaiveTweetPreprocessor();
 
@@ -76,6 +80,27 @@ public class TweetAnalysis {
 
         for (Tweet tweet : tweetList) {
             log.info("{}", tweet);
+        }
+
+        tweetProvider.shutdown();
+    }
+
+    private static void getLiveData() throws Exception {
+
+        TweetProvider tweetProvider = new TweetProvider();
+
+        Future<List<Tweet>> tweets = tweetProvider.getTweets(":(", 100);
+        List<Tweet> tweetList = tweets.get();
+
+        try (CSVWriter csvOutput = new CSVWriter(new BufferedWriter(new FileWriter("t.csv")))) {
+            csvOutput.writeNext(new String[]{"Tweet", "Sentiment"}, false);
+
+            for (Tweet tweet : tweetList) {
+                String z = tweet.getContent();
+                z = z.replace("\n", "");
+
+                csvOutput.writeNext(new String[]{z, "negative"}, false);
+            }
         }
 
         tweetProvider.shutdown();
