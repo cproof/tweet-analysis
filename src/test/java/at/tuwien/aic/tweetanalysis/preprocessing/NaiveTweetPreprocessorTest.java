@@ -188,34 +188,4 @@ public class NaiveTweetPreprocessorTest {
                 + " " + POSITIVE_HASHTAG.trim() + " !"));
     }
 
-    @Test
-    public void testHandleNegations() {
-        setContentAndProcess("not cool bro");
-        assertThat(tweet.getContent(), equalTo("not not-cool bro"));
-
-        setContentAndProcess("wow not cool");
-        assertThat(tweet.getContent(), equalTo("wow not not-cool"));
-
-        setContentAndProcess("like not");
-        assertThat(tweet.getContent(), equalTo("not-like not"));
-
-        setContentAndProcess("! not !");
-        assertThat(tweet.getContent(), equalTo("! not !"));
-
-        setContentAndProcess(" not ");
-        assertThat(tweet.getContent(), equalTo("not"));
-
-        setContentAndProcess("don't like it");
-        assertThat(tweet.getContent(), equalTo("dont not-like it"));
-
-        setContentAndProcess("no likely");
-        assertThat(tweet.getContent(), equalTo("no not-likely"));
-
-        setContentAndProcess("not not cool");
-        assertThat(tweet.getContent(), equalTo("not not not-cool"));
-
-        setContentAndProcess("i don't");
-        assertThat(tweet.getContent(), equalTo("not-i dont")); // not really optimal
-    }
-
 }
