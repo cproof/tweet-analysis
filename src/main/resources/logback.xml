@@ -8,6 +8,8 @@
         </encoder>
     </appender>
 
+    <logger name="twitter4j" level="INFO" />
+
     <root level="trace">
         <appender-ref ref="STDOUT" />
     </root>
