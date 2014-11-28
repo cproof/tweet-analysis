@@ -29,9 +29,12 @@ public final class TrainingDataPreprocessor {
     public static void main(String[] args) throws IOException {
         TrainingDataPreprocessor trainingDataPreprocessor = new TrainingDataPreprocessor();
 
-        // todo: unused at the moment
 
-//        trainingDataPreprocessor.preprocess(new StandardTweetPreprocessor(), "processed.csv");
+        try (CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter("processed-tweets.csv")))) {
+            csvWriter.writeNext(new String[]{"Tweet", "Sentiment"});
+            trainingDataPreprocessor.preprocess(new StandardTweetPreprocessor(), "/negative-tweets.csv", csvWriter);
+            trainingDataPreprocessor.preprocess(new StandardTweetPreprocessor(), "/positive-tweets.csv", csvWriter);
+        }
 
 //        try (CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter("processedSentences.csv")))) {
 //            csvWriter.writeNext(new String[]{"Text", "Sentiment"});
@@ -44,20 +47,17 @@ public final class TrainingDataPreprocessor {
      * Simple reader and writer method that reads the unprocessed csv file, sets the content to the temp tweet class
      * and calls the given TweetPreprocessor on it.
      * The output is then written in a simpler format to the output file.
-     *
-     * @param tweetPreprocessor the tweet processor that should be used on the unprocessed read tweets
-     * @param outputFileName    the filename the processed tweets should be written to
+     * @param tweetPreprocessor     the tweet processor that should be used on the unprocessed read tweets
+     * @param inputResourceLocation the resource path of the input to read
+     * @param csvWriter the csv writer
      */
-    public void preprocess(ITweetPreprocessor tweetPreprocessor, String outputFileName) {
-        InputStream trainingDataStream = TweetAnalysis.class.getResourceAsStream("/Sentiment Analysis Dataset.csv");
+    public void preprocess(ITweetPreprocessor tweetPreprocessor, String inputResourceLocation, CSVWriter csvWriter) {
+        InputStream trainingDataStream = TweetAnalysis.class.getResourceAsStream(inputResourceLocation);
 
-        try (CSVReader csvReader = new CSVReader(new InputStreamReader(trainingDataStream));
-             CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter(outputFileName)))) {
+        try (CSVReader csvReader = new CSVReader(new InputStreamReader(trainingDataStream))) {
 
-            String[] header = csvReader.readNext();
-            log.trace("Header: {}", Arrays.toString(header));
-            /* write new header */
-            csvWriter.writeNext(new String[]{"Tweet", "Sentiment"});
+            /* consume header */
+            csvReader.readNext();
 
             Tweet tweet = new Tweet();
             List<Tweet> tweets = Arrays.asList(tweet); // workaround, since the methods for a single tweet have not been implemented fully
@@ -65,8 +65,8 @@ public final class TrainingDataPreprocessor {
             /* process each csv entry separately */
             while ((nextLine = csvReader.readNext()) != null) {
                 /* check if line size is correct */
-                if (nextLine.length == 4) {
-                    String tweetText = nextLine[3];
+                if (nextLine.length == 2) {
+                    String tweetText = nextLine[0];
 
                     /* preprocess the content of the tweet */
                     tweet.setContent(tweetText);

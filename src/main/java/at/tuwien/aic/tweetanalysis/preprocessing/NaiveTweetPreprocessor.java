@@ -32,7 +32,7 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     //private final Pattern urlPattern = Pattern.compile("(http://){0,1}(www\\.){0,1}[a-zA-Z0-9]+\\.[a-zA-Z]{2,10}[a-zA-Z0-9/.?#&]*");
     private final Pattern urlPattern = Pattern.compile("[a-zA-Z0-9]+\\.[a-zA-Z]{2,10}[a-zA-Z0-9/.?#&]*"); // todo: improve or don't use regex for urls
     private final Pattern doublePatter = Pattern.compile("((\\S)\\2+)");
-    private final Pattern dotsPattern = Pattern.compile("\\.{3,}");
+    private final Pattern dotsPattern = Pattern.compile("\\.{3,}|…");
 
 
     private final HashSet<String> positiveHashTags;
@@ -160,13 +160,13 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
 
     private String replaceSmilies(String input) {
         String output = input;
-        if (output.matches(".*:-?\\({2,}.*")) {
+        if (output.matches(".*:-?\\({2,}.*|.*</3.*")) {
             output += ENLARGED_NEGATIVE_SMILE;
-        } else if (output.matches(".*:-?\\){2,}.*")) {
+        } else if (output.matches(".*:-?\\){2,}.*|.*♥.*|.*<3.*")) {
             output += ENLARGED_POSITIVE_SMILE;
         }
-        output = output.replaceAll(":-?\\)+|:-?d|8-?d|\\sxd|x-d|=d|:o\\)|:-?]|:3|:>|=]|=\\)|;-?\\)|;d|;-?d|\\\\o//|:'-?\\)|:-?p=p|\\sxp|\\(-?:|\\^\\^|<3", POSITIVE_SMILE);
-        output = output.replaceAll(":-?\\(+|>:-?\\[|:c|:-?<|:-?\\[|=\\[|:-?\\{|:'-?\\(|\\sd-?:|\\)-?:|:-?@|>:-?\\(|:-?\\|\\||:-?\\$|=/|</3", NEGATIVE_SMILE);
+        output = output.replaceAll(":(-?|\\s)\\)+|:-?d|8-?d|\\sxd|x-d|=d|:o\\)|:-?]|:3|:>|=]|=\\)|;-?\\)|;d|;-?d|\\\\o//|:'-?\\)|:-?p=p|\\sxp|\\(-?:|\\^\\^|♥|<3", POSITIVE_SMILE);
+        output = output.replaceAll(":(-?|\\s)\\(+|>:-?\\[|:c|:-?<|:-?\\[|=\\[|:-?\\{|:'-?\\(|\\sd-?:|\\)-?:|:-?@|>:-?\\(|:-?\\|\\||:-?\\$|=/|</3", NEGATIVE_SMILE);
 
         return output;
     }

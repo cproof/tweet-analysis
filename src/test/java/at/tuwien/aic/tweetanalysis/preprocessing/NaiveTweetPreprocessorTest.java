@@ -75,8 +75,22 @@ public class NaiveTweetPreprocessorTest {
         setContentAndProcess("This is a tweet containing smilies like :-( or :-)");
         assertTrue(tweet.getContent().contains("NEGATIVESMILE"));
         assertTrue(tweet.getContent().contains("POSITIVESMILE"));
-    }
 
+        setContentAndProcess(": )");
+        assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim()));
+
+        setContentAndProcess(": (");
+        assertThat(tweet.getContent(), equalTo(NEGATIVE_SMILE.trim()));
+
+        setContentAndProcess("<3");
+        assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim() + " " + ENLARGED_POSITIVE_SMILE.trim()));
+
+        setContentAndProcess("</3 lol");
+        assertThat(tweet.getContent(), equalTo(NEGATIVE_SMILE.trim() + " lol " + ENLARGED_NEGATIVE_SMILE.trim()));
+
+        setContentAndProcess("♥ bb");
+        assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim() + " bb " + ENLARGED_POSITIVE_SMILE.trim()));
+    }
 
     @Test
     public void testGetUrls() {
@@ -162,6 +176,9 @@ public class NaiveTweetPreprocessorTest {
 
         setContentAndProcess("...yeah...super...great");
         assertThat(tweet.getContent(), equalTo(DOTS.trim() + " yeah " + DOTS.trim() + " super " + DOTS.trim() + " great"));
+
+        setContentAndProcess("…");
+        assertThat(tweet.getContent(), equalTo(DOTS.trim()));
     }
 
     @Test
