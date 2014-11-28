@@ -90,6 +90,9 @@ public class NaiveTweetPreprocessorTest {
 
         setContentAndProcess("♥ bb");
         assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim() + " bb " + ENLARGED_POSITIVE_SMILE.trim()));
+
+        setContentAndProcess(":(:");
+        assertThat(tweet.getContent(), equalTo(NEGATIVE_SMILE.trim() + " :"));
     }
 
     @Test

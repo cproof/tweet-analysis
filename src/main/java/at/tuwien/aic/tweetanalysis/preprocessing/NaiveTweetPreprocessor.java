@@ -165,8 +165,11 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         } else if (output.matches(".*:-?\\){2,}.*|.*♥.*|.*<3.*")) {
             output += ENLARGED_POSITIVE_SMILE;
         }
-        output = output.replaceAll(":(-?|\\s)\\)+|:-?d|8-?d|\\sxd|x-d|=d|:o\\)|:-?]|:3|:>|=]|=\\)|;-?\\)|;d|;-?d|\\\\o//|:'-?\\)|:-?p=p|\\sxp|\\(-?:|\\^\\^|♥|<3", POSITIVE_SMILE);
-        output = output.replaceAll(":(-?|\\s)\\(+|>:-?\\[|:c|:-?<|:-?\\[|=\\[|:-?\\{|:'-?\\(|\\sd-?:|\\)-?:|:-?@|>:-?\\(|:-?\\|\\||:-?\\$|=/|</3", NEGATIVE_SMILE);
+
+        // todo: fix reversed smilies like "(:" and "):". they should not match for example :(: as positive. currently they are just removed
+
+        output = output.replaceAll(":(-?|\\s)\\)+|:-?d|8-?d|\\sxd|x-d|=d|:o\\)|:-?]|:3|:>|=]|=\\)|;-?\\)|;d|;-?d|\\\\o//|:'-?\\)|:-?p=p|\\sxp|\\^\\^|♥|<3|ツ", POSITIVE_SMILE);
+        output = output.replaceAll(":(-?|\\s)\\(+|>:-?\\[|:c|:-?<|:-?\\[|=\\[|:-?\\{|:'-?\\(|\\sd-?:|:-?@|>:-?\\(|:-?\\|\\||:-?\\$|=/|</3", NEGATIVE_SMILE);
 
         return output;
     }
