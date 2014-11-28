@@ -11,9 +11,7 @@ import java.util.concurrent.Future;
 
 /**
  * Preprocess the Training and Testing Data
- * TODO: The Training and Testing Data is not very good!
- * TODO: More JSONPreprocessing!
- * TODO: Maybe manually fixes needed?
+ * TODO: unused at the moment
  *
  * <p/>
  * This Creates the training.csv and testing.csv from the 6GB File
