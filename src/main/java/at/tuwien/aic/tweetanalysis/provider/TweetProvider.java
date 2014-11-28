@@ -38,7 +38,6 @@ public class TweetProvider implements ITweetProvider {
                     Twitter twitter = tf.getInstance();
 
                     Query query = new Query(searchTerm);
-                    query.setCount(count);
                     if (beginTime != null) { query.setSince(dateFormat.format(beginTime)); }
                     if (endTime != null) { query.setUntil(dateFormat.format(endTime)); }
                     if (language != null && Arrays.asList(Locale.getISOLanguages()).contains(language)) {
@@ -69,6 +68,9 @@ public class TweetProvider implements ITweetProvider {
 
             private int addTweetsToList(QueryResult result, List<Tweet> tweets, int fetched, int count) {
                 for (Status status : result.getTweets()) {
+                    // do not add retweets
+                    if (status.getRetweetedStatus() != null) continue;
+
                     List<String> hashtags = new LinkedList<>();
                     List<String> urls = new LinkedList<>();
                     List<String> mentionedUsers = new LinkedList<>();
