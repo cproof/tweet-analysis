@@ -59,7 +59,7 @@ public class CustomEnglishPreprocesorTest {
         assertThat(tweet.getContent(), equalTo("not"));
 
         setContentAndProcess("don't like it");
-        assertThat(tweet.getContent(), equalTo("dont not-like it"));
+        assertThat(tweet.getContent(), equalTo("do not not-like it"));
 
         setContentAndProcess("no likely");
         assertThat(tweet.getContent(), equalTo("no not-likely"));
@@ -67,8 +67,8 @@ public class CustomEnglishPreprocesorTest {
         setContentAndProcess("not not cool");
         assertThat(tweet.getContent(), equalTo("not not not-cool"));
 
-        setContentAndProcess("i don't");
-        assertThat(tweet.getContent(), equalTo("not-i dont")); // not really optimal
+        setContentAndProcess("i don't like that");
+        assertThat(tweet.getContent(), equalTo("i do not not-like that")); // not really optimal
     }
 
     
