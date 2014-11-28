@@ -54,8 +54,8 @@ public class StopwordRemoverPreprocessor implements ITweetPreprocessor{
         
         //replace duplicate spaces
         content = content.replaceAll("[\r\n\t]"," ");
-        content = content.replaceAll("\b", " ");
-        content = content.replaceAll("\b{2,}", " ");
+        content = content.replaceAll("\\s", " ");
+        content = content.replaceAll("\\s{2,}", " ");
         
         //remove symbols
         for(String stopsymbol : stopWordsGeneral) {

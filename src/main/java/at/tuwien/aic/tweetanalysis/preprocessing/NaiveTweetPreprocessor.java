@@ -27,7 +27,6 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     //private final Pattern urlPattern = Pattern.compile("(http://){0,1}(www\\.){0,1}[a-zA-Z0-9]+\\.[a-zA-Z]{2,10}[a-zA-Z0-9/.?#&]*");
     private final Pattern urlPattern = Pattern.compile("[a-zA-Z0-9]+\\.[a-zA-Z]{2,10}[a-zA-Z0-9/.?#&]*"); // todo: improve or don't use regex for urls
     private final Pattern doubleLetterPatter = Pattern.compile("((.)\\2+)");
-    private final Pattern negationsPattern = Pattern.compile("(\\w*\\s|^)(not|don't|no)(\\s\\w*|$)");
 
     private final HashSet<String> positiveHashTags;
     private final HashSet<String> negativeHashTags;
@@ -83,8 +82,6 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         content = content.replaceAll("\\s+", " ");
 
         content = replaceConsecutiveLetters(content);
-
-        content = handleNegations(content);
 
         content = content.replace("'", "");
         content = content.replace("\"", "");
@@ -203,42 +200,6 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         }
         return output;
     }
-
-    /**
-     * Handles special negation words like "not", "no" and "don't" and searches for surrounding words.
-     * <p/>
-     * If one after the negation word is found, it gets "not-" prepended.
-     * <p/>
-     * If none was found after but one before the negation, it also gets "not-" prepended.
-     * <p/>
-     * If no words are found immediately around the negation, nothing changes.
-     * <p/>
-     * Example: "not cool bro" -> "not not-cool bro"; "like not" -> "not-like not"
-     * <p/>
-     * This is useful for machine learning since now the algorithm won't see the words "cool" and "like" in the tweet
-     * and would otherwise maybe think this is positive.
-     *
-     * @param input the content of the tweet
-     * @return the processed content
-     */
-    private String handleNegations(String input) {
-        String output = input;
-        Matcher matcher = negationsPattern.matcher(input);
-        while (matcher.find()) {
-            String fullString = matcher.group(0);
-            String group1 = matcher.group(1).trim();
-            String group2 = matcher.group(3).trim(); // group[2] is the negation word
-            if (!group2.isEmpty()) {
-                fullString = fullString.replace(group2, "not-" + group2);
-            } else if (!group1.isEmpty()) {
-                fullString = fullString.replace(group1, "not-" + group1);
-            }
-            output = output.replace(matcher.group(0), fullString);
-            log.trace("Group1: '{}', Group2: '{}'. '{}' -> '{}'", group1, group2, matcher.group(0), fullString);
-        }
-        return output;
-    }
-
 
     @Override
     public List<Tweet> preprocess(List<Tweet> tweets) {

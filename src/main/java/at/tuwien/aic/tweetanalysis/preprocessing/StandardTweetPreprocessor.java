@@ -28,6 +28,9 @@ public class StandardTweetPreprocessor implements ITweetPreprocessor {
             ITweetPreprocessor naive = new NaiveTweetPreprocessor();
             this.preprocessor.addPreprocessor(naive);
             
+            ITweetPreprocessor english = new CustomEnglishPreprocesor();
+            this.preprocessor.addPreprocessor(english);
+            
             ITweetPreprocessor stopwords = new StopwordRemoverPreprocessor();
             this.preprocessor.addPreprocessor(stopwords);
             
