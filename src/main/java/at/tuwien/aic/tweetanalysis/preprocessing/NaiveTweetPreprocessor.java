@@ -19,14 +19,21 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     public static final Logger log = LoggerFactory.getLogger(NaiveTweetPreprocessor.class);
     public static final String POSITIVE_HASHTAG = " POSITIVEHASHTAG ";
     public static final String NEGATIVE_HASHTAG = " NEGATIVEHASHTAG ";
+    public static final String HASHTAG = " HASHTAG ";
     public static final String POSITIVE_SMILE = " POSITIVESMILE ";
     public static final String NEGATIVE_SMILE = " NEGATIVESMILE ";
+    public static final String ENLARGED_WORD = " ENLARGEDDWORD ";
+    public static final String ENLARGED_POSITIVE_SMILE = " ENLARGED_POSITIVESMILE ";
+    public static final String ENLARGED_NEGATIVE_SMILE = " ENLARGED_NEGATIVESMILE ";
+    public static final String DOTS = " DOTS ";
 
     private final Pattern hashtagPattern = Pattern.compile("#[0-9a-zA-Z\\-_]*");
     private final Pattern userPattern = Pattern.compile("@[0-9a-zA-Z\\-_]*");
     //private final Pattern urlPattern = Pattern.compile("(http://){0,1}(www\\.){0,1}[a-zA-Z0-9]+\\.[a-zA-Z]{2,10}[a-zA-Z0-9/.?#&]*");
     private final Pattern urlPattern = Pattern.compile("[a-zA-Z0-9]+\\.[a-zA-Z]{2,10}[a-zA-Z0-9/.?#&]*"); // todo: improve or don't use regex for urls
-    private final Pattern doubleLetterPatter = Pattern.compile("((.)\\2+)");
+    private final Pattern doublePatter = Pattern.compile("((\\S)\\2+)");
+    private final Pattern dotsPattern = Pattern.compile("\\.{3,}");
+
 
     private final HashSet<String> positiveHashTags;
     private final HashSet<String> negativeHashTags;
@@ -60,8 +67,8 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         //for equal treatment of tweets using hashtags
         //and tweets that use none
         tweet.setHashtags(getHashtags(content));
-//        content = content.replace("#", "");
         content = replaceHashTags(content);
+        content = content.replace("#", "");
 
 
         //same with other users
@@ -78,10 +85,14 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         // remove urls
         content = content.replaceAll("[a-zA-Z0-9]+\\.[a-zA-Z]{2,10}[a-zA-Z0-9/.?#&]*", "URL");
 
+        // replace all "....."
+        content = replaceConsecutiveDots(content);
+
+        content = replaceConsecutiveLetters(content);
+
         //normalize spaces
         content = content.replaceAll("\\s+", " ");
 
-        content = replaceConsecutiveLetters(content);
 
         content = content.replace("'", "");
         content = content.replace("\"", "");
@@ -148,15 +159,21 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     }
 
     private String replaceSmilies(String input) {
-        input = input.replaceAll(":-(\\))+|:(\\))+|:d|:-d|8-d|\\sxd|x-d|=d|:o\\)|:]|:-]|:3|:>|=]|=\\)|;\\)|;-\\)|;d|;-d|\\\\o//|:'-\\)|:'\\)|:p|:-p|=p|\\sxp|\\(:|\\(-:|\\^\\^", POSITIVE_SMILE);
-        input = input.replaceAll(":\\(|:-\\(|>:\\[|:c|:<|:-<|:\\[|:-\\[|=\\[|:\\{|:'\\(|:'-\\(|\\sd:|\\):|\\)-:|:@|>:\\(|:-\\|\\||:\\$|=/", NEGATIVE_SMILE);
+        String output = input;
+        if (output.matches(".*:-?\\({2,}.*")) {
+            output += ENLARGED_NEGATIVE_SMILE;
+        } else if (output.matches(".*:-?\\){2,}.*")) {
+            output += ENLARGED_POSITIVE_SMILE;
+        }
+        output = output.replaceAll(":-?\\)+|:-?d|8-?d|\\sxd|x-d|=d|:o\\)|:-?]|:3|:>|=]|=\\)|;-?\\)|;d|;-?d|\\\\o//|:'-?\\)|:-?p=p|\\sxp|\\(-?:|\\^\\^|<3", POSITIVE_SMILE);
+        output = output.replaceAll(":-?\\(+|>:-?\\[|:c|:-?<|:-?\\[|=\\[|:-?\\{|:'-?\\(|\\sd-?:|\\)-?:|:-?@|>:-?\\(|:-?\\|\\||:-?\\$|=/|</3", NEGATIVE_SMILE);
 
-        return input;
+        return output;
     }
 
     /**
      * Replaces known positive or negative hashtags with the corresponding tag.
-     * Unknown hashtags are removed completely -> //todo: maybe replace unknown with just HASHTAG or TAG
+     * Unknown hashtags are kept but the label "HASHTAG" is added afterwards to indicate, that there was a hashtag
      *
      * @param input the content of the tweet
      * @return the processed content
@@ -172,8 +189,8 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
             } else if (negativeHashTags.contains(hashTag)) {
                 output = output.replace(hashTag, NEGATIVE_HASHTAG);
             } else {
-                log.trace("'{}' has no sentiment stored", hashTag);
-                output = output.replace(hashTag, "");
+//                log.trace("'{}' has no sentiment stored", hashTag);
+                output = output.replace(hashTag, " " + hashTag + HASHTAG);
             }
         }
 
@@ -182,22 +199,57 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
 
     /**
      * Replaces consecutive letters that occur more than twice with the single letter.
-     * E.g.: heyyyyyyyyyyyy -> hey; hello -> hello
+     * E.g.: heyyyyyyyyyyyy -> hey; hello -> hello.
+     * <p>
+     * New: we now also add the label "ENLONGEDWORD" to signal a processed word with double letters.
+     * This is added at the end of the output and the number of labels depends on the number of words that got corrected.
      *
      * @param input the content of the tweet
      * @return the processed content
      */
     private String replaceConsecutiveLetters(String input) {
         String output = input;
-        Matcher matcher = doubleLetterPatter.matcher(input);
+        Matcher matcher = doublePatter.matcher(input);
+        int counter = 0;
         while (matcher.find()) {
             String group1 = matcher.group(1);
             String group2 = matcher.group(2);
             if (group1.length() > 2) {
                 output = output.replace(group1, group2);
+                counter++;
                 log.trace("Group1: {}, Group2: {}. {} -> {}", group1, group2, input, output);
             }
         }
+        if (counter > 0) {
+            for (int i = 0; i < counter; i++) {
+                output += " " + ENLARGED_WORD.trim();
+            }
+        }
+        return output;
+    }
+
+    private String replaceConsecutiveDots(String input) {
+        String output = input;
+        Matcher matcher = dotsPattern.matcher(input);
+        while (matcher.find()) {
+            output = output.replace(matcher.group(), DOTS);
+        }
+        return output;
+    }
+
+    // todo: maybe use in the future
+    public static String negatePossibleTag(String input) {
+        String output = input.trim();
+        if (output.equalsIgnoreCase(POSITIVE_SMILE.trim())) {
+            output = NEGATIVE_SMILE;
+        } else if (output.equalsIgnoreCase(NEGATIVE_SMILE.trim())) {
+            output = POSITIVE_SMILE;
+        } else if (output.equalsIgnoreCase(POSITIVE_HASHTAG.trim())) {
+            output = NEGATIVE_HASHTAG;
+        } else if (output.equalsIgnoreCase(NEGATIVE_HASHTAG.trim())) {
+            output = POSITIVE_HASHTAG;
+        }
+
         return output;
     }
 

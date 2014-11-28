@@ -6,12 +6,14 @@
 package at.tuwien.aic.tweetanalysis.preprocessing;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
-import static at.tuwien.aic.tweetanalysis.preprocessing.NaiveTweetPreprocessor.log;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static at.tuwien.aic.tweetanalysis.preprocessing.NaiveTweetPreprocessor.log;
 
 /**
  *
@@ -86,6 +88,8 @@ public class CustomEnglishPreprocesor implements ITweetPreprocessor {
             String group1 = matcher.group(1).trim();
             String group2 = matcher.group(3).trim(); // group[2] is the negation word
             if (!group2.isEmpty()) {
+                /* handle special case */
+                // todo: implement special case like inverting tags
                 fullString = fullString.replace(group2, "not-" + group2);
             } else if (!group1.isEmpty()) {
                 fullString = fullString.replace(group1, "not-" + group1);

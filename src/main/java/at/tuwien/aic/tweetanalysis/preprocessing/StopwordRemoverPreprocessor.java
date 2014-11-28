@@ -54,9 +54,11 @@ public class StopwordRemoverPreprocessor implements ITweetPreprocessor{
         
         //replace duplicate spaces
         content = content.replaceAll("[\r\n\t]"," ");
-        content = content.replaceAll("\\s", " ");
-        content = content.replaceAll("\\s{2,}", " ");
-        
+//        content = content.replaceAll("\\s", " ");
+//        content = content.replaceAll("\\s{2,}", " ");
+
+        content = content.replaceAll("\\s+", " ");
+
         //remove symbols
         for(String stopsymbol : stopWordsGeneral) {
             content = content.replace(stopsymbol, " ");
@@ -70,13 +72,13 @@ public class StopwordRemoverPreprocessor implements ITweetPreprocessor{
         //remove stopwords
         String newContent = "";
         for (String word : content.split(" ")) {
-            if (!stopWordsEnglish.contains(word.toLowerCase())) {
+            if (!stopWords.contains(word.toLowerCase())) {
                 newContent += " " + word;
             }
         }
         content = newContent.trim();
         
-        content = content.replaceAll(" {2,}", " ");
+        content = content.replaceAll("\\s+", " ");
         
         //substitute back the urls
         for (int i=0;i<tweet.getUrls().size();i++) {
