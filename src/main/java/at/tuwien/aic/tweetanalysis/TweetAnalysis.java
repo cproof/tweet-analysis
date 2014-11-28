@@ -71,7 +71,7 @@ public class TweetAnalysis {
     private static void testLiveData() throws InterruptedException, java.util.concurrent.ExecutionException {
         TweetProvider tweetProvider = new TweetProvider();
 
-        Future<List<Tweet>> tweets = tweetProvider.getTweets(":)", 20);
+        Future<List<Tweet>> tweets = tweetProvider.getTweets(":)", 20, null, null, "en", null, null);
 
         List<Tweet> tweetList = tweets.get();
 
@@ -89,7 +89,7 @@ public class TweetAnalysis {
 
         TweetProvider tweetProvider = new TweetProvider();
 
-        Future<List<Tweet>> tweets = tweetProvider.getTweets(":(", 100);
+        Future<List<Tweet>> tweets = tweetProvider.getTweets(":D", 100, null, null, "en", null, null);
         List<Tweet> tweetList = tweets.get();
 
         try (CSVWriter csvOutput = new CSVWriter(new BufferedWriter(new FileWriter("t.csv")))) {
@@ -99,7 +99,7 @@ public class TweetAnalysis {
                 String z = tweet.getContent();
                 z = z.replace("\n", "");
 
-                csvOutput.writeNext(new String[]{z, "negative"}, false);
+                csvOutput.writeNext(new String[]{z, "positive"}, false);
             }
         }
 

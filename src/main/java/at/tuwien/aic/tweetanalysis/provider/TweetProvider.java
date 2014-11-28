@@ -38,6 +38,7 @@ public class TweetProvider implements ITweetProvider {
                     Twitter twitter = tf.getInstance();
 
                     Query query = new Query(searchTerm);
+                    query.setResultType(Query.ResultType.recent);
                     if (beginTime != null) { query.setSince(dateFormat.format(beginTime)); }
                     if (endTime != null) { query.setUntil(dateFormat.format(endTime)); }
                     if (language != null && Arrays.asList(Locale.getISOLanguages()).contains(language)) {
