@@ -28,8 +28,13 @@ public class StandardTweetPreprocessor implements ITweetPreprocessor {
             ITweetPreprocessor naive = new NaiveTweetPreprocessor();
             this.preprocessor.addPreprocessor(naive);
             
+            ITweetPreprocessor stopwords = new StopwordRemoverPreprocessor();
+            this.preprocessor.addPreprocessor(stopwords);
+            
             ITweetPreprocessor snowballStemmer = new SnowballPreprocessor();
             this.preprocessor.addPreprocessor(snowballStemmer);
+            
+            
         } catch (ITweetFilter.FilterException ex) {
             Logger.getLogger(StandardTweetPreprocessor.class.getName()).log(Level.SEVERE, null, ex);
         }
