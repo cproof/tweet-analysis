@@ -32,8 +32,8 @@ public final class TrainingDataPreprocessor {
 
         try (CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter("processed-tweets.csv")))) {
             csvWriter.writeNext(new String[]{"Tweet", "Sentiment"});
-            trainingDataPreprocessor.preprocess(new StandardTweetPreprocessor(), "/negative-tweets.csv", csvWriter);
-            trainingDataPreprocessor.preprocess(new StandardTweetPreprocessor(), "/positive-tweets.csv", csvWriter);
+            trainingDataPreprocessor.preprocess(new StandardTweetPreprocessor(), "/trainingData/negative-tweets.csv", csvWriter);
+            trainingDataPreprocessor.preprocess(new StandardTweetPreprocessor(), "/trainingData/positive-tweets.csv", csvWriter);
         }
 
 //        try (CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter("processedSentences.csv")))) {

@@ -56,12 +56,11 @@ public class TweetAnalysis {
 
 //        log.trace("{}", naiveTweetPreprocessor);
 
-        // INFO:
-        // Ignore the database errors, only important if we use a database for the tweets.
-
-        // Preporcessing Test: Read the BIG Tweetfile and try to make an simple learning CSV File
-        //CSVPreprocessingTrainingAndTestingData testPreprocessing = new CSVPreprocessingTrainingAndTestingData();
-        //testPreprocessing.extractTheTweetContentIntoCSV();
+        /*
+         * INFO:
+         * Ignore the database errors, only important if we use a database for the tweets.
+         *
+        */
 
         // TweetProvider provider = new TweetProvider();
         // List<Tweet> tweets = provider.getTweets("test", 20, new Date(114, 10, 18), new Date(114, 10, 20)).get();
@@ -103,7 +102,7 @@ public class TweetAnalysis {
 
     private static void testClassifier() throws IOException {
         IClassifier tweetTest;
-        //try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream("/tweet-model.model")) {
+        //try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream("/fff1.model")) {
         //    tweetTest = new WekaClassifier(modelStream);
         //}
         tweetTest = new WekaClassifier();
@@ -111,9 +110,9 @@ public class TweetAnalysis {
         // Use the Classifier to evaluate a Tweet
         Tweet t = new Tweet();
 //        t.setContent("bad bad bad bad :(");
-//        t.setContent("#hate sad :( :(");
+ //       t.setContent("#hate sad :( :(");
         t.setContent("happy joy :) :) #happy congratulations");
-//        t.setContent("I love them, thank u mum !! <3 http://t.co/rMQEeRYhnT");
+        //t.setContent("I love them, thank u mum !! <3 http://t.co/rMQEeRYhnT");
 
         StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
         ArrayList<Tweet> tweets = new ArrayList<>();
@@ -127,7 +126,7 @@ public class TweetAnalysis {
     private static void testClassifierOnTweets(List<Tweet> tweets) throws IOException {
         /* load model from file */
         IClassifier classifier;
-        try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream("/tweet-model.model")) {
+        try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream("/trainingData/tweet-model.model")) {
             classifier = new WekaClassifier(modelStream);
         }
         /* preprocess tweets */

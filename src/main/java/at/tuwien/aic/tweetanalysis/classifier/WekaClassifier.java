@@ -6,6 +6,7 @@ import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;
+import weka.classifiers.functions.SMO;
 import weka.core.Attribute;
 import weka.core.FastVector;
 import weka.core.Instance;
@@ -27,14 +28,7 @@ import java.util.Random;
  */
 public class WekaClassifier implements IClassifier {
 
-//    private static final String _fileTestingDataset = "manualCreatedTestingData.csv";
-//    private static final String _fileTestingDataset = "testingData.csv";
-//    private static final String _fileTestingDataset = "src/main/resources/testingVectorised.arff";
-//    private static final String _fileTrainingDataset = "manualCreatedTrainingData.csv";
-//    private static final String _fileTrainingDataset = "trainingData.csv";
-//    private static final String _fileTrainingDataset = "src/main/resources/trainingVectorised.arff";
-
-    private static final String _fileDataset = "src/main/resources/processed-tweets.arff";
+    private static final String _fileDataset = "src/main/resources/trainingData/processed-tweets.arff";
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
@@ -43,10 +37,8 @@ public class WekaClassifier implements IClassifier {
 
     public WekaClassifier() {
 
-        Instances dataset = getARFFDataset(_fileDataset);
-
-        //set dataset
-        _trainingDataset = vectorised(dataset);
+        //set dataset: vectorice with StringToWordVector and select attributes
+        _trainingDataset = vectorised(getARFFDataset(_fileDataset));
         _trainingDataset = attributeSelectionFilter(_trainingDataset);
         _testingDataset = null;
 
@@ -57,25 +49,12 @@ public class WekaClassifier implements IClassifier {
         testClassifierWithFold(_classifier,_trainingDataset);
     }
 
-    private Instances attributeSelectionFilter(Instances trainingDataset) {
-        AttributeSelection attributeSelection = new AttributeSelection();
-        attributeSelection.setEvaluator(new ChiSquaredAttributeEval());
-        Ranker search = new Ranker();
-        search.setThreshold(0.0);
-        attributeSelection.setSearch(search);
-
-        try {
-            attributeSelection.setInputFormat(trainingDataset);
-            trainingDataset = Filter.useFilter(trainingDataset, attributeSelection);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return trainingDataset;
-    }
-
     public WekaClassifier(String trainingDataset, String testingDataset) {
-        _trainingDataset = getCSVDataset(trainingDataset);
-        _testingDataset = getCSVDataset(testingDataset);
+        _trainingDataset = vectorised(getARFFDataset(trainingDataset));
+        _trainingDataset = attributeSelectionFilter(_trainingDataset);
+
+        _testingDataset = vectorised(getARFFDataset(testingDataset));
+        _testingDataset = attributeSelectionFilter(_testingDataset);
 
         //In this case we use NaiveBayes Classifier.
         _classifier = (Classifier) new NaiveBayes();
@@ -89,10 +68,16 @@ public class WekaClassifier implements IClassifier {
     }
 
     /**
-    * Read in a new Dataset Instance from a CSV-File
-    * @param INPUT_FILE_DATASET Path to the CSV-File
-    * @return the Dataset Instances
-    */
+     * Read in a new Dataset Instance from a CSV-File
+     *
+     * Example CSV-Content:
+     * Tweet,Sentiment
+     * "Atleast I'm happy with my fangirl life. :)",positive
+     * "#hate :(",negative
+     *
+     * @param INPUT_FILE_DATASET Path to the CSV-File
+     * @return the Dataset Instances
+     */
     private Instances getCSVDataset(final String INPUT_FILE_DATASET) {
 
         CSVLoader trainingLoader = new CSVLoader();
@@ -102,12 +87,11 @@ public class WekaClassifier implements IClassifier {
 
             trainingLoader.setSource(new File(INPUT_FILE_DATASET));
             dataset = trainingLoader.getDataSet();
-            dataset.setClassIndex(0);
+            dataset.setClassIndex(1);
         } catch (IOException ex) {
             System.err.println("Exception in getCSVDataset: " + ex.getMessage());
         }
 
-//        dataset.setClassIndex(dataset.numAttributes() - 1);
         return dataset;
     }
 
@@ -198,10 +182,6 @@ public class WekaClassifier implements IClassifier {
     private Instances vectorised(Instances input_instances) {
 
         // Set the tokenizer
-//        WordTokenizer tokenizer = new WordTokenizer();
-//        tokenizer.setDelimiters(" ");
-
-        // this tokenizer would be better
         NGramTokenizer tokenizer = new NGramTokenizer();
         tokenizer.setNGramMinSize(1);
         tokenizer.setNGramMaxSize(2);
@@ -212,12 +192,9 @@ public class WekaClassifier implements IClassifier {
         try {
             filter.setInputFormat(input_instances);
             filter.setAttributeIndices("first");
-//            filter.setAttributeIndices("last");
             filter.setTokenizer(tokenizer);
             filter.setWordsToKeep(10000);
             filter.setMinTermFreq(1);
-//            filter.setDoNotOperateOnPerClassBasis(true);
-            //filter.setLowerCaseTokens(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -231,15 +208,36 @@ public class WekaClassifier implements IClassifier {
         return outputInstances;
     }
 
+
+    /**
+     * The Attribute Selection Filter for the Analysis
+     *
+     * @param trainingDataset The Instances to Vectorize
+     * @return the Selected Attributes Instances
+     */
+    private Instances attributeSelectionFilter(Instances trainingDataset) {
+        AttributeSelection attributeSelection = new AttributeSelection();
+        attributeSelection.setEvaluator(new ChiSquaredAttributeEval());
+        Ranker search = new Ranker();
+        search.setThreshold(0.0);
+        attributeSelection.setSearch(search);
+
+        try {
+            attributeSelection.setInputFormat(trainingDataset);
+            trainingDataset = Filter.useFilter(trainingDataset, attributeSelection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return trainingDataset;
+    }
+
     @Override
     public double[] classifyTweet(Tweet tweet) {
 
-        //create the dataset manually
+        //create the dataset manually (same as the input or the model)
         FastVector fvClassVal = new FastVector(2);
         fvClassVal.addElement("negative");
         fvClassVal.addElement("positive");
-//        Attribute stringAttribute = new Attribute("Tweet", (FastVector) null);
-//        Attribute classAttribute = new Attribute("Sentiment", fvClassVal);
         Attribute classAttribute = new Attribute("Sentiment", fvClassVal);
 
         Attribute stringAttribute = new Attribute("Tweet", (FastVector) null);
@@ -247,26 +245,19 @@ public class WekaClassifier implements IClassifier {
         FastVector fvWekaAttributes = new FastVector(2);
         fvWekaAttributes.addElement(stringAttribute);
         fvWekaAttributes.addElement(classAttribute);
-//        fvWekaAttributes.addElement(classAttribute);
-//        fvWekaAttributes.addElement(stringAttribute);
 
         // Create an empty instaces set
         Instances inst = new Instances("Rel", fvWekaAttributes, 1);
         // Set class index
         inst.setClassIndex(1);
-//        inst.setClassIndex(0);
 
         //create a new instance and add to instances
         Instance iExample = new Instance(2);
         iExample.setDataset(inst);
         iExample.setValue(0, tweet.getContent());
-//        iExample.setValue(1, tweet.getContent());
         inst.add(iExample);
 
-        //System.out.println("instance before vectorisation: " + inst.firstInstance());
         Instances new_inst = vectorised(inst);
-        //System.out.println("instance after vectorisation: " + new_inst.firstInstance());
-
         double[] fDistribution = new double[] {0.0,0.0};
         try {
             fDistribution = _classifier.distributionForInstance(new_inst.firstInstance());
