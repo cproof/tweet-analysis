@@ -48,8 +48,8 @@ public class TweetAnalysis {
 
         System.out.println("WEKA Test!");
 
-//        testClassifier();
-        testLiveData();
+        testClassifier();
+//        testLiveData();
 //        getLiveData();
 
 //        NaiveTweetPreprocessor naiveTweetPreprocessor = new NaiveTweetPreprocessor();
@@ -103,16 +103,17 @@ public class TweetAnalysis {
 
     private static void testClassifier() throws IOException {
         IClassifier tweetTest;
-        try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream("/tweet-model.model")) {
-            tweetTest = new WekaClassifier(modelStream);
-        }
+        //try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream("/tweet-model.model")) {
+        //    tweetTest = new WekaClassifier(modelStream);
+        //}
+        tweetTest = new WekaClassifier();
 
         // Use the Classifier to evaluate a Tweet
         Tweet t = new Tweet();
 //        t.setContent("bad bad bad bad :(");
 //        t.setContent("#hate sad :( :(");
-//        t.setContent("happy joy :) :) #happy congratulations");
-        t.setContent("I love them, thank u mum !! <3 http://t.co/rMQEeRYhnT");
+        t.setContent("happy joy :) :) #happy congratulations");
+//        t.setContent("I love them, thank u mum !! <3 http://t.co/rMQEeRYhnT");
 
         StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
         ArrayList<Tweet> tweets = new ArrayList<>();

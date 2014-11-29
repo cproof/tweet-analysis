@@ -1,0 +1,606 @@
+@relation processed-tweets-weka.filters.unsupervised.attribute.NominalToString-Cfirst
+
+@attribute Tweet string
+@attribute Sentiment {negative,positive}
+
+@data
+'massiv pimpl near ear NEGATIVESMILE',negative
+'just realli want go home NEGATIVESMILE',negative
+'lol yall aint shit NEGATIVESMILE karrueche* 😂 URL',negative
+'still trailer NEGATIVESMILE',negative
+'mayb mask come mayb peopl final sta ing see im empti univers that ill ever good night NEGATIVESMILE',negative
+'just rememb im work tomorrow morn asda new deal NEGATIVESMILE',negative
+'imissyou NEGATIVESMILE',negative
+'wah disappoint NEGATIVESMILE',negative
+'mayb can announc next week decemb 6 bc exam 1st 3rd month NEGATIVESMILE',negative
+'chanc NEGATIVESMILE hope won NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'make sad mice men ticket like £40 NEGATIVESMILE',negative
+'cant believ sharapova murray DOTS cant see bc tix r damn POSITIVESMILE ensiv ugh NEGATIVESMILE',negative
+'good bye tgif NEGATIVESMILE',negative
+'tax week realli need help intern candid keep bail just onboard dream hors even ride mule NEGATIVESMILE',negative
+'NEGATIVESMILE im way love nick',negative
+'bloodi hell like one fave celebr one ugh NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'cant DOTS im gonna die NEGATIVESMILE',negative
+'automenfessrpw menfess HASHTAG djrp_kyuhyun save last memori NEGATIVESMILE fr know',negative
+'want dog NEGATIVESMILE sobad HASHTAG URL ENLARGEDDWORD',negative
+'woke call hahaha NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'deserv alcohol right now NEGATIVESMILE',negative
+'seem rain doesnt want go spend time son NEGATIVESMILE',negative
+'third pa trilog becom unwieldi perhap divid two novel give complet NEGATIVESMILE',negative
+'sorri spam sale piec today NEGATIVESMILE like peopl might understand need sold help make new better stuff DOTS',negative
+'aw man drank much last night NEGATIVESMILE',negative
+'wth wrong data NEGATIVESMILE',negative
+'com back NEGATIVESMILE POSITIVESMILE uRL',negative
+'2 days phone NEGATIVESMILE',negative
+'pretti tiffani imnida NEGATIVESMILE xeolovestephi orz',negative
+'rowan pope evil man cant believ olivia will pull trigga NEGATIVESMILE scandal HASHTAG',negative
+'that much yho snapstori 300 second long NEGATIVESMILE',negative
+'throat infect NEGATIVESMILE NEGATIVESMILE darren morningsatanc ENLARGED_NEGATIVESMILE',negative
+'bu fuck reynold broke hes sell stuff NEGATIVESMILE DOTS URL',negative
+'can never get mor suppli drop NEGATIVESMILE',negative
+'pleas beliv NEGATIVESMILE',negative
+'ticket (still price) will one ticket like last year serious NEGATIVESMILE booth ticket talaga',negative
+'hi ho hi ho work go DOTS NEGATIVESMILE save leav keywest HASHTAG en febrero DOTS',negative
+'total broken NEGATIVESMILE',negative
+'nightmar NEGATIVESMILE',negative
+'im itch go get donut go shop aunt didnt invit like usual NEGATIVESMILE',negative
+'everyth favourit celeb alway time cant go annoy NEGATIVESMILE',negative
+'gotta go now everyon get day thanksgiv NEGATIVESMILE good later POSITIVESMILE',negative
+'ok im sorri ah plantain NEGATIVESMILE that burnt plantain ENLARGEDDWORD ENLARGEDDWORD',negative
+'oh well get wifi ill doubt NEGATIVESMILE hate',negative
+'go long ass day work 5 POSITIVESMILE 0 NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'roll deep NEGATIVESMILE',negative
+'one involv beef anymor NEGATIVESMILE',negative
+'thank good friend (kahit hindi tayo friends) yung totoo NEGATIVESMILE',negative
+'dy hair purpl whatev stupid reason gone brown hate NEGATIVESMILE',negative
+'yee NEGATIVESMILE URL',negative
+'get readi sho ly attend funer young man still life cruel god bless shaun wo hington NEGATIVESMILE',negative
+'need sta take care natur hair NEGATIVESMILE',negative
+'ugh know million ilovejalenmcmillan HASHTAG fan that wont even notic NEGATIVESMILE',negative
+'hate thse fell NEGATIVESMILE NEGATIVESMILE selos_ako_dun_ah HASHTAG',negative
+'make even disappoint NEGATIVESMILE',negative
+'high fever NEGATIVESMILE',negative
+'almost get hit car funni DOTS NEGATIVESMILE',negative
+'shit NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'ive just finish zelda link world NEGATIVESMILE now URL',negative
+'hiccup pleas stop NEGATIVESMILE ENLARGEDDWORD',negative
+'aali kana daw ng adnu NEGATIVESMILE — um dont know yet URL',negative
+'soo god sudden fall NEGATIVESMILE ENLARGEDDWORD',negative
+'just want toffe nut sticki cinnamon bun NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'dude hey im jetlag moodi NEGATIVESMILE NEGATIVESMILE ENLARGEDDWORD',negative
+'feel sick NEGATIVESMILE',negative
+'one favourit hijab go walki disappear life NEGATIVESMILE priceofthegypsylife HASHTAG',negative
+'just type 4 page essay realli want go back asleep cant NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'fuck nightmar NEGATIVESMILE',negative
+'omg websit work NEGATIVESMILE NEGATIVESMILE NEGATIVESMILE NEGATIVESMILE NEGATIVESMILE NEGATIVESMILE just want tv god sake ENLARGEDDWORD',negative
+'take turn pee side check cash store NEGATIVESMILE',negative
+'sel tl NEGATIVESMILE',negative
+'hand full NEGATIVESMILE laitan na NEGATIVESMILE that burnt plaintain',negative
+'care dont care NEGATIVESMILE',negative
+'NEGATIVESMILE POSITIVESMILE — feel broken ENLARGED_POSITIVESMILE',negative
+'im stress debit card wont arriv fanclub merch sold NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'next door tree surgeon cut multipl tree garden DOTS noisi DOTS go away im tri work NEGATIVESMILE ENLARGEDDWORD',negative
+'awwn babi NEGATIVESMILE hian abeg sta wit love lovey oo _ yes love',negative
+'fuck found anoth one wall NEGATIVESMILE',negative
+'leav bike central station weekend NEGATIVESMILE dont get stolen honey ill back soon URL',negative
+'want go robmag tom friend NEGATIVESMILE never ako nakipag bond friendss NEGATIVESMILE ENLARGED_NEGATIVESMILE ENLARGEDDWORD ENLARGEDDWORD',negative
+'realli feel inspir creativ juic arent come NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'home alon sigh NEGATIVESMILE — feel bore',negative
+'even pove y think twice offer fruit journalist talk URL NEGATIVESMILE',negative
+'basic hate school DOTS NEGATIVESMILE URL ENLARGED_NEGATIVESMILE',negative
+'black friday broke internet NEGATIVESMILE',negative
+'lost iphon button NEGATIVESMILE',negative
+'forgot id NEGATIVESMILE',negative
+'day work lot imodium stray far smallest room great NEGATIVESMILE ENLARGEDDWORD',negative
+'cold NEGATIVESMILE',negative
+'just dont know roll eye DOTS — teka lang talaga sorri NEGATIVESMILE swear NEGATIVESMILE sino ba s DOTS URL ENLARGED_NEGATIVESMILE',negative
+'feel worri NEGATIVESMILE',negative
+'fatass cant breath NEGATIVESMILE',negative
+'bore NEGATIVESMILE',negative
+'horrend headach just need just go lay dark room NEGATIVESMILE',negative
+'srsli wtf make genuin sad NEGATIVESMILE URL',negative
+'dmspree ka ver NEGATIVESMILE 28 oliverlanc day',negative
+'im black friday shop mom kohl lost NEGATIVESMILE mam ENLARGEDDWORD',negative
+'sistar HASHTAG kpop convent 6 28th decemb oh alreadi left ph NEGATIVESMILE im die see girl ENLARGEDDWORD ENLARGEDDWORD',negative
+'cat unaffection NEGATIVESMILE ENLARGED_NEGATIVESMILE',negative
+'happi overload day POSITIVESMILE wish sissi NEGATIVESMILE hey queen miss much DOTS URL ENLARGED_POSITIVESMILE',negative
+'fm feel maganda NEGATIVESMILE',negative
+'ilovejalenmcmillan HASHTAG likley even read right now NEGATIVESMILE beauti 1235',negative
+'1yearexoshowtime HASHTAG NEGATIVESMILE im gonna cri now NEGATIVESMILE (( ENLARGED_NEGATIVESMILE',negative
+'embarrass pictures/video peopl kick save bob two wtf retail laugh make look like mug notme HASHTAG NEGATIVEHASHTAG',negative
+'feel NEGATIVEHASHTAG fa yesterday DOTS much sad DOTS',negative
+'instead celebr life URL leader busi declar sycoph NEGATIVEHASHTAG',negative
+'dont NEGATIVEHASHTAG person prefer anoth person HASHTAG uh becox uh cant convinc monkey HASHTAG honey sweeter HASHTAG banana HASHTAG POSITIVESMILE',negative
+'NEGATIVEHASHTAG 2 see news realli bare anyon shopping HASHTAG christmas HASHTAG halloween hu retail',negative
+'realli draw circus animals day 🐵🐒🐘 circus HASHTAG animals HASHTAG NEGATIVEHASHTAG sketch HASHTAG doodle HASHTAG wip HASHTAG DOTS URL',negative
+'peopl bulli NEGATIVEHASHTAG insecure HASHTAG weak HASHTAG lost HASHTAG rude HASHTAG selfish HASHTAG',negative
+'work duniakerja HASHTAG duniakeras HASHTAG bengkel HASHTAG teknisi HASHTAG NEGATIVEHASHTAG fuckmoment HASHTAG funny HASHTAG URL',negative
+'oh man peopl perfect hug tv box u know DOTS NEGATIVEHASHTAG fucker ENLARGEDDWORD',negative
+'cold dark winterblues HASHTAG NEGATIVEHASHTAG tackl depression HASHTAG tip URL',negative
+'miss bestfriend even miss NEGATIVEHASHTAG',negative
+'wish peopl hang like old day NEGATIVESMILE socialproblems HASHTAG NEGATIVEHASHTAG',negative
+'sad 😖when u send sweet message&th never answeroransw othersoransw mani hour NEGATIVEHASHTAG 😒',negative
+'think fight peopl get blackfriday HASHTAG pathet exact never stay late get earli go NEGATIVEHASHTAG',negative
+'peopl soul asham today bloodi animals £50 save blackfriday HASHTAG NEGATIVEHASHTAG animals HASHTAG',negative
+'im depressed eat ice cream NEGATIVESMILE psy HASHTAG cholog HASHTAG psy HASHTAG NEGATIVEHASHTAG depressed HASHTAG feel HASHTAG feel HASHTAG ing ksa HASHTAG kau HASHTAG DOTS URL',negative
+'filter✌ last HASHTAG day HASHTAG NEGATIVEHASHTAG times HASHTAG URL',negative
+'today last day 7 year im realli go miss famili ❤️ bittersweet HASHTAG NEGATIVEHASHTAG',negative
+'realli NEGATIVEHASHTAG phillip hugh just goe show never realli know what around corner young HASHTAG well',negative
+'wist feel ❄😔 ❄ winter HASHTAG snow HASHTAG cold HASHTAG depression HASHTAG NEGATIVEHASHTAG grodno HASHTAG cathedral HASHTAG instabelarus HASHTAG DOTS URL',negative
+'where pizza HASHTAG NEGATIVEHASHTAG ++ manuel HASHTAG',negative
+'america dream come die NEGATIVEHASHTAG trending HASHTAG news HASHTAG freugeson HASHTAG americanbullshit HASHTAG nogod HASHTAG 🔫🔪💊💉💰 hero dead',negative
+'aahh tv morn suppos get daili fix NEGATIVEHASHTAG',negative
+'will alon cry HASHTAG NEGATIVEHASHTAG',negative
+'roadbike HASHTAG puncture HASHTAG im NEGATIVEHASHTAG ill late work HASHTAG im sad cant ride HASHTAG bus bunk HASHTAG fuck',negative
+'world sicken sad world HASHTAG sick HASHTAG NEGATIVEHASHTAG protests HASHTAG ferguson HASHTAG',negative
+'dolla spent NEGATIVESMILE NEGATIVEHASHTAG NEGATIVEHASHTAG',negative
+'broke car NEGATIVEHASHTAG',negative
+'sad tired seem sink insid im alon 😔 NEGATIVEHASHTAG tiredasf HASHTAG',negative
+'moment watch old convers long death friend NEGATIVEHASHTAG',negative
+'will find way NEGATIVEHASHTAG alone HASHTAG way HASHTAG tears HASHTAG URL',negative
+'URL yoga HASHTAG HASHTAG meditate HASHTAG mudra HASHTAG time yog 😞 NEGATIVEHASHTAG work HASHTAG yoga HASHTAG HASHTAG thisisyoga HASHTAG 🙏',negative
+'rest peac phil hugh NEGATIVEHASHTAG',negative
+'rip dearest carlo one cute handsom ador cat miss much 😞😢 NEGATIVEHASHTAG URL',negative
+'seven mental health patient die wait bed URL sinc april 2011 total 2 179 bed cut NEGATIVEHASHTAG',negative
+'also look window see light dust snow yup crazi storm last night DOTS sure get 25cm _ NEGATIVEHASHTAG',negative
+'appl resel black friday save 20\% everyth URL humac HASHTAG NEGATIVEHASHTAG dk HASHTAG blackfriday HASHTAG except appl product',negative
+'typic big store return polici wont except fault even deliv wrong product NEGATIVEHASHTAG newlook HASHTAG',negative
+'corrupt sma phone here proof montreal HASHTAG construction HASHTAG NEGATIVEHASHTAG URL',negative
+'river island 20\% server crash within minut kind embarass big retail NEGATIVEHASHTAG',negative
+'nigel oh jontybark nigel_farag ukip cameronmustgo HASHTAG idea realiti jerk knee politician NEGATIVEHASHTAG',negative
+'ive accept fact go fail welsh exam NEGATIVEHASHTAG',negative
+'blackfriday HASHTAG fail websit built cope NEGATIVEHASHTAG NEGATIVEHASHTAG come guy',negative
+'france HASHTAG HASHTAG recognize HASHTAG palestinian HASHTAG state HASHTAG HASHTAG peace HASHTAG effo s HASHTAG NEGATIVEHASHTAG pari (reuters) – france said friday DOTS URL',negative
+'people HASHTAG keep wait light turn green HASHTAG leav home HASHTAG will never happen & NEGATIVEHASHTAG even sta HASHTAG',negative
+'think media respons caus blackfriday HASHTAG chaos uk hype HASHTAG media HASHTAG sheep HASHTAG adv ise HASHTAG chaos HASHTAG sales HASHTAG NEGATIVEHASHTAG yobs HASHTAG',negative
+'3 year degre im pretti sure lectur never mention b2b market DOTS there market b2c NEGATIVEHASHTAG',negative
+'anoth black friday websit fail cmon tesco ed server capic blackfriday HASHTAG NEGATIVEHASHTAG URL',negative
+'feel morn DOTS blackfriday HASHTAG sucks HASHTAG retail HASHTAG NEGATIVEHASHTAG shacklife HASHTAG URL',negative
+'your site go site NEGATIVEHASHTAG group',negative
+'think overdid first week back gym back kill today NEGATIVEHASHTAG gymproblems HASHTAG',negative
+'first linkedin HASHTAG comm hi hannah free today chat servic dont know care NEGATIVEHASHTAG',negative
+'possibl favourit ever NEGATIVEHASHTAG know im mean laugh URL',negative
+'friday night & kid camp free night & sleep tomorrow where hub transit biz trip NEGATIVEHASHTAG',negative
+'bare sale NEGATIVEHASHTAG blackfriday HASHTAG',negative
+'sms spam hu s brand especi connect economi will peopl understand NEGATIVEHASHTAG',negative
+'bad sock choic DOTS NEGATIVEHASHTAG URL',negative
+'thank take web reserv last night tablet tell now valid blackfriday HASHTAG NEGATIVEHASHTAG',negative
+'remak film standard set high origin anniemovie HASHTAG NEGATIVEHASHTAG',negative
+'way abl work page ipad icloud share word doc open mac apple HASHTAG NEGATIVEHASHTAG stupid HASHTAG',negative
+'need run payrol busi bank servic go back NEGATIVEHASHTAG blackfriday HASHTAG',negative
+'moment realis youv left key home DOTS NEGATIVEHASHTAG',negative
+'actual need go ikea today forgot f*ing black friday NEGATIVEHASHTAG ENLARGEDDWORD',negative
+'massiv blackfriday HASHTAG NEGATIVEHASHTAG curri URL',negative
+'uk store spend week shove blackfriday HASHTAG throat mani digit store buckl strain mcommerce HASHTAG NEGATIVEHASHTAG',negative
+'amazon uk blackfriday HASHTAG NEGATIVEHASHTAG',negative
+'term end 2 week suppos chosen project DOTS havent even titl yet good one leicest NEGATIVEHASHTAG',negative
+'lunchtim & staff half enquiri counter branch DOTS NEGATIVEHASHTAG smh HASHTAG',negative
+'NEGATIVEHASHTAG save children’ pr defend blair HASHTAG almost wors award great blog URL',negative
+'phone sta ed drop hint need replac fallen 3rd time today NEGATIVESMILE tech HASHTAG NEGATIVEHASHTAG',negative
+'fall price oil will remov last tatter arrog shred pretens conserv econom polici NEGATIVEHASHTAG cdnpoli HASHTAG',negative
+'man can NEGATIVEHASHTAG mani time isnt NEGATIVEHASHTAG ure begin blame HASHTAG somebodi els john burrough',negative
+'sma en nas 4 album 10 year homey can divid that one [album] everi let say two [years] NEGATIVEHASHTAG obviouslycannotdivide HASHTAG',negative
+'wait car arriv need rob dont chang ticket machin NEGATIVEHASHTAG',negative
+'photo epic HASHTAG NEGATIVEHASHTAG facepalm HASHTAG timesofindia HASHTAG make disastr blunder kill sachintendulkar HASHTAG DOTS rip HASHTAG DOTS URL',negative
+'becki NEGATIVEHASHTAG miss cbc',negative
+'never ever want nurs entir life senior quot tho 😅 NEGATIVEHASHTAG URL',negative
+'weve come weve fail life URL wtf blackfriday HASHTAG NEGATIVEHASHTAG',negative
+'mathemat genius HASHTAG mustv left combin weight legpress HASHTAG gym HASHTAG NEGATIVEHASHTAG URL',negative
+'chicken extend trail cap immigr eu citizen still screw commonwealth & row NEGATIVEHASHTAG eu HASHTAG',negative
+'book friday quiet xmas shop catchup mum total didnt appreci blackfriday HASHTAG mad NEGATIVEHASHTAG',negative
+'much confus divers proper signag NEGATIVEHASHTAG (i excited)',negative
+'websit crashed HASHTAG cours experienc high volum your run ton tv ad press ad NEGATIVEHASHTAG',negative
+'write best poem life comput turn goe masterpiec NEGATIVEHASHTAG',negative
+'look like next week burger van run go expens NEGATIVEHASHTAG',negative
+'cfo mistaken s deal plan URL gonewrong HASHTAG socialmedia HASHTAG udontseethiseveryday HASHTAG NEGATIVEHASHTAG',negative
+'dear googl turn top bottom bar black red actual drain batteri ole display NEGATIVEHASHTAG',negative
+'say thought move prejud 2/2 prejudice HASHTAG NEGATIVEHASHTAG',negative
+'point blackfridaydeals HASHTAG none can keep site much NEGATIVEHASHTAG',negative
+'secret santa present got deliv offic unwrap everyon seen even person whos know NEGATIVEHASHTAG',negative
+'franc 2012 olymp mexico murray won wimbledon will mexico rugbi world cup england NEGATIVEHASHTAG',negative
+'success failure climb back URL POSITIVEHASHTAG NEGATIVEHASHTAG NEGATIVEHASHTAG ure motivation HASHTAG entrepreneur HASHTAG business HASHTAG marketing HASHTAG',negative
+'wow capit consumer realli bring best peopl URL blackfriday HASHTAG NEGATIVEHASHTAG',negative
+'guess noth believ blackfriday HASHTAG NEGATIVEHASHTAG',negative
+'ha first type reve toself() add if() later work intellisens problem seem DOTS vs2015 HASHTAG NEGATIVEHASHTAG',negative
+'dear oracl pleas pleas pleas stop break link document urlsareforlife HASHTAG learntoredirectproperly HASHTAG NEGATIVEHASHTAG',negative
+'biggest repo ing NEGATIVEHASHTAG ever URL',negative
+'time thought 1d special weekend NEGATIVEHASHTAG',negative
+'10 peopl one job just total blew URL NEGATIVEHASHTAG NEGATIVEHASHTAG s',negative
+'sarah palin cant make shit URL NEGATIVEHASHTAG wtf HASHTAG palin HASHTAG',negative
+'dont let retouching HASHTAG NEGATIVEHASHTAG happen URL',negative
+'need work can get charger iphon 4s see mine die ars NEGATIVEHASHTAG',negative
+'hey realli black friday youv sent 5 shower instead lamp least well clean desk skills HASHTAG NEGATIVEHASHTAG',negative
+'speech action said &done 5 year ago let uk descend crisi NEGATIVEHASHTAG',negative
+'disappoint s onlin queue time complet inaccur NEGATIVEHASHTAG',negative
+'oh bad respons employ forgot attach document email wow NEGATIVEHASHTAG comical HASHTAG',negative
+'NEGATIVEHASHTAG think ice coffe drank denni keep awak',negative
+'6 hour christma shop black friday got 2 purs one NEGATIVEHASHTAG',negative
+'pay day ive lost bank card DOTS yes NEGATIVEHASHTAG ENLARGEDDWORD ENLARGEDDWORD',negative
+'point onlin shop avoid queue popular site like currys/argo put us one ahahaha NEGATIVEHASHTAG',negative
+'lol brother tri sneak hous time NEGATIVEHASHTAG',negative
+'pointless hour deal cant get websit buy NEGATIVEHASHTAG',negative
+'vatmoss HASHTAG vatmess HASHTAG almost though govern depa ment cant understand modern internet thing DOTS oh wait DOTS NEGATIVEHASHTAG',negative
+'tri look angry NEGATIVEHASHTAG angry HASHTAG mediacorp caldecott broadcast centr URL',negative
+'HASHTAG successful HASHTAG people HASHTAG one tri NEGATIVEHASHTAG HASHTAG tri sometim POSITIVEHASHTAG attempt HASHTAG',negative
+'fucker tri take photo complet stranger cb never turn flash NEGATIVEHASHTAG',negative
+'day6 mercedes HASHTAG car repair less r50 worst servic custom world NEGATIVEHASHTAG ENLARGEDDWORD',negative
+'als ice bucket challenge HASHTAG NEGATIVEHASHTAG tgp HASHTAG lobaseuseuheun HASHTAG URL',negative
+'amaz even tesco direct backfriday HASHTAG NEGATIVEHASHTAG URL',negative
+'awesom blackfridaydeals HASHTAG just head websi oh wait nevermind NEGATIVEHASHTAG',negative
+'curri pc world websit also couldnt handl black friday NEGATIVEHASHTAG blackfriday HASHTAG',negative
+'that prepar compani black friday 37m wait time websit NEGATIVEHASHTAG blackfriday HASHTAG URL',negative
+'comeback key URL NEGATIVEHASHTAG comeback HASHTAG business HASHTAG hope HASHTAG inspiration HASHTAG entrepreneur HASHTAG',negative
+'cowork what monday first christma mean decemb NEGATIVEHASHTAG',negative
+'talk tories HASHTAG strong word just NEGATIVEHASHTAG',negative
+'thank u spam HASHTAG amd charg optout NEGATIVEHASHTAG URL',negative
+'guess anoth signal failur DOTS londoncommuting HASHTAG NEGATIVEHASHTAG',negative
+'bust twice doublegirl HASHTAG NEGATIVEHASHTAG',negative
+'isnt whole idea internet screw access provid countri internettv HASHTAG NEGATIVEHASHTAG',negative
+'decid get involv blackfriday HASHTAG mad NEGATIVEHASHTAG christmasgiftideas HASHTAG amazon HASHTAG got alreadi delivery HASHTAG come next week lol',negative
+'know need inspir get last rep fuck take play NEGATIVEHASHTAG gymprobz HASHTAG',negative
+'pervez rashid tri hard sound funni sarcast DOTS NEGATIVEHASHTAG becom illeg carri cash even illog',negative
+'smalltim pa isan hack like chris uhlmann surviv sack NEGATIVEHASHTAG abccuts HASHTAG',negative
+'4am failps4 HASHTAG complain can’t sta game without disc spend 15 minut forum look way resolv URL URL',negative
+'extrem disappoint inspiron 14 74 POSITIVESMILE 7 special touchpad NEGATIVEHASHTAG',negative
+'biggest NEGATIVEHASHTAG life HASHTAG DOTS dont even think lie DOTS respect HASHTAG URL',negative
+'say bye past n say hello futur NEGATIVEHASHTAG stubborn HASHTAG guys HASHTAG dontfollowme HASHTAG donttalktome HASHTAG ale HASHTAG yall HASHTAG',negative
+'darkness HASHTAG can drive darkness light HASHTAG can NEGATIVEHASHTAG can drive DOTS (w/ babyboy) URL',negative
+'see peopl just born NEGATIVEHASHTAG dont understand god know theyr DOTS URL',negative
+'bore DOTS emo HASHTAG boy HASHTAG emo HASHTAG HASHTAG NEGATIVEHASHTAG ungly HASHTAG sexy HASHTAG gay HASHTAG gay HASHTAG boy URL',negative
+'POSITIVEHASHTAG human HASHTAG => unless cours NEGATIVEHASHTAG HASHTAG your insecure HASHTAG miserable HASHTAG DOTS URL',negative
+'leav photography HASHTAG uni HASHTAG nikon HASHTAG POSITIVEHASHTAG NEGATIVEHASHTAG poetry HASHTAG editorial HASHTAG heels HASHTAG thelauralamb HASHTAG bath school DOTS URL',negative
+'one random low day / hate kind day one HASHTAG random HASHTAG low HASHTAG day HASHTAG NEGATIVEHASHTAG kind HASHTAG DOTS URL',negative
+'mensrights HASHTAG sexual abus happen everyday home abus aren’t untouch cele DOTS URL feminism HASHTAG NEGATIVEHASHTAG',negative
+'HASHTAG NEGATIVEHASHTAG everything HASHTAG book HASHTAG swagshop HASHTAG URL',negative
+'alway chasin pie sky NEGATIVEHASHTAG',negative
+'NEGATIVEHASHTAG u s abandon tribe fought isi iraqi forc anbar provinc say need weapon DOTS URL',negative
+'hate peopl fuck anal family HASHTAG NEGATIVEHASHTAG',negative
+'babi im fool NEGATIVEHASHTAG',negative
+'wanna see doin thing NEGATIVEHASHTAG',negative
+'wonder can someth dont like think HASHTAG NEGATIVEHASHTAG NEGATIVEHASHTAG friday HASHTAG weekend HASHTAG',negative
+'& comput gonna one love hate relationship URL im wrap track POSITIVEHASHTAG NEGATIVEHASHTAG digitallove HASHTAG',negative
+'studying starbuckscoffee HASHTAG ao HASHTAG studying HASHTAG exile HASHTAG arashi HASHTAG music HASHTAG POSITIVEHASHTAG bff HASHTAG test HASHTAG NEGATIVEHASHTAG kyoto HASHTAG tbt HASHTAG DOTS URL',negative
+'aint truth NEGATIVEHASHTAG loveistheanswer HASHTAG URL',negative
+'mensrights HASHTAG poor guy treat like crap femal help submit b DOTS URL feminism HASHTAG NEGATIVEHASHTAG',negative
+'URL hyrule warriors 5 HASHTAG | hate spiders HASHTAG DOTS | pa 2 URL h HASHTAG âte h HASHTAG yrule tiger HASHTAG warriors HASHTAG woods HASHTAG',negative
+'NEGATIVEHASHTAG tell people HASHTAG problems HASHTAG prefer candid anonymous HASHTAG DOTS candid HASHTAG android HASHTAG URL',negative
+'know evil NEGATIVEHASHTAG',negative
+'fine dont laugh HASHTAG joke HASHTAG make look stupid HASHTAG NEGATIVEHASHTAG teamfollowback HASHTAG',negative
+'URL today hospital HASHTAG finish HASHTAG day HASHTAG day HASHTAG hospital POSITIVEHASHTAG NEGATIVEHASHTAG 5cicle HASHTAG penultimo HASHTAG fo e HASHTAG POSITIVEHASHTAG HASHTAG cancer HASHTAG monster HASHTAG',negative
+'violent imag head loot kill want turn back time end HASHTAG HASHTAG NEGATIVEHASHTAG — DOTS URL',negative
+'mensrights HASHTAG shia labeouf rape 0( submit enriqueroz [link] [comment] URL feminism HASHTAG NEGATIVEHASHTAG',negative
+'NEGATIVEHASHTAG will stop NEGATIVEHASHTAG',negative
+'ive tri hard find NEGATIVEHASHTAG',negative
+'s* toss NEGATIVEHASHTAG ENLARGEDDWORD',negative
+'big brother africa ellah HASHTAG move wound hea romance HASHTAG NEGATIVEHASHTAG sex HASHTAG URL',negative
+'judg gavel fell NEGATIVEHASHTAG',negative
+'know evil NEGATIVEHASHTAG',negative
+'enemi fear think NEGATIVEHASHTAG realli fear HASHTAG ghandi HASHTAG quote HASHTAG',negative
+'babi im fool NEGATIVEHASHTAG',negative
+'what next moon gonna win sin citi NEGATIVEHASHTAG',negative
+'wanna see doin thing NEGATIVEHASHTAG',negative
+'s* toss NEGATIVEHASHTAG ENLARGEDDWORD',negative
+'hate candi crush DOTS NEGATIVEHASHTAG',negative
+'anoth asshat HASHTAG ad ban list wed night NEGATIVEHASHTAG thick last hour NEGATIVEHASHTAG rsgonnahatehateh URL',negative
+'now killer make pay follow hate URL put man awayfor smoke joint foolish URL man will come NEGATIVEHASHTAG',negative
+'NEGATIVEHASHTAG problems HASHTAG DOTS true URL',negative
+'make never want rais kid world full racism HASHTAG NEGATIVEHASHTAG general',negative
+'hate say yes im look way yesman HASHTAG NEGATIVEHASHTAG selfish HASHTAG breakmyback HASHTAG DOTS URL',negative
+'NEGATIVEHASHTAG stretch mark check diy HASHTAG itll help URL mommy HASHTAG moms HASHTAG follow HASHTAG baby HASHTAG',negative
+'bitch show POSITIVEHASHTAG HASHTAG fake HASHTAG HASHTAG nigga HASHTAG hate',negative
+'NEGATIVEHASHTAG caus lot problem worldbut HASHTAG hasnt solv one yet quote HASHTAG URL',negative
+'alway kind nightmares time year NEGATIVEHASHTAG HASHTAG nightmares HASHTAG nightterrors HASHTAG',negative
+'type relationship cats HASHTAG POSITIVEHASHTAG NEGATIVEHASHTAG cuddles HASHTAG URL',negative
+'im realli sta ing hate iphon major glitch bug io 8 worst ever apple HASHTAG iosdev HASHTAG NEGATIVEHASHTAG ENLARGEDDWORD',negative
+'hate storms current massiv storm need leav get bus half hour pleas stop storms HASHTAG NEGATIVEHASHTAG work HASHTAG',negative
+'think piss akina bed boxer HASHTAG dog HASHTAG boxer HASHTAG NEGATIVEHASHTAG lol HASHTAG angry HASHTAG dog HASHTAG URL',negative
+'yes teach black HASHTAG 2 NEGATIVEHASHTAG realli help peopl DOTS URL',negative
+'just say humanity HASHTAG lie HASHTAG truth HASHTAG words HASHTAG awkward HASHTAG hypocrite HASHTAG fake HASHTAG NEGATIVEHASHTAG real HASHTAG reason HASHTAG people HASHTAG URL',negative
+'peopl kill anim 4 reason evil HASHTAG u cant handl anim home 4 whatev reason give 2 someon can NEGATIVEHASHTAG',negative
+'t minus 12 hour ill road wors citi ever asu HASHTAG nopityfo hekitti HASHTAG fthemildcats HASHTAG NEGATIVEHASHTAG',negative
+'alway URL HASHTAG qotd HASHTAG HASHTAG girls HASHTAG HASHTAG boys HASHTAG HASHTAG life HASHTAG HASHTAG relationships HASHTAG POSITIVEHASHTAG NEGATIVEHASHTAG POSITIVEHASHTAG HASHTAG URL',negative
+'NEGATIVEHASHTAG ppl much especi friday HASHTAG morn y r stupid wake fcking ppl god damn itduh ENLARGEDDWORD',negative
+'mayb hustle HASHTAG hard NEGATIVEHASHTAG workhard HASHTAG URL',negative
+'want clean leaf DOTS NEGATIVEHASHTAG fall HASHTAG winter HASHTAG URL',negative
+'hate snow much NEGATIVEHASHTAG snow HASHTAG thissucks HASHTAG native HASHTAG canada HASHTAG canadianvinersgroup HASHTAG snow HASHTAG ing winter HASHTAG winter HASHTAG suck URL',negative
+'NEGATIVEHASHTAG caus lot problems HASHTAG world HASHTAG solv one yet mayaangelo HASHTAG',negative
+'atleast im happi fangirl life POSITIVESMILE',positive
+'ada rasa POSITIVESMILE friday happi POSITIVESMILE thx god POSITIVESMILE ENLARGEDDWORD ENLARGEDDWORD',positive
+'free today POSITIVESMILE URL',positive
+'home POSITIVESMILE',positive
+'ive got need right passeng seat POSITIVESMILE',positive
+'good even POSITIVESMILE',positive
+'cant wait new music soon POSITIVESMILE mtvstars HASHTAG justin bieber',positive
+'goodnight POSITIVESMILE talk im bali',positive
+'get touch bootcamp HASHTAG southend HASHTAG POSITIVESMILE URL',positive
+'ill happi POSITIVESMILE URL',positive
+'good even POSITIVESMILE',positive
+'sister POSITIVESMILE URL',positive
+'hi POSITIVESMILE',positive
+'hit like love scene POSITIVESMILE URL',positive
+'congrat POSITIVESMILE',positive
+'nice littl xmas pressi order made POSITIVESMILE much tempt stuff display URL',positive
+'never excit sim card thank POSITIVESMILE danandphilsim HASHTAG URL',positive
+'carnt wait tonight go twist go see excit POSITIVESMILE',positive
+'goodeven smt POSITIVESMILE',positive
+'man life POSITIVESMILE gifts HASHTAG fragrance HASHTAG menhttp HASHTAG //URL URL',positive
+'first one arriv POSITIVESMILE URL',positive
+'perfect descript POSITIVESMILE',positive
+'haha dont mention POSITIVESMILE u dont fanci — just dont like hahah URL',positive
+'there mani good player POSITIVESMILE teamoftheyear HASHTAG',positive
+'im glad came back life POSITIVESMILE',positive
+'hi POSITIVESMILE',positive
+'happi lancer day POSITIVESMILE',positive
+'good even POSITIVESMILE',positive
+'new idea HASHTAG look POSITIVESMILE URL',positive
+'god morn everyon POSITIVESMILE ENLARGEDDWORD',positive
+'princess navya beauti POSITIVESMILE URL',positive
+'thank POSITIVESMILE',positive
+'hi everyon ill use page often now pleas tell friend page can share POSITIVESMILE',positive
+'happi bi hday ate POSITIVESMILE',positive
+'hey POSITIVESMILE ENLARGEDDWORD',positive
+'woohoo 10 follow two week thank guy POSITIVESMILE ENLARGEDDWORD',positive
+'ok im home alon selfi time POSITIVESMILE POSITIVESMILE',positive
+'goodeven POSITIVESMILE',positive
+'lazi day POSITIVESMILE chill grandpar POSITIVESMILE',positive
+'smile POSITIVESMILE URL',positive
+'goodluck maria sherapova POSITIVESMILE',positive
+'good even POSITIVESMILE',positive
+'dream make trip around world POSITIVESMILE',positive
+'whatev said ill stay POSITIVESMILE',positive
+'beauti catch attent charact catch hea POSITIVESMILE',positive
+'sweethea POSITIVESMILE URL',positive
+'lego travel POSITIVESMILE URL',positive
+'thank yah POSITIVESMILE',positive
+'got final POSITIVESMILE URL',positive
+'goodnight POSITIVESMILE',positive
+'first meetup next weekend come around fast POSITIVESMILE',positive
+'happi bi hday POSITIVESMILE',positive
+'new life DOTS POSITIVESMILE URL',positive
+'got wwe ticket morn POSITIVESMILE',positive
+'peopl home POSITIVESMILE bank street social URL',positive
+'mani thing look forward POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'love thank u mum POSITIVESMILE URL ENLARGED_POSITIVESMILE',positive
+'loving hippos POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'happi babi POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'listen DOTS love POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'POSITIVESMILE look URL ENLARGED_POSITIVESMILE',positive
+'later POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'love classmat POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'world POSITIVESMILE URL ENLARGED_POSITIVESMILE',positive
+'like see time bring much colour love life POSITIVESMILE POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'like kinda stuff POSITIVESMILE URL ENLARGED_POSITIVESMILE',positive
+'POSITIVESMILE 3 POSITIVESMILE final 105 92 cant believ actual won POSITIVESMILE ENLARGED_POSITIVESMILE ENLARGEDDWORD',positive
+'POSITIVESMILE look URL ENLARGED_POSITIVESMILE',positive
+'food trip atm ♡ POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'goodeveni POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'give love christma POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'POSITIVESMILE look URL ENLARGED_POSITIVESMILE',positive
+'POSITIVESMILE URL ENLARGED_POSITIVESMILE',positive
+'realli realli POSITIVESMILE u ENLARGED_POSITIVESMILE',positive
+'rock world POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'boy love POSITIVESMILE amaz mean everyth realli love pleas follow pleas beg ☀🙏✖7 796 ENLARGED_POSITIVESMILE ENLARGEDDWORD',positive
+'suppo ive cousin best POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'POSITIVESMILE laugh receiv luck ENLARGED_POSITIVESMILE',positive
+'omg laugh 10 15 min pat that love POSITIVESMILE URL ENLARGED_POSITIVESMILE',positive
+'love blue hair POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'love love POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'wow error HASHTAG special stage amaz POSITIVESMILE POSITIVESMILE vixx HASHTAG ENLARGED_POSITIVESMILE',positive
+'bi hday bi hday will spend parent money haha POSITIVESMILE *_* $_$ ENLARGED_POSITIVESMILE ENLARGEDDWORD ENLARGEDDWORD',positive
+'visit 22 countri world POSITIVESMILE need travel HASHTAG travel HASHTAG stoke URL ENLARGED_POSITIVESMILE',positive
+'final discov band royal blood POSITIVESMILE royalblood HASHTAG ENLARGED_POSITIVESMILE',positive
+'ilov one boy life POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'dinner POSITIVESMILE thank continu bless guidanc ENLARGED_POSITIVESMILE',positive
+'life treasur POSITIVESMILE URL ENLARGED_POSITIVESMILE',positive
+'love starship traine POSITIVESMILE URL ENLARGED_POSITIVESMILE',positive
+'want pizza POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'♡ good morn POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'im tell world _blank blank make happy HASHTAG santaswishlist HASHTAG URL',positive
+'surpris wonder mood today enjoy gdjb HASHTAG right now ate tasti pizza hour ago pass exam morn happy HASHTAG',positive
+'one mani peopl gave strength POSITIVESMILE thank happy HASHTAG thanksgivings HASHTAG DOTS URL ENLARGED_POSITIVESMILE',positive
+'im happy HASHTAG URL ENLARGEDDWORD',positive
+'packag arriv happy HASHTAG URL',positive
+'best feel happi your happy youv made somebodi els happy happy HASHTAG weekend guy',positive
+'smile wali best way make self happy HASHTAG URL',positive
+'happy thanksgiving happy HASHTAG thanks HASHTAG giving HASHTAG thanks HASHTAG thx HASHTAG festival HASHTAG day HASHTAG giving HASHTAG givethanks HASHTAG grateful HASHTAG DOTS URL',positive
+'happy friday 💞 friday HASHTAG happy HASHTAG mummy HASHTAG chanel HASHTAG chanel HASHTAG lover chanladdict HASHTAG jerushaaddict HASHTAG klintonstyle HASHTAG justahawaiis HASHTAG DOTS URL',positive
+'thank anoth beauti execut order happy HASHTAG',positive
+'yeah book ticket see hellogoodbye HASHTAG februari happy HASHTAG',positive
+'POSITIVESMILE happy HASHTAG friday HASHTAG everyone POSITIVESMILE thank everyone HASHTAG following HASHTAG ing HASHTAG favorites HASHTAG POSITIVESMILE URL ENLARGED_POSITIVESMILE',positive
+'beauti scarv love clutch bag just arriv POSITIVEHASHTAG ff HASHTAG happy HASHTAG URL',positive
+'let tri one good day POSITIVEHASHTAG peace HASHTAG happy HASHTAG true HASHTAG 😎😍☀🌵🍂🍃 URL',positive
+'life now complet sophiawebster HASHTAG samplesale HASHTAG POSITIVEHASHTAG shoes HASHTAG happy HASHTAG bi hday HASHTAG URL',positive
+'im happy 14 way happier via URL bwn HASHTAG happy HASHTAG inspiration HASHTAG POSITIVEHASHTAG motivation HASHTAG',positive
+'yay just reach 100 follow thank everyon happy HASHTAG travel HASHTAG POSITIVEHASHTAG plantbased HASHTAG',positive
+'say merry HASHTAG christmas HASHTAG someon special hug box😃 URL personalised HASHTAG gift HASHTAG hug HASHTAG happy HASHTAG uk URL',positive
+'best thnaksgiv ever happy HASHTAG thanksgiv URL POSITIVESMILE te amo URL ENLARGED_POSITIVESMILE',positive
+'mum best first black friday purchas coat happy HASHTAG',positive
+'two wonder peopl just told fantast news happy HASHTAG POSITIVEHASHTAG (you know )',positive
+'readi move new 3 bedroom apa ment cant wait POSITIVESMILE',positive
+'subscrib coolgamergirl escapad youtub POSITIVESMILE great weekend everyon',positive
+'shot week work 2 love bedroom 2 love children POSITIVESMILE — feel proud',positive
+'good nigh nice dream ndut POSITIVESMILE',positive
+'fantast way end week POSITIVESMILE student stay back friday improv handwrit POSITIVESMILE POSITIVEHASHTAG ENLARGED_POSITIVESMILE',positive
+'oh pleas POSITIVESMILE ENLARGED_POSITIVESMILE ENLARGEDDWORD',positive
+'rcl1milliongiveaway HASHTAG hi rachel POSITIVESMILE congratul 1million subscrib pleas read entri URL',positive
+'thank POSITIVESMILE round applaus pa cant believ im actual done high school',positive
+'got new pokemon POSITIVESMILE URL ENLARGEDDWORD',positive
+'goll POSITIVESMILE URL ENLARGED_POSITIVESMILE ENLARGEDDWORD',positive
+'bi hday shoutout twin happi bi hday dear twin wish good year ahead POSITIVESMILE',positive
+'rcl1milliongiveaway HASHTAG hi rachel POSITIVESMILE congratul 1million subscrib pleas read entri URL',positive
+'hi pleas call back POSITIVESMILE POSITIVESMILE',positive
+'maliyah pretti POSITIVESMILE URL',positive
+'good even queen beauti POSITIVESMILE URL',positive
+'black friday POSITIVESMILE shop great love',positive
+'wish sta everi day long hike POSITIVESMILE URL',positive
+'done 2pm cant wait hangout korbyn POSITIVESMILE hes good boy POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'sleep beauti POSITIVESMILE',positive
+'good night POSITIVESMILE',positive
+'everyth ok POSITIVESMILE',positive
+'whoareyou HASHTAG love song girl simpli perfect POSITIVESMILE',positive
+'stay aunt bev uncl colin hous look forward 2 go 2 spend time 2 cousin lol POSITIVESMILE',positive
+'bi hday activ last year POSITIVESMILE URL URL',positive
+'yay sniffi found DOTS dont ask DOTS just pleas POSITIVESMILE ENLARGEDDWORD',positive
+'myterms HASHTAG DOTS dont even know yet POSITIVESMILE disrespect intend DOTS life HASHTAG thank DOTS URL',positive
+'thank trish saya POSITIVESMILE',positive
+'goodnight na may sweet POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'final POSITIVESMILE watch teaser trailer star war forc awaken URL',positive
+'star war episod vii teaser URL | wow now that teaser trailer now get name forc awaken POSITIVESMILE',positive
+'good night POSITIVESMILE ♫ shes gone steelhea — URL',positive
+'hey POSITIVESMILE',positive
+'happi bi hday POSITIVESMILE URL ENLARGEDDWORD',positive
+'follow POSITIVESMILE',positive
+'get see gf today POSITIVESMILE',positive
+'bless love POSITIVESMILE way morn bro great one ENLARGEDDWORD ENLARGEDDWORD',positive
+'brilliant POSITIVESMILE URL',positive
+'look forward christmas HASHTAG festiv weekend come say hello sat&sun 10 4pm POSITIVESMILE wakefield HASHTAG HASHTAG cards HASHTAG handmade HASHTAG',positive
+'treat bodi like trophi clean take care impo ant display everyon see POSITIVESMILE',positive
+'got p atd ah shi im happi POSITIVESMILE',positive
+'happi thank give american POSITIVESMILE',positive
+'shirleen singh POSITIVESMILE love POSITIVESMILE URL',positive
+'one day today POSITIVESMILE',positive
+'onlin check POSITIVESMILE / URL URL ENLARGEDDWORD',positive
+'follow & spring season sta POSITIVESMILE',positive
+'peopl world crack POSITIVESMILE',positive
+'final found decent anim app phone POSITIVESMILE',positive
+'end now just okay POSITIVESMILE',positive
+'tonight shall fun POSITIVESMILE',positive
+'anybodi lf1 hit sound guy great player POSITIVESMILE s appreci',positive
+'save feel thank POSITIVESMILE',positive
+'holi sweet lordi ten subscrib ehk im happi POSITIVESMILE day amaz yay new vid soon ENLARGEDDWORD ENLARGEDDWORD ENLARGEDDWORD ENLARGEDDWORD ENLARGEDDWORD ENLARGEDDWORD ENLARGEDDWORD ENLARGEDDWORD',positive
+'lot peopl read blog POSITIVESMILE URL ski HASHTAG snowboard HASHTAG season HASHTAG season HASHTAG air',positive
+'skype us POSITIVESMILE',positive
+'super quick sketch hope like POSITIVESMILE URL',positive
+'good night nice dream POSITIVESMILE',positive
+'four day till bi hday POSITIVESMILE',positive
+'thank topnewfollowers HASHTAG happi connect POSITIVESMILE (via URL)',positive
+'happi POSITIVESMILE URL',positive
+'hilari old wd40 ad POSITIVESMILE URL',positive
+'goodnight POSITIVESMILE',positive
+'nice haul gotta go back make sure get liara & wrex though POSITIVESMILE URL',positive
+'watch grandma hous week POSITIVESMILE',positive
+'one perfect fine lenye2 sunday DOTS POSITIVESMILE',positive
+'thank topnewfollowers HASHTAG happi connect POSITIVESMILE (insight URL)',positive
+'like scratch peopl back bc make happi POSITIVESMILE',positive
+'jasmine POSITIVESMILE sweeti sweeti chocol dairymilk HASHTAG candy HASHTAG jasmine HASHTAG bestday HASHTAG URL',positive
+'love snow POSITIVESMILE yeg HASHTAG snow HASHTAG cozy HASHTAG URL',positive
+'never run game ever just chill enjoy love POSITIVESMILE',positive
+'draw amaz x factor weekend 2 URL winner & rais huge amount thank sponsor POSITIVESMILE URL',positive
+'happi bi hday dearest POSITIVESMILE may allah bless life love ♡',positive
+'famili absolut ador craig couldnt happier POSITIVESMILE',positive
+'stream bit come join like POSITIVESMILE URL',positive
+'black friday success im broke POSITIVESMILE yay POSITIVESMILE',positive
+'free today gift black friday happi cyber shop POSITIVESMILE raven k asher book black friday freebi URL',positive
+'love POSITIVESMILE ENLARGEDDWORD',positive
+'love littl evelyn POSITIVESMILE URL',positive
+'blow money prank extra URL via great video POSITIVESMILE',positive
+'wanna chill tonight text POSITIVESMILE',positive
+'alway allow dream p',positive
+'ff_special HASHTAG POSITIVESMILE hamesha se classi bnda hai ye POSITIVESMILE nice person',positive
+'hello thanksgiv love littl munchkin POSITIVESMILE URL',positive
+'goodmorn puppi POSITIVESMILE via /r/aww URL',positive
+'glenn beck theblaz theblaz radio network lol POSITIVESMILE uRL',positive
+'stay URL wonder your still smile POSITIVESMILE blue HASHTAG batman HASHTAG URL',positive
+'realli excit movi & light favourit peopl tomorrow POSITIVESMILE',positive
+'love best friend call sing happi bi hday POSITIVESMILE differ rendit everi year love',positive
+'love feel abl buy peopl thing POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'nice day POSITIVESMILE URL',positive
+'head town sho ly see love POSITIVESMILE',positive
+'thank god im hang one bestfriend ha POSITIVESMILE yeah time fun',positive
+'morn POSITIVESMILE URL',positive
+'finland said yes sex marriag POSITIVESMILE final good decis tahdon HASHTAG tahdon HASHTAG 2014 URL',positive
+'thank love suppo last night guy will see later POSITIVESMILE go watch fifi URL',positive
+'a++ effo POSITIVESMILE thank love * URL',positive
+'pleas suppo stori POSITIVESMILE thankyou URL',positive
+'crazi & dysfunct know POSITIVESMILE love love love famili much joy URL',positive
+'stop send funni post hahaha go studi wont repli p ENLARGEDDWORD',positive
+'choos zayn malik francisco lachowski POSITIVESMILE — obvious francisco lachowski hahaha URL',positive
+'thank topcommunitymembers HASHTAG happi engag POSITIVESMILE (insight URL)',positive
+'hi guy POSITIVESMILE HASHTAG ̇stanbul turkey HASHTAG turkishboy HASHTAG view HASHTAG spo HASHTAG HASHTAG ger polish HASHTAG girl HASHTAG polish HASHTAG russian HASHTAG russian HASHTAG girl DOTS URL',positive
+'just fun POSITIVESMILE URL',positive
+'thank topcommunitymembers HASHTAG happi engag POSITIVESMILE (insight URL)',positive
+'check lip dub lou bega mambo 5 hope guy like POSITIVESMILE lipdup HASHTAG funfriday HASHTAG URL',positive
+'congrat friend pass ufe HASHTAG go celebr yall deserv POSITIVESMILE',positive
+'yes know talent POSITIVESMILE drawing HASHTAG POSITIVEHASHTAG imagine HASHTAG thefall HASHTAG theview HASHTAG amas HASHTAG coolkids HASHTAG URL',positive
+'megdeaangelisgiveaway HASHTAG HASHTAG megdeaangelisgiveaway HASHTAG HASHTAG pleas POSITIVESMILE URL ENLARGED_POSITIVESMILE ENLARGEDDWORD',positive
+'back gym POSITIVESMILE xx',positive
+'alright alright thank much love POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE POSITIVESMILE ENLARGED_POSITIVESMILE ENLARGEDDWORD ENLARGEDDWORD ENLARGEDDWORD',positive
+'great time watch stream come join POSITIVESMILE let fun URL',positive
+'final got phone happi POSITIVESMILE',positive
+'im excit POSITIVESMILE christmasiscoming HASHTAG URL',positive
+'tri enjoy break two paper write POSITIVESMILE POSITIVESMILE POSITIVESMILE',positive
+'cant help smile see x wing fighter fli format POSITIVESMILE star war forc awaken offici teaser URL',positive
+'astro comin soon POSITIVESMILE',positive
+'look like ive confirm first ever gig itali someth expect year DOTS realli excit POSITIVESMILE info soon',positive
+'sister forc go dad hous today bi hday nice POSITIVESMILE',positive
+'get iphon 6 today POSITIVESMILE yaya thank black friday sale get christma present earli ENLARGEDDWORD',positive
+'happi friday philadelphia enjoy rest long weekend POSITIVESMILE URL thanksgivingweekend HASHTAG DOTS URL',positive
+'thankyou twincam club kendal POSITIVESMILE ENLARGEDDWORD',positive
+'hello POSITIVESMILE grade 12 youth job recommend follow',positive
+'hope everyon good turkey day POSITIVESMILE URL',positive
+'thank much s & fave happi weekend POSITIVESMILE ENLARGEDDWORD',positive
+'im excit summer visit spain franc germani gonna great POSITIVESMILE',positive
+'thank everyon featur followfridays HASHTAG impo ant reward thank POSITIVESMILE',positive
+'* get 10k favorites*m aint realli fuck way back bout now POSITIVESMILE',positive
+'hii harri xx💞i hope your well POSITIVESMILE thank amaz album 🌸could pleas follow today love 💕 🙌',positive
+'5yearsofbigtimerush HASHTAG thank amaz year POSITIVESMILE URL',positive
+'weekend POSITIVESMILE',positive
+'sure POSITIVESMILE okay tri sajna (farhan saeed) POSITIVESMILE ENLARGEDDWORD',positive
+'get like 100 thing final found someth tj POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'snuggl kid POSITIVESMILE',positive
+'pa y tonight yes POSITIVESMILE ENLARGEDDWORD ENLARGEDDWORD ENLARGEDDWORD',positive
+'never late earli fluffi sock p',positive
+'clean jam shmoke POSITIVESMILE ill keep ya post cam time today sure plan yet',positive
+'friendship HASHTAG hea warm POSITIVESMILE URL',positive
+'robin streamt gaming music fun POSITIVESMILE uRL',positive
+'thank POSITIVESMILE',positive
+'sharon fruit & ground mix nut hm vit c overload necessari dad creation happi friday POSITIVESMILE xx URL ENLARGEDDWORD',positive
+'love littl music lover POSITIVESMILE URL',positive
+'im happi POSITIVESMILE allumdillah HASHTAG',positive
+'hope everyon wonder weekend check latest studio endeavor POSITIVESMILE 3b4jhoy HASHTAG URL',positive
+'new starwarstrailer HASHTAG super excit look amaz POSITIVESMILE starwarsepisodevii HASHTAG',positive
+'make hea smile 😊💖 URL POSITIVESMILE',positive
+'appar yeg HASHTAG know much love snow POSITIVESMILE',positive
+'thank topcommunitymembers HASHTAG happi engag POSITIVESMILE (insight URL)',positive
+'your look join let know im inact check tomorrow pleas everyon POSITIVESMILE',positive
+'look came mail today POSITIVESMILE URL',positive
+'goodnight POSITIVESMILE',positive
+'POSITIVEHASHTAG night POSITIVESMILE',positive
+'star war POSITIVESMILE',positive
+'beauti photo ice rider world oldest lake POSITIVESMILE URL',positive
+'rob forev surpris us POSITIVESMILE',positive
+'congrats POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'good night friend POSITIVESMILE uRL ENLARGED_POSITIVESMILE',positive
+'love baekhyun love eyesmil POSITIVESMILE',positive
+'anyon wanna hang tonight POSITIVESMILE',positive
+'buy peopl nice gift money make happi POSITIVESMILE',positive
+'travel thing buy make richer 🌎 roadtrip HASHTAG yay HASHTAG POSITIVESMILE URL',positive
+'just nap POSITIVESMILE',positive
+'done POSITIVESMILE robin top choic URL day left cast vote',positive
+'hey final made nz HASHTAG ny see show POSITIVESMILE cantwait HASHTAG URL',positive
+'just woke POSITIVESMILE',positive
+'everyday letter POSITIVESMILE goodnight dongha oppa love you　leedongha POSITIVESMILE URL ENLARGEDDWORD',positive
+'check right now POSITIVESMILE pump play',positive
+'alway keep happiness POSITIVESMILE POSITIVEHASHTAG behappy HASHTAG POSITIVEHASHTAG day HASHTAG design HASHTAG dilpakg HASHTAG URL',positive
+'good night POSITIVESMILE',positive
+'say weed bad can caus death give will suffer POSITIVESMILE thankyou',positive
+'happi bi hday ps4 HASHTAG POSITIVESMILE',positive
+'sweet potato pie breakfast POSITIVESMILE',positive
+'back thanksgiv 4 year ago POSITIVESMILE URL URL',positive
+'babi best clean room POSITIVESMILE',positive
+'happi bi hday hug thank amaz voic congratul POSITIVESMILE trance HASHTAG DOTS URL ENLARGEDDWORD ENLARGEDDWORD',positive
+'love nice relax even POSITIVESMILE',positive
+'happi bi hday cuti POSITIVESMILE',positive
+'babi will everyth POSITIVESMILE ♫ everyth boy like girl — URL',positive
+'black friday shop success POSITIVESMILE',positive
+'happi POSITIVESMILE',positive
+'life better drunk beerfo hat HASHTAG POSITIVESMILE POSITIVESMILE',positive
+'ok now offici chrisma season cant happier POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'just saw window thrive HASHTAG happi paint today POSITIVESMILE',positive
+'home alon watch homealone HASHTAG DOTS yeeah buddi POSITIVESMILE ENLARGEDDWORD ENLARGEDDWORD',positive
+'so happy POSITIVESMILE ENLARGED_POSITIVESMILE',positive
+'уеp haha good weekend dear friend POSITIVESMILE',positive
+'go paintbal boyfriend bi hday tomorrow POSITIVESMILE',positive
+'URL POSITIVESMILE awesom song POSITIVESMILE bajnachahiyegaana HASHTAG',positive
+'glad POSITIVESMILE',positive
+'spinnin deck residenti club POSITIVESMILE music HASHTAG studio HASHTAG djlife HASHTAG hardcastl3 HASHTAG theotherone HASHTAG DOTS URL',positive

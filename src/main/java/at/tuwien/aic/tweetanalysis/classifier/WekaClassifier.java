@@ -15,6 +15,7 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 
 import java.io.*;
+import java.util.Random;
 
 /**
  * The Weka-NaiveBayes-Classifier for Tweets
@@ -30,7 +31,7 @@ public class WekaClassifier implements IClassifier {
 //    private static final String _fileTrainingDataset = "trainingData.csv";
 //    private static final String _fileTrainingDataset = "src/main/resources/trainingVectorised.arff";
 
-    private static final String _fileDataset = "src/main/resources/trainingAndTestingData.arff";
+    private static final String _fileDataset = "src/main/resources/processed-tweets.arff";
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
@@ -38,21 +39,18 @@ public class WekaClassifier implements IClassifier {
 
 
     public WekaClassifier() {
-        //split dataset
-        Instances dataset = vectorised(getARFFDataset(_fileDataset));
-        int percent = 50;
-        int trainSize = Math.round(dataset.numInstances() * percent / 100);
-        int testSize = dataset.numInstances() - trainSize;
+
+        Instances dataset = getARFFDataset(_fileDataset);
 
         //set dataset
-        _trainingDataset = new Instances(dataset, 0, trainSize);
-        _testingDataset = new Instances(dataset, trainSize, testSize);
+        _trainingDataset = vectorised(dataset);
+        _testingDataset = null;
 
         //In this case we use NaiveBayes Classifier.
         _classifier = (Classifier) new NaiveBayes();
         _classifier = trainAClassifier(_classifier,_trainingDataset);
 
-        testClassifier(_classifier,_trainingDataset,_testingDataset);
+        testClassifierWithFold(_classifier,_trainingDataset);
     }
 
     public WekaClassifier(String trainingDataset, String testingDataset) {
@@ -106,7 +104,7 @@ public class WekaClassifier implements IClassifier {
             BufferedReader reader = new BufferedReader(new FileReader(INPUT_FILE_DATASET));
             ArffLoader.ArffReader arff = new ArffLoader.ArffReader(reader);
             dataset = arff.getData();
-            dataset.setClassIndex(0);
+            dataset.setClassIndex(1);
         } catch (IOException ex) {
             System.err.println("Exception in getARFFDataset: " + ex.getMessage());
         }
@@ -142,6 +140,27 @@ public class WekaClassifier implements IClassifier {
             Evaluation eval = new Evaluation(trainingData);
 
             eval.evaluateModel(classifier, testingData);
+            System.out.println(eval.toSummaryString("\nResults\n======\n", false));
+            System.out.println(eval.toMatrixString());
+
+        } catch (Exception ex) {
+            System.err.println("Exception testing the Classifier: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Test the Classifier with folding the training_data and print out some statistics
+     *
+     * @param classifier The Classifier
+     * @param trainingData the training Dataset
+     */
+    private void testClassifierWithFold(Classifier classifier, Instances trainingData) {
+        try {
+            Evaluation eval = new Evaluation(trainingData);
+            Random rand = new Random(1); // using seed = 1
+            int folds = 10;
+            eval.crossValidateModel(classifier, trainingData, folds, rand);
+
             System.out.println(eval.toSummaryString("\nResults\n======\n", false));
             System.out.println(eval.toMatrixString());
 
