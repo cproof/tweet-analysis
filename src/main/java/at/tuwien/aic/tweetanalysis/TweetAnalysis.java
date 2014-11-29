@@ -48,8 +48,8 @@ public class TweetAnalysis {
 
         System.out.println("WEKA Test!");
 
-        testClassifier();
-//        testLiveData();
+//        testClassifier();
+        testLiveData();
 //        getLiveData();
 
 //        NaiveTweetPreprocessor naiveTweetPreprocessor = new NaiveTweetPreprocessor();
@@ -68,19 +68,14 @@ public class TweetAnalysis {
         // System.out.println("Got " + tweets.size() + " tweets");
     }
 
-    private static void testLiveData() throws InterruptedException, java.util.concurrent.ExecutionException {
+    private static void testLiveData() throws InterruptedException, java.util.concurrent.ExecutionException, IOException {
         TweetProvider tweetProvider = new TweetProvider();
 
         Future<List<Tweet>> tweets = tweetProvider.getTweets(":)", 20, null, null, "en", null, null);
 
         List<Tweet> tweetList = tweets.get();
 
-        StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
-        standardTweetPreprocessor.preprocess(tweetList);
-
-        for (Tweet tweet : tweetList) {
-            log.info("{}", tweet);
-        }
+        testClassifierOnTweets(tweetList);
 
         tweetProvider.shutdown();
     }
@@ -125,9 +120,31 @@ public class TweetAnalysis {
         standardTweetPreprocessor.preprocess(tweets);
         double[] fDistribution = tweetTest.classifyTweet(t);
 
-        System.out.println("Evaluation of a String: " + t.getContent());
-        System.out.println("probability of being positive: " + fDistribution[1]);
-        System.out.println("probability of being negative: " + fDistribution[0]);
+        logResults(t.getContent(), fDistribution);
+    }
+
+    private static void testClassifierOnTweets(List<Tweet> tweets) throws IOException {
+        /* load model from file */
+        IClassifier classifier;
+        try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream("/tweet-model.model")) {
+            classifier = new WekaClassifier(modelStream);
+        }
+        /* preprocess tweets */
+        StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
+        standardTweetPreprocessor.preprocess(tweets);
+
+        /* classify */
+        double[] fDistribution;
+        for (Tweet tweet : tweets) {
+            fDistribution = classifier.classifyTweet(tweet);
+            logResults(tweet.getContent(), fDistribution);
+        }
+    }
+
+    private static void logResults(String content, double[] fDistribution) {
+        log.info("Evaluation of a String: {}", content);
+        log.info("positive: {}", fDistribution[1]);
+        log.info("negative: {}\n", fDistribution[0]);
     }
 
 
