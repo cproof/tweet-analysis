@@ -10,7 +10,7 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 import weka.core.converters.CSVLoader;
-import weka.core.tokenizers.WordTokenizer;
+import weka.core.tokenizers.NGramTokenizer;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 
@@ -159,23 +159,24 @@ public class WekaClassifier implements IClassifier {
     private Instances vectorised(Instances input_instances) {
 
         // Set the tokenizer
-        WordTokenizer tokenizer = new WordTokenizer();
-        tokenizer.setDelimiters(" ");
+//        WordTokenizer tokenizer = new WordTokenizer();
+//        tokenizer.setDelimiters(" ");
 
         // this tokenizer would be better
-        //NGramTokenizer tokenizer = new NGramTokenizer();
-        //tokenizer.setNGramMinSize(1);
-        //tokenizer.setNGramMaxSize(3);
-        //tokenizer.setDelimiters("\\W");
+        NGramTokenizer tokenizer = new NGramTokenizer();
+        tokenizer.setNGramMinSize(1);
+        tokenizer.setNGramMaxSize(2);
+        tokenizer.setDelimiters(" \n\t.,;:'\"()?!");
 
         // Set the filter
         StringToWordVector filter = new StringToWordVector();
         try {
             filter.setInputFormat(input_instances);
-//            filter.setAttributeIndices("first");
-            filter.setAttributeIndices("last");
+            filter.setAttributeIndices("first");
+//            filter.setAttributeIndices("last");
             filter.setTokenizer(tokenizer);
-            filter.setWordsToKeep(1000000);
+            filter.setWordsToKeep(10000);
+            filter.setMinTermFreq(1);
 //            filter.setDoNotOperateOnPerClassBasis(true);
             //filter.setLowerCaseTokens(true);
         } catch (Exception e) {
@@ -196,8 +197,8 @@ public class WekaClassifier implements IClassifier {
 
         //create the dataset manually
         FastVector fvClassVal = new FastVector(2);
-        fvClassVal.addElement("positive");
         fvClassVal.addElement("negative");
+        fvClassVal.addElement("positive");
 //        Attribute stringAttribute = new Attribute("Tweet", (FastVector) null);
 //        Attribute classAttribute = new Attribute("Sentiment", fvClassVal);
         Attribute classAttribute = new Attribute("Sentiment", fvClassVal);
@@ -205,22 +206,22 @@ public class WekaClassifier implements IClassifier {
         Attribute stringAttribute = new Attribute("Tweet", (FastVector) null);
 
         FastVector fvWekaAttributes = new FastVector(2);
-//        fvWekaAttributes.addElement(stringAttribute);
-//        fvWekaAttributes.addElement(classAttribute);
-        fvWekaAttributes.addElement(classAttribute);
         fvWekaAttributes.addElement(stringAttribute);
+        fvWekaAttributes.addElement(classAttribute);
+//        fvWekaAttributes.addElement(classAttribute);
+//        fvWekaAttributes.addElement(stringAttribute);
 
         // Create an empty instaces set
         Instances inst = new Instances("Rel", fvWekaAttributes, 1);
         // Set class index
-//        inst.setClassIndex(1);
-        inst.setClassIndex(0);
+        inst.setClassIndex(1);
+//        inst.setClassIndex(0);
 
         //create a new instance and add to instances
         Instance iExample = new Instance(2);
         iExample.setDataset(inst);
-//        iExample.setValue(0, tweet.getContent());
-        iExample.setValue(1, tweet.getContent());
+        iExample.setValue(0, tweet.getContent());
+//        iExample.setValue(1, tweet.getContent());
         inst.add(iExample);
 
         //System.out.println("instance before vectorisation: " + inst.firstInstance());

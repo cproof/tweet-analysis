@@ -48,9 +48,9 @@ public class TweetAnalysis {
 
         System.out.println("WEKA Test!");
 
-//        testClassifier();
+        testClassifier();
 //        testLiveData();
-        getLiveData();
+//        getLiveData();
 
 //        NaiveTweetPreprocessor naiveTweetPreprocessor = new NaiveTweetPreprocessor();
 
@@ -114,7 +114,10 @@ public class TweetAnalysis {
 
         // Use the Classifier to evaluate a Tweet
         Tweet t = new Tweet();
-        t.setContent("bad bad bad bad :(");
+//        t.setContent("bad bad bad bad :(");
+//        t.setContent("#hate sad :( :(");
+//        t.setContent("happy joy :) :) #happy congratulations");
+        t.setContent("I love them, thank u mum !! <3 http://t.co/rMQEeRYhnT");
 
         StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
         ArrayList<Tweet> tweets = new ArrayList<>();
@@ -123,8 +126,8 @@ public class TweetAnalysis {
         double[] fDistribution = tweetTest.classifyTweet(t);
 
         System.out.println("Evaluation of a String: " + t.getContent());
-        System.out.println("probability of being positive: " + fDistribution[0]);
-        System.out.println("probability of being negative: " + fDistribution[1]);
+        System.out.println("probability of being positive: " + fDistribution[1]);
+        System.out.println("probability of being negative: " + fDistribution[0]);
     }
 
 
