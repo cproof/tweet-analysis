@@ -1,6 +1,8 @@
 package at.tuwien.aic.tweetanalysis.classifier;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import weka.attributeSelection.ChiSquaredAttributeEval;
+import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;
@@ -12,6 +14,7 @@ import weka.core.converters.ArffLoader;
 import weka.core.converters.CSVLoader;
 import weka.core.tokenizers.NGramTokenizer;
 import weka.filters.Filter;
+import weka.filters.supervised.attribute.AttributeSelection;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 
 import java.io.*;
@@ -44,6 +47,7 @@ public class WekaClassifier implements IClassifier {
 
         //set dataset
         _trainingDataset = vectorised(dataset);
+        _trainingDataset = attributeSelectionFilter(_trainingDataset);
         _testingDataset = null;
 
         //In this case we use NaiveBayes Classifier.
@@ -51,6 +55,22 @@ public class WekaClassifier implements IClassifier {
         _classifier = trainAClassifier(_classifier,_trainingDataset);
 
         testClassifierWithFold(_classifier,_trainingDataset);
+    }
+
+    private Instances attributeSelectionFilter(Instances trainingDataset) {
+        AttributeSelection attributeSelection = new AttributeSelection();
+        attributeSelection.setEvaluator(new ChiSquaredAttributeEval());
+        Ranker search = new Ranker();
+        search.setThreshold(0.0);
+        attributeSelection.setSearch(search);
+
+        try {
+            attributeSelection.setInputFormat(trainingDataset);
+            trainingDataset = Filter.useFilter(trainingDataset, attributeSelection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return trainingDataset;
     }
 
     public WekaClassifier(String trainingDataset, String testingDataset) {
