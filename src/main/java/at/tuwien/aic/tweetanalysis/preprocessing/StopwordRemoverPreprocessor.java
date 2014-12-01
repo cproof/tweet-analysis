@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class StopwordRemoverPreprocessor implements ITweetPreprocessor{
     private static final Set<String> stopWordsGeneral = new HashSet(Arrays.asList(new String[] {
-            ".", ",", ":", "-", "'", "\"", "?", "!", ",", ";", "tweet", "twitter", "rt", "retweet"
+            ".", ",", ":", "-", "'", "\"", "?", "!", ",", ";", "tweet", "twitter", "rt", "retweet", "(", ")", "[", "]", "{", "}", "~", "+", "*", "%"
     }));
     
     //stopwords from http://www.ranks.nl/stopwords
