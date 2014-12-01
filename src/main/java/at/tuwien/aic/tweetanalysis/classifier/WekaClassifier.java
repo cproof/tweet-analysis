@@ -1,6 +1,7 @@
 package at.tuwien.aic.tweetanalysis.classifier;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import com.sun.javafx.tools.packager.Log;
 import weka.attributeSelection.ChiSquaredAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
@@ -120,8 +121,8 @@ public class WekaClassifier implements IClassifier {
             int folds = 10;
             eval.crossValidateModel(classifier, trainingData, folds, rand);
 
-            System.out.println(eval.toSummaryString("\nResults\n======\n", false));
-            System.out.println(eval.toMatrixString());
+            Log.info(eval.toSummaryString("\nResults\n======\n", false));
+            Log.info(eval.toMatrixString());
 
         } catch (Exception ex) {
             System.err.println("Exception testing the Classifier: " + ex.getMessage());
