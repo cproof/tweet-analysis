@@ -25,13 +25,17 @@ import at.tuwien.aic.tweetanalysis.provider.TweetProvider;
 import com.opencsv.CSVWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.core.converters.ArffLoader;
+import weka.core.converters.ArffSaver;
+import weka.filters.Filter;
+import weka.filters.unsupervised.instance.NonSparseToSparse;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.concurrent.Future;
 
 /**
@@ -48,9 +52,10 @@ public class TweetAnalysis {
 
         System.out.println("WEKA Test!");
 
-        testClassifier();
+        //testClassifier();
 //        testLiveData();
 //        getLiveData();
+        tryMergeTweetIntoDataset("this is a test with only one matching awesome word");
 
 //        NaiveTweetPreprocessor naiveTweetPreprocessor = new NaiveTweetPreprocessor();
 
@@ -145,6 +150,66 @@ public class TweetAnalysis {
         log.info("Evaluation of a String: {}", content);
         log.info("positive: {}", fDistribution[1]);
         log.info("negative: {}\n", fDistribution[0]);
+    }
+
+
+    private static void tryMergeTweetIntoDataset(String string_to_match_into) throws Exception {
+        Instances original_instances = getARFFDataset("tttest.arff");
+        System.out.println("Original Instances before add: \n" + original_instances);
+        System.out.println("-------------------------------------");
+        System.out.println("-------------------------------------");
+
+        StringTokenizer my_tokenizer = new StringTokenizer(string_to_match_into, " ");
+
+        //create instance with same attributes but only one empty instance
+        Instances new_instances = new Instances(original_instances,1);
+        Instance inst = new Instance(new_instances.numAttributes());
+        inst.setDataset(new_instances);
+
+        //set the values to a zero value without the nominal
+        int j = 1;
+        while(j<new_instances.numAttributes()) {
+            inst.setValue(j, 0);
+            j++;
+        }
+
+        //run throu the new string an match to the attributes: set the presence to 1
+        while(my_tokenizer.hasMoreTokens()) {
+            String tmp = my_tokenizer.nextToken();
+            if(new_instances.attribute(tmp)!=null) //wenns die instance gibt
+                inst.setValue(new_instances.attribute(tmp), 1);
+        }
+        new_instances.add(inst);
+
+        //to sparse instance
+        NonSparseToSparse toSparseeee = new NonSparseToSparse();
+        toSparseeee.setInputFormat(new_instances);
+        Instances sparseInstances = Filter.useFilter(new_instances, toSparseeee);
+
+        //add to original instances
+        original_instances.add(sparseInstances.firstInstance());
+
+        System.out.println("instances with the added string: \n" + original_instances);
+
+        //ArffSaver blub = new ArffSaver();
+        //blub.setInstances(new_instances);
+        //blub.setFile(new File("new.arff"));
+        //blub.writeBatch();
+
+    }
+
+    private static Instances getARFFDataset(final String INPUT_FILE_DATASET) {
+        Instances dataset = null;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(INPUT_FILE_DATASET));
+            ArffLoader.ArffReader arff = new ArffLoader.ArffReader(reader);
+            dataset = arff.getData();
+            dataset.setClassIndex(1);
+        } catch (IOException ex) {
+            System.err.println("Exception in getARFFDataset: " + ex.getMessage());
+        }
+
+        return dataset;
     }
 
 
