@@ -17,8 +17,8 @@ public interface IClassifier {
      * x[0] is the probability of being “positive”
      * x[1] is the probability of being “negative”
      *
-     * @param tweet
-     * @return the liklehood of each class
+     * @param tweet the preprocessed Tweet
+     * @return the likelihood of each class
      */
     public double[] classifyTweet(Tweet tweet);
 
@@ -36,6 +36,10 @@ public interface IClassifier {
      */
     public void loadModel(String modelName);
 
-
+    /**
+     * Load a Model into the Classifier from the Filesystem
+     *
+     * @param modelStream the Path to the Stream
+     */
     void loadModel(InputStream modelStream);
 }

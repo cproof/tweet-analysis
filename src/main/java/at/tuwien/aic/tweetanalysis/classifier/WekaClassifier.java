@@ -17,9 +17,11 @@ import weka.core.tokenizers.NGramTokenizer;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 import weka.filters.unsupervised.attribute.StringToWordVector;
+import weka.filters.unsupervised.instance.NonSparseToSparse;
 
 import java.io.*;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  * The Weka-NaiveBayes-Classifier for Tweets
@@ -36,14 +38,13 @@ public class WekaClassifier implements IClassifier {
 
 
     public WekaClassifier() {
-
         //set dataset: vectorice with StringToWordVector and select attributes
         _trainingDataset = vectorised(getARFFDataset(_fileDataset));
         _trainingDataset = attributeSelectionFilter(_trainingDataset);
         _testingDataset = null;
 
-        //In this case we use NaiveBayes Classifier.
-        _classifier = (Classifier) new NaiveBayes();
+        //In this case we use SMO Classifier.
+        _classifier = (Classifier) new SMO();
         _classifier = trainAClassifier(_classifier,_trainingDataset);
 
         testClassifierWithFold(_classifier,_trainingDataset);
@@ -208,7 +209,6 @@ public class WekaClassifier implements IClassifier {
         return outputInstances;
     }
 
-
     /**
      * The Attribute Selection Filter for the Analysis
      *
@@ -231,9 +231,56 @@ public class WekaClassifier implements IClassifier {
         return trainingDataset;
     }
 
+
+    /**
+     * Takes a preprocessed String and matches into the given Trainingsdatastyle
+     *
+     * @param string_to_match_into The String so Tokenize and match into the Trainingsdata
+     * @param instances_dataset The instances to match into
+     * @return the String in the given Instances
+     */
+    private Instances mergeStringTweetIntoDataset(String string_to_match_into, Instances instances_dataset) throws Exception {
+
+        // Set the tokenizer (HAS TO BE THE SAME AS THE ONE FOR THE MODEL)
+        NGramTokenizer tokenizer = new NGramTokenizer();
+        tokenizer.setNGramMinSize(1);
+        tokenizer.setNGramMaxSize(2);
+        tokenizer.setDelimiters(" \n\t.,;:'\"()?!");
+        tokenizer.tokenize(string_to_match_into);
+
+        //create instance with same attributes but only one empty instance
+        Instances new_instances = new Instances(instances_dataset,1);
+        Instance inst = new Instance(new_instances.numAttributes());
+        inst.setDataset(new_instances);
+
+        //set the values to a zero value without the nominal
+        int j = 1;
+        while(j<new_instances.numAttributes()) {
+            inst.setValue(j, 0);
+            j++;
+        }
+
+        //run throu the new string an match to the attributes: set the presence to 1
+        while(tokenizer.hasMoreElements()) {
+            String tmp = tokenizer.nextElement().toString();
+            //System.out.println("Token: " + tmp);
+            if(new_instances.attribute(tmp)!=null) // if the instance exists
+                inst.setValue(new_instances.attribute(tmp), 1);
+        }
+        new_instances.add(inst);
+
+        // to sparse instance (saves dataspace)
+        NonSparseToSparse toSparseeee = new NonSparseToSparse();
+        toSparseeee.setInputFormat(new_instances);
+        Instances sparseInstances = Filter.useFilter(new_instances, toSparseeee);
+
+        return sparseInstances;
+    }
+
     @Override
     public double[] classifyTweet(Tweet tweet) {
 
+        /*
         //create the dataset manually (same as the input or the model)
         FastVector fvClassVal = new FastVector(2);
         fvClassVal.addElement("negative");
@@ -258,8 +305,11 @@ public class WekaClassifier implements IClassifier {
         inst.add(iExample);
 
         Instances new_inst = vectorised(inst);
+        */
+
         double[] fDistribution = new double[] {0.0,0.0};
         try {
+            Instances new_inst = mergeStringTweetIntoDataset(tweet.getContent(),_trainingDataset);
             fDistribution = _classifier.distributionForInstance(new_inst.firstInstance());
         } catch (Exception ex) {
             System.err.println("Exception using classifier: " + ex.getMessage());
