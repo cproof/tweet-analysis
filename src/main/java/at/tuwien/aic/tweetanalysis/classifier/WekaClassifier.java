@@ -7,21 +7,17 @@ import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.bayes.NaiveBayes;
 import weka.classifiers.functions.SMO;
-import weka.core.Attribute;
-import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
-import weka.core.converters.ArffLoader;
-import weka.core.converters.CSVLoader;
+import weka.core.converters.ConverterUtils;
 import weka.core.tokenizers.NGramTokenizer;
 import weka.filters.Filter;
 import weka.filters.supervised.attribute.AttributeSelection;
 import weka.filters.unsupervised.attribute.StringToWordVector;
 import weka.filters.unsupervised.instance.NonSparseToSparse;
 
-import java.io.*;
+import java.io.InputStream;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 /**
  * The Weka-NaiveBayes-Classifier for Tweets
@@ -30,91 +26,49 @@ import java.util.StringTokenizer;
  */
 public class WekaClassifier implements IClassifier {
 
-    private static final String _fileDataset = "src/main/resources/trainingData/processed-tweets.arff";
+    private static final String _fileDataset = "/trainingData/processed-tweets.arff";
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
     private Classifier _classifier = null;
 
 
-    public WekaClassifier() {
+    public WekaClassifier() throws Exception {
         //set dataset: vectorice with StringToWordVector and select attributes
-        _trainingDataset = vectorised(getARFFDataset(_fileDataset));
+        ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(WekaClassifier.class.getResourceAsStream(_fileDataset));
+
+        Instances dataSet = dataSource.getDataSet(1);
+        _trainingDataset = vectorised(dataSet);
         _trainingDataset = attributeSelectionFilter(_trainingDataset);
         _testingDataset = null;
 
         //In this case we use SMO Classifier.
-        _classifier = (Classifier) new SMO();
-        _classifier = trainAClassifier(_classifier,_trainingDataset);
+        _classifier = new SMO();
+        _classifier = trainAClassifier(_classifier, _trainingDataset);
 
-        testClassifierWithFold(_classifier,_trainingDataset);
+        testClassifierWithFold(_classifier, _trainingDataset);
     }
 
-    public WekaClassifier(String trainingDataset, String testingDataset) {
-        _trainingDataset = vectorised(getARFFDataset(trainingDataset));
+    public WekaClassifier(String trainingDataset, String testingDataset) throws Exception {
+        ConverterUtils.DataSource trainingDataSource =
+                new ConverterUtils.DataSource(WekaClassifier.class.getResourceAsStream(trainingDataset));
+        _trainingDataset = vectorised(trainingDataSource.getDataSet(1));
         _trainingDataset = attributeSelectionFilter(_trainingDataset);
 
-        _testingDataset = vectorised(getARFFDataset(testingDataset));
+        ConverterUtils.DataSource testingDataSource =
+                new ConverterUtils.DataSource(WekaClassifier.class.getResourceAsStream(testingDataset));
+        _testingDataset = vectorised(testingDataSource.getDataSet(1));
         _testingDataset = attributeSelectionFilter(_testingDataset);
 
         //In this case we use NaiveBayes Classifier.
-        _classifier = (Classifier) new NaiveBayes();
-        _classifier = trainAClassifier(_classifier,_trainingDataset);
+        _classifier = new NaiveBayes();
+        _classifier = trainAClassifier(_classifier, _trainingDataset);
 
-        testClassifier(_classifier,_trainingDataset,_testingDataset);
+        testClassifier(_classifier, _trainingDataset, _testingDataset);
     }
 
     public WekaClassifier(InputStream model) {
         loadModel(model);
-    }
-
-    /**
-     * Read in a new Dataset Instance from a CSV-File
-     *
-     * Example CSV-Content:
-     * Tweet,Sentiment
-     * "Atleast I'm happy with my fangirl life. :)",positive
-     * "#hate :(",negative
-     *
-     * @param INPUT_FILE_DATASET Path to the CSV-File
-     * @return the Dataset Instances
-     */
-    private Instances getCSVDataset(final String INPUT_FILE_DATASET) {
-
-        CSVLoader trainingLoader = new CSVLoader();
-        Instances dataset = null;
-
-        try {
-
-            trainingLoader.setSource(new File(INPUT_FILE_DATASET));
-            dataset = trainingLoader.getDataSet();
-            dataset.setClassIndex(1);
-        } catch (IOException ex) {
-            System.err.println("Exception in getCSVDataset: " + ex.getMessage());
-        }
-
-        return dataset;
-    }
-
-    /**
-     * Read in a new Dataset Instance from a ARFF-File
-     * @param INPUT_FILE_DATASET Path to the ARFF-File
-     * @return the Dataset Instances
-     */
-    private Instances getARFFDataset(final String INPUT_FILE_DATASET) {
-
-        Instances dataset = null;
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(INPUT_FILE_DATASET));
-            ArffLoader.ArffReader arff = new ArffLoader.ArffReader(reader);
-            dataset = arff.getData();
-            dataset.setClassIndex(1);
-        } catch (IOException ex) {
-            System.err.println("Exception in getARFFDataset: " + ex.getMessage());
-        }
-
-        return dataset;
     }
 
     /**
@@ -253,13 +207,10 @@ public class WekaClassifier implements IClassifier {
         Instance inst = new Instance(new_instances.numAttributes());
         inst.setDataset(new_instances);
 
-        //set the values to a zero value without the nominal
-        int j = 1;
-        while(j<new_instances.numAttributes()) {
-            inst.setValue(j, 0);
-            j++;
+        //set the values to a zero value without the nominal i.e. the last value
+        for (int i = 0; i < new_instances.numAttributes() - 1; i++) {
+            inst.setValue(i, 0);
         }
-
         //run throu the new string an match to the attributes: set the presence to 1
         while(tokenizer.hasMoreElements()) {
             String tmp = tokenizer.nextElement().toString();
