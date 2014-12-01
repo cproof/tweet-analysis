@@ -19,6 +19,8 @@ public class Tweet {
     private List<String> mentionedUsers = new LinkedList<>();
     private String author;
     private String language;
+
+    private String searchTerm;
     
     private Date timestamp;
     
@@ -31,7 +33,7 @@ public class Tweet {
         // only used for JSONTweetProvider
     }
 
-    public Tweet(long id, String content, List<String> hashtags, List<String> urls, List<String> mentionedUsers, String author, String language, Date timestamp, int retweetCount, int favoriteCount, GeoLocation location) {
+    public Tweet(long id, String content, List<String> hashtags, List<String> urls, List<String> mentionedUsers, String author, String language, String searchTerm, Date timestamp, int retweetCount, int favoriteCount, GeoLocation location) {
         this.id = id;
         this.content = content;
         this.hashtags = hashtags;
@@ -39,6 +41,7 @@ public class Tweet {
         this.mentionedUsers = mentionedUsers;
         this.author = author;
         this.language = language;
+        this.searchTerm = searchTerm;
         this.timestamp = timestamp;
         this.retweetCount = retweetCount;
         this.favoriteCount = favoriteCount;
@@ -199,7 +202,15 @@ public class Tweet {
     public void setLanguage(String language) {
         this.language = language;
     }
-    
+
+    public String getSearchTerm() {
+        return searchTerm;
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
+
     public class Location {
         private float latitude;
         private float longitude;

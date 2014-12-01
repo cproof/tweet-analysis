@@ -70,9 +70,12 @@ public class TweetProvider implements ITweetProvider {
             private int addTweetsToList(QueryResult result, List<Tweet> tweets, int fetched, int count) {
                 for (Status status : result.getTweets()) {
                     // do not add retweets and mentions
+                    String text = status.getText();
                     if (status.getRetweetedStatus() != null ||
-                        status.getInReplyToUserId() > 0 ||
-                        status.getText().charAt(0) == '@') continue;
+                            text.contains(" RT ")) continue;
+
+                    // todo: replace search term
+//                    text = text.replace(searchTerm, "SEARCH_TERM");
 
                     List<String> hashtags = new LinkedList<>();
                     List<String> urls = new LinkedList<>();
@@ -92,13 +95,13 @@ public class TweetProvider implements ITweetProvider {
 
                     tweets.add(new Tweet(
                             status.getId(),
-                            status.getText(),
+                            text,
                             hashtags,
                             urls,
                             mentionedUsers,
                             status.getUser().getScreenName(),
                             status.getLang(),
-                            status.getCreatedAt(),
+                            searchTerm, status.getCreatedAt(),
                             status.getRetweetCount(),
                             status.getFavoriteCount(),
                             status.getGeoLocation()
