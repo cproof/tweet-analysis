@@ -61,6 +61,16 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         //to lowercase
         content = content.toLowerCase();
 
+        // todo replace search term.
+//        String searchTerm = tweet.getSearchTerm();
+//        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+//
+//            searchTerm = searchTerm.replaceAll("\\)", "\\\\)");
+//            searchTerm = searchTerm.replaceAll("\\(", "\\\\(");
+//
+//            content = content.replaceAll(searchTerm.trim().toLowerCase(), "SEARCH_TERM");
+//        }
+
         content = replaceSmilies(content);
 
         //remove hash symbol from the content
@@ -158,6 +168,12 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         return urls;
     }
 
+    /**
+     * todo: maybe remove smilies completely and only save the number of positive and number of negative to the tweet for post processing
+     *
+     * @param input
+     * @return
+     */
     private String replaceSmilies(String input) {
         String output = input;
         if (output.matches(".*:-?\\({2,}.*|.*</3.*")) {
@@ -216,9 +232,9 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         int counter = 0;
         while (matcher.find()) {
             String group1 = matcher.group(1);
-            String group2 = matcher.group(2);
+            String group2 = matcher.group(2); // the single char that got repeated
             if (group1.length() > 2) {
-                output = output.replace(group1, group2);
+                output = output.replace(group1, group2 + group2 + group2);
                 counter++;
                 log.trace("Group1: {}, Group2: {}. {} -> {}", group1, group2, input, output);
             }

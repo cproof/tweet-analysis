@@ -163,10 +163,10 @@ public class NaiveTweetPreprocessorTest {
     @Test
     public void testReplaceConsecutiveLetters() {
         setContentAndProcess("heyyyyyyyyyyyyyyyyyyy youuuuuuuuuuuuuu");
-        assertThat(tweet.getContent(), equalTo("hey you " + ENLARGED_WORD.trim() + " " + ENLARGED_WORD.trim()));
+        assertThat(tweet.getContent(), equalTo("heyyy youuu " + ENLARGED_WORD.trim() + " " + ENLARGED_WORD.trim()));
 
         setContentAndProcess("wazuuuuuuuuuuuuuuuuup");
-        assertThat(tweet.getContent(), equalTo("wazup " + ENLARGED_WORD.trim()));
+        assertThat(tweet.getContent(), equalTo("wazuuup " + ENLARGED_WORD.trim()));
     }
 
     @Test
