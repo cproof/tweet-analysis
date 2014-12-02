@@ -28,6 +28,7 @@ import com.opencsv.CSVWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twitter4j.GeoLocation;
+import twitter4j.RateLimitStatus;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -115,6 +116,12 @@ public class TweetAnalysis {
     public String analyze(@Param(name="query", description="Twitter search query") String query,
                          @Param(name="count", description="Number of tweets to analyse") int count) throws Exception {
 
+        RateLimitStatus status = tweetProvider.getRateLimitStatus();
+        if(status != null && status.getRemaining() == 0) {
+            System.out.println("This application exceeded the Twitter API rate limiting." + (status != null ? " You have to wait ~" + status.getSecondsUntilReset() + " seconds until the next request can be made." : ""));
+            return null;
+        }
+
         Future<List<Tweet>> tweets = tweetProvider.getTweets(query, count);
         List<Tweet> tweetList = tweets.get();
 
@@ -133,6 +140,13 @@ public class TweetAnalysis {
     public String analyze(@Param(name="query", description="Twitter search query") String query,
                          @Param(name="count", description="Number of tweets to analyse") int count,
                          @Param(name="filters", description="{fulg} - filter tweets by: From date, Until date, Language, Geolocation") String filters) throws Exception {
+
+        RateLimitStatus status = tweetProvider.getRateLimitStatus();
+        if(status != null && status.getRemaining() == 0) {
+            System.out.println("This application exceeded the Twitter API rate limiting." + (status != null ? " You have to wait ~" + status.getSecondsUntilReset() + " seconds until the next request can be made." : ""));
+            return null;
+        }
+
         Date beginDate = null;
         Date endDate = null;
         String language = null;
