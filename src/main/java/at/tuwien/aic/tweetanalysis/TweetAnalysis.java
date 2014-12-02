@@ -55,7 +55,8 @@ public class TweetAnalysis {
     StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
 
     public TweetAnalysis() throws Exception {
-        classifier = loadClassifiedFromModel(true);
+//        classifier = loadClassifiedFromModel(true);
+        classifier = new WekaClassifier();
     }
 
     private static IClassifier loadClassifiedFromModel(boolean useSmilies) throws IOException {
@@ -229,7 +230,11 @@ public class TweetAnalysis {
         List<ClassifiedTweet> classifiedTweetList = new LinkedList<>();
 
         for (Tweet tweet : tweetList) {
-            classifiedTweetList.add(new ClassifiedTweet(tweet, classifier.classifyTweet(tweet)));
+            double[] fDistribution = classifier.classifyTweet(tweet);
+            if (filters.contains("d")) {
+                logResults(tweet, fDistribution, filters.contains("d+"));
+            }
+            classifiedTweetList.add(new ClassifiedTweet(tweet, fDistribution));
         }
 
         SimpleAggregator aggregator = new SimpleAggregator();
@@ -240,7 +245,7 @@ public class TweetAnalysis {
         shell = ShellFactory.createConsoleShell("", "Tweet Sentiment Analysis", new TweetAnalysis());
         shell.commandLoop();
 //        testClassifier();
-//        testLiveData(":(", 50);
+//        testLiveData("Nike", 50);
     }
     
     private static void testLiveData(String searchTerm, int count) throws Exception {
@@ -291,7 +296,7 @@ public class TweetAnalysis {
         standardTweetPreprocessor.preprocess(tweets);
         double[] fDistribution = tweetTest.classifyTweet(t);
 
-        logResults(t, fDistribution);
+        logResults(t, fDistribution, true);
     }
 
     private static void testClassifierOnTweets(List<Tweet> tweets) throws Exception {
@@ -308,16 +313,18 @@ public class TweetAnalysis {
         double[] fDistribution;
         for (Tweet tweet : tweets) {
             fDistribution = classifier.classifyTweet(tweet);
-            logResults(tweet, fDistribution);
+            logResults(tweet, fDistribution, true);
         }
     }
 
-    private static void logResults(Tweet tweet, double[] fDistribution) {
+    private static void logResults(Tweet tweet, double[] fDistribution, boolean verbose) {
         log.info("Evaluation of Tweet: {}", tweet.getOriginalContent().replace("\n", ""));
         log.info("Processed: {}", tweet.getContent());
         log.info("positive: {}", fDistribution[1]);
         log.info("negative: {}", fDistribution[0]);
-        log.info("feature-map: {}\n", tweet.getFeatureMap());
+        if (verbose) {
+            log.info("feature-map: {}\n", tweet.getFeatureMap());
+        }
     }
 
 }
