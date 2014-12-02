@@ -143,7 +143,7 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         return output;
     }
 
-    private HashMap<String, Double> generateFeatureHashMap() {
+    public static HashMap<String, Double> generateFeatureHashMapTemplate() {
         HashMap<String, Double> featureHashMap = new HashMap<>();
         featureHashMap.put(POSITIVE_SMILIES_FEATURE, 0.0);
         featureHashMap.put(NEGATIVE_SMILIES_FEATURE, 0.0);
@@ -163,7 +163,7 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
 
     @Override
     public Tweet preprocess(Tweet tweet) {
-        HashMap<String, Double> featureMap = generateFeatureHashMap();
+        HashMap<String, Double> featureMap = generateFeatureHashMapTemplate();
         String content = tweet.getContent();
 
         checkIfWordsAreAllCaps(content, featureMap);
