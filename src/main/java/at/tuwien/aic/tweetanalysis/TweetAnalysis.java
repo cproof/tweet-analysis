@@ -216,12 +216,14 @@ public class TweetAnalysis {
     public static void main(String[] args) throws Exception {
         shell = ShellFactory.createConsoleShell("", "Tweet Sentiment Analysis", new TweetAnalysis());
         shell.commandLoop();
+        //testClassifier();
+        //testLiveData();
     }
 
     private static void testLiveData() throws Exception {
         TweetProvider tweetProvider = new TweetProvider();
 
-        Future<List<Tweet>> tweets = tweetProvider.getTweets(":)", 20, null, null, "en", null, null);
+        Future<List<Tweet>> tweets = tweetProvider.getTweets("#happy", 20, null, null, "en", null, null);
 
         List<Tweet> tweetList = tweets.get();
 
