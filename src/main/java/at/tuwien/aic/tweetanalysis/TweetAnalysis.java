@@ -31,10 +31,12 @@ import org.slf4j.LoggerFactory;
 import twitter4j.GeoLocation;
 import twitter4j.RateLimitStatus;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 /**
@@ -49,10 +51,31 @@ public class TweetAnalysis {
     public static Shell shell = null;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     TweetProvider tweetProvider = new TweetProvider();
-    IClassifier classifier = new WekaClassifier();
+    IClassifier classifier;
     StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
 
-    public TweetAnalysis() throws Exception { }
+    public TweetAnalysis() throws Exception {
+        classifier = loadClassifiedFromModel(true);
+    }
+
+    private static IClassifier loadClassifiedFromModel(boolean useSmilies) throws IOException {
+        IClassifier tweetTest;
+
+        String modelName = "/trainingData/tweet-model_new_smo";
+        String trainingInstancesName = "/trainingData/trainData_our_bigramme_selected";
+        if (useSmilies) {
+            modelName += "_smilies";
+            trainingInstancesName += "_smilies";
+        }
+        modelName += ".model";
+        trainingInstancesName += ".arff";
+        try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream(modelName);
+             InputStream instancesStream = TweetAnalysis.class.getResourceAsStream(trainingInstancesName)) {
+            tweetTest = new WekaClassifier(modelStream, instancesStream, useSmilies ? 782 : 780);
+        }
+        return tweetTest;
+    }
+
 
     private boolean correctDate(String date, Date fromDate) {
         try {
@@ -216,8 +239,8 @@ public class TweetAnalysis {
     public static void main(String[] args) throws Exception {
         shell = ShellFactory.createConsoleShell("", "Tweet Sentiment Analysis", new TweetAnalysis());
         shell.commandLoop();
-        //testClassifier();
-        //testLiveData();
+//        testClassifier();
+//        testLiveData(":(", 50);
     }
     
     private static void testLiveData(String searchTerm, int count) throws Exception {
@@ -252,11 +275,8 @@ public class TweetAnalysis {
 
     private static void testClassifier() throws Exception {
         IClassifier tweetTest;
-        // TODO:this doesnt work at the moment!
-        //try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream("/fff1.model")) {
-        //    tweetTest = new WekaClassifier(modelStream);
-        //}
-        tweetTest = new WekaClassifier();
+        tweetTest = loadClassifiedFromModel(false);
+//        tweetTest = new WekaClassifier();
 
         // Use the Classifier to evaluate a Tweet
         Tweet t = new Tweet();
@@ -277,10 +297,8 @@ public class TweetAnalysis {
     private static void testClassifierOnTweets(List<Tweet> tweets) throws Exception {
         /* load model from file */
         IClassifier classifier;
-//        try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream("/trainingData/tweet-model.model")) {
-//            classifier = new WekaClassifier(modelStream);
-//        }
-        classifier = new WekaClassifier();
+        classifier = loadClassifiedFromModel(true);
+//        classifier = new WekaClassifier();
 
         /* preprocess tweets */
         StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
