@@ -1,6 +1,8 @@
 package at.tuwien.aic.tweetanalysis.classifier;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import weka.attributeSelection.ChiSquaredAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
@@ -26,24 +28,30 @@ import java.util.Random;
  */
 public class WekaClassifier implements IClassifier {
 
+    public static final Logger log = LoggerFactory.getLogger(WekaClassifier.class);
+
     private static final String _fileDataset = "/trainingData/processed-tweets.arff";
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
-    private Classifier _classifier = null;
+    private SMO _classifier = null;
+    private NGramTokenizer _tokenizer = null;
 
 
     public WekaClassifier() throws Exception {
         //set dataset: vectorice with StringToWordVector and select attributes
         ConverterUtils.DataSource dataSource = new ConverterUtils.DataSource(WekaClassifier.class.getResourceAsStream(_fileDataset));
 
+        _tokenizer = initTheTokenizer(); //init the tokenizer
+
         Instances dataSet = dataSource.getDataSet(1);
         _trainingDataset = vectorised(dataSet);
         _trainingDataset = attributeSelectionFilter(_trainingDataset);
         _testingDataset = null;
 
-        //In this case we use SMO Classifier.
+        // In this case we use SMO Classifier. (for Support Vector Machines)
         _classifier = new SMO();
+        _classifier.setBuildLogisticModels(true); // classify instance returns the probability
         _classifier = trainAClassifier(_classifier, _trainingDataset);
 
         testClassifierWithFold(_classifier, _trainingDataset);
@@ -52,6 +60,9 @@ public class WekaClassifier implements IClassifier {
     public WekaClassifier(String trainingDataset, String testingDataset) throws Exception {
         ConverterUtils.DataSource trainingDataSource =
                 new ConverterUtils.DataSource(WekaClassifier.class.getResourceAsStream(trainingDataset));
+
+        _tokenizer = initTheTokenizer(); //init the tokenizer
+
         _trainingDataset = vectorised(trainingDataSource.getDataSet(1));
         _trainingDataset = attributeSelectionFilter(_trainingDataset);
 
@@ -60,16 +71,20 @@ public class WekaClassifier implements IClassifier {
         _testingDataset = vectorised(testingDataSource.getDataSet(1));
         _testingDataset = attributeSelectionFilter(_testingDataset);
 
-        //In this case we use NaiveBayes Classifier.
-        _classifier = new NaiveBayes();
+        // In this case we use SMO Classifier. (for Support Vector Machines)
+        _classifier = new SMO();
+        _classifier.setBuildLogisticModels(true); // classify instance returns the probability
         _classifier = trainAClassifier(_classifier, _trainingDataset);
 
         testClassifier(_classifier, _trainingDataset, _testingDataset);
     }
 
+    /*
+    TODO: this doesnt work at the time
     public WekaClassifier(InputStream model) {
         loadModel(model);
     }
+    */
 
     /**
      * Train the Classifier with a training data set
@@ -78,7 +93,7 @@ public class WekaClassifier implements IClassifier {
      * @param trainingdataset the training Dataset
      * @return the trained Classifier
     */
-    private Classifier trainAClassifier(Classifier classifier, Instances trainingdataset) {
+    private SMO trainAClassifier(SMO classifier, Instances trainingdataset) {
         try {
             classifier.buildClassifier(trainingdataset);
         } catch (Exception ex) {
@@ -94,7 +109,7 @@ public class WekaClassifier implements IClassifier {
      * @param trainingData the training Dataset
      * @param testingData the testing Dataset
      */
-    private void testClassifier(Classifier classifier, Instances trainingData, Instances testingData) {
+    private void testClassifier(SMO classifier, Instances trainingData, Instances testingData) {
         try {
             Evaluation eval = new Evaluation(trainingData);
 
@@ -113,19 +128,28 @@ public class WekaClassifier implements IClassifier {
      * @param classifier The Classifier
      * @param trainingData the training Dataset
      */
-    private void testClassifierWithFold(Classifier classifier, Instances trainingData) {
+    private void testClassifierWithFold(SMO classifier, Instances trainingData) {
         try {
             Evaluation eval = new Evaluation(trainingData);
             Random rand = new Random(1); // using seed = 1
             int folds = 10;
             eval.crossValidateModel(classifier, trainingData, folds, rand);
 
-            System.out.println(eval.toSummaryString("\nResults\n======\n", false));
-            System.out.println(eval.toMatrixString());
+            log.info(eval.toSummaryString("\nResults\n======\n", false));
+            log.info(eval.toMatrixString());
 
         } catch (Exception ex) {
             System.err.println("Exception testing the Classifier: " + ex.getMessage());
         }
+    }
+
+    private NGramTokenizer initTheTokenizer() {
+        // Set the tokenizer
+        NGramTokenizer tokenizer = new NGramTokenizer();
+        tokenizer.setNGramMinSize(1);
+        tokenizer.setNGramMaxSize(2);
+        tokenizer.setDelimiters(" \n\t.,;:'\"()?!");
+        return tokenizer;
     }
 
     /**
@@ -136,18 +160,12 @@ public class WekaClassifier implements IClassifier {
      */
     private Instances vectorised(Instances input_instances) {
 
-        // Set the tokenizer
-        NGramTokenizer tokenizer = new NGramTokenizer();
-        tokenizer.setNGramMinSize(1);
-        tokenizer.setNGramMaxSize(2);
-        tokenizer.setDelimiters(" \n\t.,;:'\"()?!");
-
         // Set the filter
         StringToWordVector filter = new StringToWordVector();
         try {
             filter.setInputFormat(input_instances);
             filter.setAttributeIndices("first");
-            filter.setTokenizer(tokenizer);
+            filter.setTokenizer(_tokenizer);
             filter.setWordsToKeep(10000);
             filter.setMinTermFreq(1);
         } catch (Exception e) {
@@ -187,20 +205,16 @@ public class WekaClassifier implements IClassifier {
 
 
     /**
-     * Takes a preprocessed String and matches into the given Trainingsdatastyle
+     * Takes a preprocessed String and matches into the given trainingsdata-space
      *
-     * @param string_to_match_into The String so Tokenize and match into the Trainingsdata
-     * @param instances_dataset The instances to match into
-     * @return the String in the given Instances
+     * @param string_to_match_into The String so Tokenize and match into the trainingsdata-space
+     * @param instances_dataset The instances-space to match into
+     * @return the String in the given instances-space
      */
     private Instances mergeStringTweetIntoDataset(String string_to_match_into, Instances instances_dataset) throws Exception {
 
-        // Set the tokenizer (HAS TO BE THE SAME AS THE ONE FOR THE MODEL)
-        NGramTokenizer tokenizer = new NGramTokenizer();
-        tokenizer.setNGramMinSize(1);
-        tokenizer.setNGramMaxSize(2);
-        tokenizer.setDelimiters(" \n\t.,;:'\"()?!");
-        tokenizer.tokenize(string_to_match_into);
+        // use the tokenizer (HAS TO BE THE SAME AS THE ONE FOR THE MODEL)
+        _tokenizer.tokenize(string_to_match_into);
 
         //create instance with same attributes but only one empty instance
         Instances new_instances = new Instances(instances_dataset,1);
@@ -212,8 +226,8 @@ public class WekaClassifier implements IClassifier {
             inst.setValue(i, 0);
         }
         //run throu the new string an match to the attributes: set the presence to 1
-        while(tokenizer.hasMoreElements()) {
-            String tmp = tokenizer.nextElement().toString();
+        while(_tokenizer.hasMoreElements()) {
+            String tmp = _tokenizer.nextElement().toString();
             //System.out.println("Token: " + tmp);
             if(new_instances.attribute(tmp)!=null) // if the instance exists
                 inst.setValue(new_instances.attribute(tmp), 1);
@@ -281,7 +295,7 @@ public class WekaClassifier implements IClassifier {
     @Override
     public void loadModel(String modelName) {
         try {
-            this._classifier = (NaiveBayes) weka.core.SerializationHelper.read(modelName);
+            this._classifier = (SMO) weka.core.SerializationHelper.read(modelName);
         } catch (Exception ex) {
             System.err.println("Exception loading the Model: " + ex.getMessage());
         }
@@ -290,7 +304,7 @@ public class WekaClassifier implements IClassifier {
     @Override
     public void loadModel(InputStream modelStream) {
         try {
-            this._classifier = (Classifier) weka.core.SerializationHelper.read(modelStream);
+            this._classifier = (SMO) weka.core.SerializationHelper.read(modelStream);
         } catch (Exception ex) {
             System.err.println("Exception loading the Model: " + ex.getMessage());
         }

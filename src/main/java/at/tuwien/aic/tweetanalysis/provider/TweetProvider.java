@@ -2,24 +2,40 @@ package at.tuwien.aic.tweetanalysis.provider;
 
 import at.tuwien.aic.tweetanalysis.Utils;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import twitter4j.*;
+import twitter4j.LoggerFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class TweetProvider implements ITweetProvider {
-
-    public static final org.slf4j.Logger log = LoggerFactory.getLogger(TweetProvider.class);
-
+    public static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(TweetProvider.class);
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private final Twitter twitter;
+
+    public TweetProvider() {
+        ITwitterCredentials creds = new TwitterCredentials();
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setOAuthConsumerKey(creds.getConsumerKey())
+                .setOAuthConsumerSecret(creds.getConsumerSecret())
+                .setOAuthAccessToken(creds.getAccessToken())
+                .setOAuthAccessTokenSecret(creds.getAccessTokenSecret());
+        TwitterFactory tf = new TwitterFactory(cb.build());
+        twitter = tf.getInstance();
+    }
+
+    public RateLimitStatus getRateLimitStatus() {
+        try {
+            return twitter.getRateLimitStatus("search").get("/search/tweets");
+        } catch(TwitterException e) {
+            return null;
+        }
+    }
 
     @Override
     public Future<List<Tweet>> getTweets(final String searchTerm, final int count, final Date beginTime, final Date endTime, final String language, final GeoLocation location, final Double radius) {
@@ -28,21 +44,11 @@ public class TweetProvider implements ITweetProvider {
             @Override
             public List<Tweet> call() throws IOException, TwitterException {
                 List<Tweet> tweets = new LinkedList<>();
-                ITwitterCredentials creds = new TwitterCredentials();
                 int fetched = 0;
                 int pages_done = 0;
                 final int MAX_PAGES_TO_TRY = 1000;
 
                 try {
-
-                    ConfigurationBuilder cb = new ConfigurationBuilder();
-                    cb.setOAuthConsumerKey(creds.getConsumerKey())
-                            .setOAuthConsumerSecret(creds.getConsumerSecret())
-                            .setOAuthAccessToken(creds.getAccessToken())
-                            .setOAuthAccessTokenSecret(creds.getAccessTokenSecret());
-                    TwitterFactory tf = new TwitterFactory(cb.build());
-                    Twitter twitter = tf.getInstance();
-
                     Query query = new Query(searchTerm);
                     query.setResultType(Query.ResultType.recent);
                     if (beginTime != null) { query.setSince(dateFormat.format(beginTime)); }
@@ -67,7 +73,12 @@ public class TweetProvider implements ITweetProvider {
                             (query = result.nextQuery()) != null);
 
                 } catch(TwitterException e) {
-                    System.out.println("TwitterException: " + e.getMessage());
+                    log.warn("TwitterException: " + e.getMessage());
+
+                    if(e.exceededRateLimitation()) {
+                        RateLimitStatus status = e.getRateLimitStatus();
+                        System.out.println("This application exceeded the Twitter API rate limiting while fetching tweets." + (status != null ? " You have to wait ~" + status.getSecondsUntilReset() + " seconds until the next request can be made." : ""));
+                    }
                 }
 
                 return tweets;
@@ -121,17 +132,13 @@ public class TweetProvider implements ITweetProvider {
 
                     fetched++;
 
-                    if(fetched >= count) break;
+                    if (fetched >= count) break;
 
                 }
 
                 return fetched;
             }
-
-
-
         };
-
 
         return executor.submit(task);
     }

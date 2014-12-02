@@ -18,6 +18,9 @@
     </appender>
 
     <logger name="twitter4j" level="INFO" />
+    <logger name="at.tuwien.aic.tweetanalysis.preprocessing" level="INFO" />
+    <logger name="at.tuwien.aic.tweetanalysis.provider" level="ERROR" />
+    <logger name="at.tuwien.aic.tweetanalysis.classifier" level="WARN" />
 
     <root level="trace">
         <appender-ref ref="STDOUT" />
