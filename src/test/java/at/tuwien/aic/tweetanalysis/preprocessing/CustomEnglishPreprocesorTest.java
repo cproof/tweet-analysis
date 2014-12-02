@@ -7,12 +7,12 @@
 package at.tuwien.aic.tweetanalysis.preprocessing;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
-import java.util.List;
-import static org.hamcrest.core.IsEqual.equalTo;
 import org.junit.After;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -44,13 +44,13 @@ public class CustomEnglishPreprocesorTest {
     @Test
     public void testHandleNegations() {
         setContentAndProcess("not cool bro");
-        assertThat(tweet.getContent(), equalTo("not not-cool bro"));
+        assertThat(tweet.getContent(), equalTo("not not_cool bro"));
 
         setContentAndProcess("wow not cool");
-        assertThat(tweet.getContent(), equalTo("wow not not-cool"));
+        assertThat(tweet.getContent(), equalTo("wow not not_cool"));
 
         setContentAndProcess("like not");
-        assertThat(tweet.getContent(), equalTo("not-like not"));
+        assertThat(tweet.getContent(), equalTo("not_like not"));
 
         setContentAndProcess("! not !");
         assertThat(tweet.getContent(), equalTo("! not !"));
@@ -59,16 +59,19 @@ public class CustomEnglishPreprocesorTest {
         assertThat(tweet.getContent(), equalTo("not"));
 
         setContentAndProcess("don't like it");
-        assertThat(tweet.getContent(), equalTo("do not not-like it"));
+        assertThat(tweet.getContent(), equalTo("do not not_like it"));
 
         setContentAndProcess("no likely");
-        assertThat(tweet.getContent(), equalTo("no not-likely"));
+        assertThat(tweet.getContent(), equalTo("no not_likely"));
 
         setContentAndProcess("not not cool");
-        assertThat(tweet.getContent(), equalTo("not not not-cool"));
+        assertThat(tweet.getContent(), equalTo("not not not_cool"));
 
         setContentAndProcess("i don't like that");
-        assertThat(tweet.getContent(), equalTo("i do not not-like that")); // not really optimal
+        assertThat(tweet.getContent(), equalTo("i do not not_like that")); // not really optimal
+
+        setContentAndProcess("not yet, we hopefully will make one soon :)");
+        assertThat(tweet.getContent(), equalTo("not not_yet, we hopefully will make one soon :)"));
     }
 
     

@@ -3,6 +3,7 @@ package at.tuwien.aic.tweetanalysis.entities;
 import twitter4j.GeoLocation;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,12 +12,14 @@ import java.util.List;
  * @author Thomas
  */
 public class Tweet {
+    private final String originalContent;
     private long id;
     
     private String content;
     private List<String> hashtags = new LinkedList<>();
     private List<String> urls = new LinkedList<>();
     private List<String> mentionedUsers = new LinkedList<>();
+    private HashMap<String, Double> featureMap = new HashMap<>();
     private String author;
     private String language;
 
@@ -31,11 +34,13 @@ public class Tweet {
 
     public Tweet() {
         // only used for JSONTweetProvider
+        originalContent = "";
     }
 
     public Tweet(long id, String content, List<String> hashtags, List<String> urls, List<String> mentionedUsers, String author, String language, String searchTerm, Date timestamp, int retweetCount, int favoriteCount, GeoLocation location) {
         this.id = id;
         this.content = content;
+        originalContent = this.content;
         this.hashtags = hashtags;
         this.urls = urls;
         this.mentionedUsers = mentionedUsers;
@@ -211,13 +216,20 @@ public class Tweet {
         this.searchTerm = searchTerm;
     }
 
-    public class Location {
-        private float latitude;
-        private float longitude;
+    public HashMap<String, Double> getFeatureMap() {
+        return featureMap;
+    }
+
+    public void setFeatureMap(HashMap<String, Double> featureMap) {
+        this.featureMap = featureMap;
     }
     
     @Override
     public String toString() {
         return "@" + this.getAuthor() + ": " + this.getContent();
+    }
+
+    public String getOriginalContent() {
+        return originalContent;
     }
 }

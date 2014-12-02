@@ -90,9 +90,9 @@ public class CustomEnglishPreprocesor implements ITweetPreprocessor {
             if (!group2.isEmpty()) {
                 /* handle special case */
                 // todo: implement special case like inverting tags
-                fullString = fullString.replace(group2, "not-" + group2);
+                fullString = fullString.replace(group2, "not_" + group2);
             } else if (!group1.isEmpty()) {
-                fullString = fullString.replace(group1, "not-" + group1);
+                fullString = fullString.replace(group1, "not_" + group1);
             }
             output = output.replace(matcher.group(0), fullString);
             log.trace("Group1: '{}', Group2: '{}'. '{}' -> '{}'", group1, group2, matcher.group(0), fullString);

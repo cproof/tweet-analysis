@@ -4,12 +4,16 @@
 package at.tuwien.aic.tweetanalysis.preprocessing;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
-import java.util.LinkedList;
-import java.util.List;
+import org.hamcrest.core.IsEqual;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -17,20 +21,27 @@ import static org.junit.Assert.*;
  */
 public class SnowballPreprocessorTest {
     private ITweetPreprocessor preprocessor;
-    
-    
+    private Tweet tweet;
+
+
     public SnowballPreprocessorTest() {
     }
     
     @Before
     public void setUp() {
-        this.preprocessor = new SnowballPreprocessor();
+        preprocessor = new SnowballPreprocessor();
+        tweet = new Tweet();
     }
     
     @After
     public void tearDown() {
     }
 
+    private void setContentAndProcess(String content) {
+        tweet.setContent(content);
+        tweet.setLanguage("en");
+        preprocessor.preprocess(tweet);
+    }
 
     /**
      * Test of preprocess method, of class SnowballPreprocessor.
@@ -73,6 +84,12 @@ public class SnowballPreprocessorTest {
         this.preprocessor.preprocess(tweets);
 
         assertEquals(t.getContent(), special);
+    }
+
+    @Test
+    public void testStemming() {
+        setContentAndProcess("this is not not-like");
+        assertThat(tweet.getContent(), IsEqual.equalTo("this is not not-lik"));
     }
     
 }

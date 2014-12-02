@@ -46,9 +46,11 @@ public class TweetAnalysis {
         System.out.println("WEKA Test!");
 
 //        testClassifier();
-        testLiveData();
-//        getLiveData();
-
+        testLiveData(":)", 200);
+//        TweetProvider tweetProvider = new TweetProvider();
+//        getLiveData(":)", 300, "positive", "pos1.csv", true, false, tweetProvider);
+//        getLiveData(":(", 300, "negative", "neg1.csv", true, false, tweetProvider);
+//        tweetProvider.shutdown();
 //        NaiveTweetPreprocessor naiveTweetPreprocessor = new NaiveTweetPreprocessor();
 //        log.trace("{}", naiveTweetPreprocessor);
 
@@ -63,10 +65,10 @@ public class TweetAnalysis {
         // System.out.println("Got " + tweets.size() + " tweets");
     }
 
-    private static void testLiveData() throws Exception {
+    private static void testLiveData(String searchTerm, int count) throws Exception {
         TweetProvider tweetProvider = new TweetProvider();
 
-        Future<List<Tweet>> tweets = tweetProvider.getTweets(":)", 20, null, null, "en", null, null);
+        Future<List<Tweet>> tweets = tweetProvider.getTweets(searchTerm, count);
 
         List<Tweet> tweetList = tweets.get();
 
@@ -75,24 +77,22 @@ public class TweetAnalysis {
         tweetProvider.shutdown();
     }
 
-    private static void getLiveData() throws Exception {
-
-        TweetProvider tweetProvider = new TweetProvider();
-
-        Future<List<Tweet>> tweets = tweetProvider.getTweets(":D", 200, null, null, "en", null, null);
+    private static void getLiveData(String searchTerm, int count, String sentiment, String fileName, boolean append, boolean writeHeader, TweetProvider tweetProvider) throws Exception {
+        Future<List<Tweet>> tweets = tweetProvider.getTweets(searchTerm, count);
         List<Tweet> tweetList = tweets.get();
 
-        try (CSVWriter csvOutput = new CSVWriter(new BufferedWriter(new FileWriter("pos.csv")))) {
-            csvOutput.writeNext(new String[]{"Tweet", "Sentiment"}, false);
+        try (CSVWriter csvOutput = new CSVWriter(new BufferedWriter(new FileWriter(fileName, append)))) {
+            if (writeHeader) {
+                csvOutput.writeNext(new String[]{"Tweet", "Sentiment"}, false);
+            }
 
             for (Tweet tweet : tweetList) {
                 String z = tweet.getContent();
                 z = z.replace("\n", "");
 
-                csvOutput.writeNext(new String[]{z, "positive"}, false);
+                csvOutput.writeNext(new String[]{z, sentiment}, true);
             }
         }
-        tweetProvider.shutdown();
     }
 
     private static void testClassifier() throws Exception {
@@ -116,7 +116,7 @@ public class TweetAnalysis {
         standardTweetPreprocessor.preprocess(tweets);
         double[] fDistribution = tweetTest.classifyTweet(t);
 
-        logResults(t.getContent(), fDistribution);
+        logResults(t, fDistribution);
     }
 
     private static void testClassifierOnTweets(List<Tweet> tweets) throws Exception {
@@ -135,14 +135,16 @@ public class TweetAnalysis {
         double[] fDistribution;
         for (Tweet tweet : tweets) {
             fDistribution = classifier.classifyTweet(tweet);
-            logResults(tweet.getContent(), fDistribution);
+            logResults(tweet, fDistribution);
         }
     }
 
-    private static void logResults(String content, double[] fDistribution) {
-        log.info("Evaluation of a String: {}", content);
+    private static void logResults(Tweet tweet, double[] fDistribution) {
+        log.info("Evaluation of Tweet: {}", tweet.getOriginalContent().replace("\n", ""));
+        log.info("Processed: {}", tweet.getContent());
         log.info("positive: {}", fDistribution[1]);
-        log.info("negative: {}\n", fDistribution[0]);
+        log.info("negative: {}", fDistribution[0]);
+        log.info("feature-map: {}\n", tweet.getFeatureMap());
     }
 
 }

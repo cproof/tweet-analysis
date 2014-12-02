@@ -33,6 +33,48 @@ public class NaiveTweetPreprocessorTest {
         preprocessor.preprocess(tweet);
     }
 
+    private void assertFeatureValue(String featureName, double value) {
+        assertThat(tweet.getFeatureMap().get(featureName), equalTo(value));
+    }
+
+    @Test
+    public void testAllCapsChecks() {
+        setContentAndProcess("WHAT UP?!");
+        assertFeatureValue(ALL_CAPS_FEATURE, 1.0);
+        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 1.0);
+
+        setContentAndProcess("WHAT Up?");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 1.0);
+
+        setContentAndProcess("THIs is cool");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+
+        setContentAndProcess("@YO this is cool");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+
+        setContentAndProcess("I HATE IT");
+        assertFeatureValue(ALL_CAPS_FEATURE, 1.0);
+        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 1.0);
+    }
+
+    @Test
+    public void testAllCapsIgnoredValues() {
+        setContentAndProcess("I");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+
+        setContentAndProcess("DM");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+
+        setContentAndProcess("I DM");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+    }
+
     @Test
     public void testNormaliseSpaces() {
         setContentAndProcess("this contains spaces    ! too much  yes");
@@ -42,57 +84,101 @@ public class NaiveTweetPreprocessorTest {
         assertThat(tweet.getContent(), equalTo("what is happening !"));
     }
 
+//    public void testNoMentions() {
+//        setContentAndProcess("@me is so cool!");
+//        assertThat(tweet.getContent(), equalTo("is so cool!"));
+//
+//        setContentAndProcess("@me is so cool @yeah!");
+//        assertThat(tweet.getContent(), equalTo("is so cool !"));
+//
+//        setContentAndProcess("@me@and@not@you@go@away content");
+//        assertThat(tweet.getContent(), equalTo("content"));
+//    }
+
     @Test
-    public void testNoMentions() {
-        setContentAndProcess("@me is so cool!");
-        assertThat(tweet.getContent(), equalTo("is so cool!"));
+    public void testReplacedMentions() {
+        setContentAndProcess("look at this @superawesomeperson");
+        assertThat(tweet.getContent(), equalTo("look at this MENTION"));
 
-        setContentAndProcess("@me is so cool @yeah!");
-        assertThat(tweet.getContent(), equalTo("is so cool !"));
+        setContentAndProcess("look at this @superawesomeperson@anotherperson");
+        assertThat(tweet.getContent(), equalTo("look at this MENTION MENTION"));
 
-        setContentAndProcess("@me@and@not@you@go@away content");
-        assertThat(tweet.getContent(), equalTo("content"));
+        setContentAndProcess("look at this @superawesomeperson @anotherperson!");
+        assertThat(tweet.getContent(), equalTo("look at this MENTION MENTION !"));
     }
 
-    /**
-     * Test of preprocess method, of class NaiveTweetPreprocessor.
-     */
+//    /**
+//     * Test of preprocess method, of class NaiveTweetPreprocessor.
+//     */
+//    @Test
+//    public void testPreprocessSmilies() {
+//        setContentAndProcess("This is a tweet containing smilies like :)");
+//        assertTrue(tweet.getContent().contains("POSITIVESMILE"));
+//
+//        setContentAndProcess("This is a tweet containing smilies like :-)");
+//        assertTrue(tweet.getContent().contains("POSITIVESMILE"));
+//
+//        setContentAndProcess("This is a tweet :( containing smilies like :( :(");
+//        assertTrue(tweet.getContent().contains("NEGATIVESMILE"));
+//        assertFalse(tweet.getContent().contains(":("));
+//
+//        setContentAndProcess("This is a tweet containing smilies like :-(");
+//        assertTrue(tweet.getContent().contains("NEGATIVESMILE"));
+//
+//        setContentAndProcess("This is a tweet containing smilies like :-( or :-)");
+//        assertTrue(tweet.getContent().contains("NEGATIVESMILE"));
+//        assertTrue(tweet.getContent().contains("POSITIVESMILE"));
+
+//        setContentAndProcess(": )");
+//        assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim()));
+//
+//        setContentAndProcess(": (");
+//        assertThat(tweet.getContent(), equalTo(NEGATIVE_SMILE.trim()));
+//
+//        setContentAndProcess("<3");
+//        assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim() + " " + ENLARGED_POSITIVE_SMILE.trim()));
+//
+//        setContentAndProcess("</3 lol");
+//        assertThat(tweet.getContent(), equalTo(NEGATIVE_SMILE.trim() + " lol " + ENLARGED_NEGATIVE_SMILE.trim()));
+//
+//        setContentAndProcess("♥ bb");
+//        assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim() + " bb " + ENLARGED_POSITIVE_SMILE.trim()));
+//
+//        setContentAndProcess(":(:");
+//        assertThat(tweet.getContent(), equalTo(NEGATIVE_SMILE.trim() + " :"));
+//    }
+
     @Test
-    public void testPreprocessSmilies() {
-        setContentAndProcess("This is a tweet containing smilies like :)");
-        assertTrue(tweet.getContent().contains("POSITIVESMILE"));
+    public void testRemovedSmilies() {
+        setContentAndProcess(":-)");
+        assertThat(tweet.getContent(), equalTo(""));
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 1.0);
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 0.0);
 
-        setContentAndProcess("This is a tweet containing smilies like :-)");
-        assertTrue(tweet.getContent().contains("POSITIVESMILE"));
-
-        setContentAndProcess("This is a tweet :( containing smilies like :( :(");
-        assertTrue(tweet.getContent().contains("NEGATIVESMILE"));
-        assertFalse(tweet.getContent().contains(":("));
-
-        setContentAndProcess("This is a tweet containing smilies like :-(");
-        assertTrue(tweet.getContent().contains("NEGATIVESMILE"));
-
-        setContentAndProcess("This is a tweet containing smilies like :-( or :-)");
-        assertTrue(tweet.getContent().contains("NEGATIVESMILE"));
-        assertTrue(tweet.getContent().contains("POSITIVESMILE"));
-
-        setContentAndProcess(": )");
-        assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim()));
-
-        setContentAndProcess(": (");
-        assertThat(tweet.getContent(), equalTo(NEGATIVE_SMILE.trim()));
-
-        setContentAndProcess("<3");
-        assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim() + " " + ENLARGED_POSITIVE_SMILE.trim()));
-
-        setContentAndProcess("</3 lol");
-        assertThat(tweet.getContent(), equalTo(NEGATIVE_SMILE.trim() + " lol " + ENLARGED_NEGATIVE_SMILE.trim()));
-
-        setContentAndProcess("♥ bb");
-        assertThat(tweet.getContent(), equalTo(POSITIVE_SMILE.trim() + " bb " + ENLARGED_POSITIVE_SMILE.trim()));
+        setContentAndProcess(":-(");
+        assertThat(tweet.getContent(), equalTo(""));
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 1.0);
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 0.0);
 
         setContentAndProcess(":(:");
-        assertThat(tweet.getContent(), equalTo(NEGATIVE_SMILE.trim() + " :"));
+        assertThat(tweet.getContent(), equalTo(":"));
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 1.0); // todo: not so good
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 0.0);
+    }
+
+    @Test
+    public void testRemovedElongatedSmilies() {
+        setContentAndProcess(":)))))))))))))))");
+        assertThat(tweet.getContent(), equalTo(""));
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 1.5);
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 0.0);
+        assertFeatureValue(ENLARGED_WORD_COUNT_FEATURE, 0.0);
+
+        setContentAndProcess(":((((((((((((((((((((((((((((((((((((((((((((");
+        assertThat(tweet.getContent(), equalTo(""));
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 1.5);
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 0.0);
+        assertFeatureValue(ENLARGED_WORD_COUNT_FEATURE, 0.0);
     }
 
     @Test
@@ -163,10 +249,24 @@ public class NaiveTweetPreprocessorTest {
     @Test
     public void testReplaceConsecutiveLetters() {
         setContentAndProcess("heyyyyyyyyyyyyyyyyyyy youuuuuuuuuuuuuu");
-        assertThat(tweet.getContent(), equalTo("heyyy youuu " + ENLARGED_WORD.trim() + " " + ENLARGED_WORD.trim()));
+        assertThat(tweet.getContent(), equalTo("heyyy youuu"));
+        assertFeatureValue(ENLARGED_WORD_COUNT_FEATURE, 2.0);
+
+        setContentAndProcess("heyyyyyy yyyyyyyyyyyyy");
+        assertThat(tweet.getContent(), equalTo("heyyy yyy"));
+        assertFeatureValue(ENLARGED_WORD_COUNT_FEATURE, 2.0);
 
         setContentAndProcess("wazuuuuuuuuuuuuuuuuup");
-        assertThat(tweet.getContent(), equalTo("wazuuup " + ENLARGED_WORD.trim()));
+        assertThat(tweet.getContent(), equalTo("wazuuup"));
+        assertFeatureValue(ENLARGED_WORD_COUNT_FEATURE, 1.0);
+    }
+
+    @Test
+    public void testChecksForConsecutiveMarks() {
+        setContentAndProcess("what?????????????? ??????????????????? !!!!");
+        assertThat(tweet.getContent(), equalTo("what??? ??? !!!"));
+        assertFeatureValue(CONSECUTIVE_QUESTION_MARKS_COUNT_FEATURE, 2.0);
+        assertFeatureValue(CONSECUTIVE_EXCLAMATION_MARKS_COUNT_FEATURE, 1.0);
     }
 
     @Test
@@ -182,6 +282,9 @@ public class NaiveTweetPreprocessorTest {
 
         setContentAndProcess("…");
         assertThat(tweet.getContent(), equalTo(DOTS.trim()));
+
+        setContentAndProcess("................. ........................... ..........................................");
+        assertThat(tweet.getContent(), equalTo(DOTS.trim() + " " + DOTS.trim() + " " + DOTS.trim()));
     }
 
     @Test
@@ -196,42 +299,56 @@ public class NaiveTweetPreprocessorTest {
     @Test
     public void testReplaceEnlargedSmilie() {
         setContentAndProcess("what is this shit?! :(((((((");
-        assertThat(tweet.getContent(), equalTo("what is this shit?! " + NEGATIVE_SMILE.trim() + " " + ENLARGED_NEGATIVE_SMILE.trim()));
+        assertThat(tweet.getContent(), equalTo("what is this shit?!"));
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 1.5); // large smilies count as 1.5
 
         setContentAndProcess("oh so cool :))");
-        assertThat(tweet.getContent(), equalTo("oh so cool " + POSITIVE_SMILE.trim() + " " + ENLARGED_POSITIVE_SMILE.trim()));
+        assertThat(tweet.getContent(), equalTo("oh so cool"));
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 1.5);
 
         setContentAndProcess("oh :((");
-        assertThat(tweet.getContent(), equalTo("oh " + NEGATIVE_SMILE.trim() + " " + ENLARGED_NEGATIVE_SMILE.trim()));
+        assertThat(tweet.getContent(), equalTo("oh"));
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 1.5);
 
         setContentAndProcess("oh :(( :((( :((((");
-        assertThat(tweet.getContent(), equalTo("oh " + NEGATIVE_SMILE.trim() + " " + NEGATIVE_SMILE.trim() + " " + NEGATIVE_SMILE.trim() + " " + ENLARGED_NEGATIVE_SMILE.trim()));
+        assertThat(tweet.getContent(), equalTo("oh"));
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 4.5);
     }
 
     @Test
     public void testReplaceHashTags() {
-        setContentAndProcess("Hello #intelligent person");
-        assertThat(tweet.getContent(), equalTo("hello " + POSITIVE_HASHTAG.trim() + " person"));
+        setContentAndProcess("hello #intelligent person");
+        assertThat(tweet.getContent(), equalTo("hello intelligent person"));
+        assertFeatureValue(POSITIVE_HASHTAGS_FEATURE, 1.0);
+        assertFeatureValue(HASHTAGS_COUNT_FEATURE, 1.0);
 
-        setContentAndProcess("this is #superb!");
-        assertThat(tweet.getContent(), equalTo("this is " + POSITIVE_HASHTAG.trim() + " !"));
+        setContentAndProcess("this is #superb");
+        assertThat(tweet.getContent(), equalTo("this is superb"));
+        assertFeatureValue(POSITIVE_HASHTAGS_FEATURE, 1.0);
+        assertFeatureValue(HASHTAGS_COUNT_FEATURE, 1.0);
 
         setContentAndProcess("#worst#fail");
-        assertThat(tweet.getContent(), equalTo(NEGATIVE_HASHTAG.trim() + " " + NEGATIVE_HASHTAG.trim()));
+        assertThat(tweet.getContent(), equalTo("worst fail"));
+        assertFeatureValue(NEGATIVE_HASHTAGS_FEATURE, 2.0);
+        assertFeatureValue(HASHTAGS_COUNT_FEATURE, 2.0);
 
-        setContentAndProcess("#worst#notknown#fail");
-        assertThat(tweet.getContent(), equalTo(NEGATIVE_HASHTAG.trim() + " notknown " + HASHTAG.trim() + " " + NEGATIVE_HASHTAG.trim()));
+        setContentAndProcess("#worst #notknown #fail #superb");
+        assertThat(tweet.getContent(), equalTo("worst notknown fail superb"));
+        assertFeatureValue(NEGATIVE_HASHTAGS_FEATURE, 2.0);
+        assertFeatureValue(POSITIVE_HASHTAGS_FEATURE, 1.0);
+        assertFeatureValue(HASHTAGS_COUNT_FEATURE, 4.0);
+
+        setContentAndProcess("#worst#worstworst#worstworstworst");
+        assertThat(tweet.getContent(), equalTo("worst worstworst worstworstworst"));
     }
 
     @Test
     public void testReplaceHashTags_MultipleHashTags_AddedSpaces() {
         setContentAndProcess("Hello #intelligent#beautiful person");
-        assertThat(tweet.getContent(), equalTo("hello " + POSITIVE_HASHTAG.trim() + " " + POSITIVE_HASHTAG.trim()
-                + " person"));
+        assertThat(tweet.getContent(), equalTo("hello intelligent beautiful person"));
 
         setContentAndProcess("this is #superb #classy #flawless!");
-        assertThat(tweet.getContent(), equalTo("this is " + POSITIVE_HASHTAG.trim() + " " + POSITIVE_HASHTAG.trim()
-                + " " + POSITIVE_HASHTAG.trim() + " !"));
+        assertThat(tweet.getContent(), equalTo("this is superb classy flawless !"));
     }
 
 }

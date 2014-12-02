@@ -4,14 +4,16 @@
 package at.tuwien.aic.tweetanalysis.preprocessing;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import org.hamcrest.core.IsEqual;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -20,13 +22,23 @@ import static org.junit.Assert.*;
 public class StandardTweetPreprocessorTest {
     
     private ITweetPreprocessor preprocessor;
-    
+    private Tweet tweet;
+    private ArrayList<Tweet> tweets;
+
     public StandardTweetPreprocessorTest() {
     }
 
     @Before
     public void setUp() {
-        this.preprocessor = new StandardTweetPreprocessor();
+        preprocessor = new StandardTweetPreprocessor();
+        tweet = new Tweet();
+        tweets = new ArrayList<>(1);
+        tweets.add(tweet);
+    }
+
+    private void setContentAndProcess(String content) {
+        tweet.setContent(content);
+        preprocessor.preprocess(tweets);
     }
 
     /**
@@ -53,6 +65,12 @@ public class StandardTweetPreprocessorTest {
         assertEquals(tweets.get(0).getHashtags().get(0), "english");
         assertEquals(tweets.get(1).getHashtags().get(0), "deutsch");
         assertEquals(tweets.get(1).getHashtags().size(), 1);
+    }
+
+    @Test
+    public void negationsTest() {
+        setContentAndProcess("@indieboyash not yet, we hopefully will make one soon :)");
+        assertThat(tweet.getContent(), IsEqual.equalTo("MENTION not_yet hope will make one soon"));
     }
 
 }

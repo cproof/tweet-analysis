@@ -2,15 +2,21 @@ package at.tuwien.aic.tweetanalysis.provider;
 
 import at.tuwien.aic.tweetanalysis.Utils;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import org.slf4j.LoggerFactory;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class TweetProvider implements ITweetProvider {
+
+    public static final org.slf4j.Logger log = LoggerFactory.getLogger(TweetProvider.class);
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -73,6 +79,12 @@ public class TweetProvider implements ITweetProvider {
                     String text = status.getText();
                     if (status.getRetweetedStatus() != null ||
                             text.contains(" RT ")) continue;
+
+                    /* simple spam check for strange occurring pattern */
+                    if (text.trim().matches(".*(\\s|\\sx)\\d+$")) {
+                        log.warn("Ignoring possible spam: {}", text);
+                        continue;
+                    }
 
                     // todo: replace search term
 //                    text = text.replace(searchTerm, "SEARCH_TERM");
