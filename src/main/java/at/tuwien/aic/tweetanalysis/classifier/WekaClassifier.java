@@ -1,7 +1,8 @@
 package at.tuwien.aic.tweetanalysis.classifier;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
-import com.sun.javafx.tools.packager.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import weka.attributeSelection.ChiSquaredAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Classifier;
@@ -26,6 +27,8 @@ import java.util.Random;
  * @author Group 1
  */
 public class WekaClassifier implements IClassifier {
+
+    public static final Logger log = LoggerFactory.getLogger(WekaClassifier.class);
 
     private static final String _fileDataset = "/trainingData/processed-tweets.arff";
 
@@ -121,8 +124,8 @@ public class WekaClassifier implements IClassifier {
             int folds = 10;
             eval.crossValidateModel(classifier, trainingData, folds, rand);
 
-            Log.info(eval.toSummaryString("\nResults\n======\n", false));
-            Log.info(eval.toMatrixString());
+            log.info(eval.toSummaryString("\nResults\n======\n", false));
+            log.info(eval.toMatrixString());
 
         } catch (Exception ex) {
             System.err.println("Exception testing the Classifier: " + ex.getMessage());
