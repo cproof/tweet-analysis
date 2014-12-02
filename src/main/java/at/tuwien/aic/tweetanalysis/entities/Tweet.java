@@ -1,5 +1,6 @@
 package at.tuwien.aic.tweetanalysis.entities;
 
+import at.tuwien.aic.tweetanalysis.classifier.Sentiment;
 import twitter4j.GeoLocation;
 
 import java.util.Date;
@@ -32,9 +33,12 @@ public class Tweet {
     
     private GeoLocation location;
 
+    private Sentiment sentiment;
+
     public Tweet() {
         // only used for JSONTweetProvider
         originalContent = "";
+        sentiment = null;
     }
 
     public Tweet(long id, String content, List<String> hashtags, List<String> urls, List<String> mentionedUsers, String author, String language, String searchTerm, Date timestamp, int retweetCount, int favoriteCount, GeoLocation location) {
@@ -223,13 +227,21 @@ public class Tweet {
     public void setFeatureMap(HashMap<String, Double> featureMap) {
         this.featureMap = featureMap;
     }
-    
-    @Override
-    public String toString() {
-        return "@" + this.getAuthor() + ": " + this.getContent();
-    }
 
     public String getOriginalContent() {
         return originalContent;
+    }
+
+    public Sentiment getSentiment() {
+        return sentiment;
+    }
+
+    public void setSentiment(Sentiment sentiment) {
+        this.sentiment = sentiment;
+    }
+
+    @Override
+    public String toString() {
+        return "@" + this.getAuthor() + ": " + this.getContent();
     }
 }
