@@ -223,7 +223,7 @@ public class TweetAnalysis {
     private static void testLiveData() throws Exception {
         TweetProvider tweetProvider = new TweetProvider();
 
-        Future<List<Tweet>> tweets = tweetProvider.getTweets("#happy", 20, null, null, "en", null, null);
+        Future<List<Tweet>> tweets = tweetProvider.getTweets("blackfriday", 20, null, null, "en", null, null);
 
         List<Tweet> tweetList = tweets.get();
 
@@ -264,8 +264,8 @@ public class TweetAnalysis {
         Tweet t = new Tweet();
         //t.setContent("bad bad bad bad :(");
 //        t.setContent("#hate sad :( :(");
-        t.setContent("happy joy :) :) #happy congratulations");
-//        t.setContent("I love them, thank u mum !! <3 http://t.co/rMQEeRYhnT");
+        //t.setContent("happy joy :) :) #happy congratulations");
+        t.setContent("I love them, thank u mum !! <3 http://t.co/rMQEeRYhnT");
 
         StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
         ArrayList<Tweet> tweets = new ArrayList<>();

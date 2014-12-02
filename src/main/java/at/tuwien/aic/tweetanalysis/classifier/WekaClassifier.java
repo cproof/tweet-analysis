@@ -34,7 +34,7 @@ public class WekaClassifier implements IClassifier {
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
-    private Classifier _classifier = null;
+    private SMO _classifier = null;
     private NGramTokenizer _tokenizer = null;
 
 
@@ -51,6 +51,7 @@ public class WekaClassifier implements IClassifier {
 
         // In this case we use SMO Classifier. (for Support Vector Machines)
         _classifier = new SMO();
+        _classifier.setBuildLogisticModels(true); // classify instance returns the probability
         _classifier = trainAClassifier(_classifier, _trainingDataset);
 
         testClassifierWithFold(_classifier, _trainingDataset);
@@ -72,6 +73,7 @@ public class WekaClassifier implements IClassifier {
 
         // In this case we use SMO Classifier. (for Support Vector Machines)
         _classifier = new SMO();
+        _classifier.setBuildLogisticModels(true); // classify instance returns the probability
         _classifier = trainAClassifier(_classifier, _trainingDataset);
 
         testClassifier(_classifier, _trainingDataset, _testingDataset);
@@ -91,7 +93,7 @@ public class WekaClassifier implements IClassifier {
      * @param trainingdataset the training Dataset
      * @return the trained Classifier
     */
-    private Classifier trainAClassifier(Classifier classifier, Instances trainingdataset) {
+    private SMO trainAClassifier(SMO classifier, Instances trainingdataset) {
         try {
             classifier.buildClassifier(trainingdataset);
         } catch (Exception ex) {
@@ -107,7 +109,7 @@ public class WekaClassifier implements IClassifier {
      * @param trainingData the training Dataset
      * @param testingData the testing Dataset
      */
-    private void testClassifier(Classifier classifier, Instances trainingData, Instances testingData) {
+    private void testClassifier(SMO classifier, Instances trainingData, Instances testingData) {
         try {
             Evaluation eval = new Evaluation(trainingData);
 
@@ -126,7 +128,7 @@ public class WekaClassifier implements IClassifier {
      * @param classifier The Classifier
      * @param trainingData the training Dataset
      */
-    private void testClassifierWithFold(Classifier classifier, Instances trainingData) {
+    private void testClassifierWithFold(SMO classifier, Instances trainingData) {
         try {
             Evaluation eval = new Evaluation(trainingData);
             Random rand = new Random(1); // using seed = 1
@@ -293,7 +295,7 @@ public class WekaClassifier implements IClassifier {
     @Override
     public void loadModel(String modelName) {
         try {
-            this._classifier = (NaiveBayes) weka.core.SerializationHelper.read(modelName);
+            this._classifier = (SMO) weka.core.SerializationHelper.read(modelName);
         } catch (Exception ex) {
             System.err.println("Exception loading the Model: " + ex.getMessage());
         }
@@ -302,7 +304,7 @@ public class WekaClassifier implements IClassifier {
     @Override
     public void loadModel(InputStream modelStream) {
         try {
-            this._classifier = (Classifier) weka.core.SerializationHelper.read(modelStream);
+            this._classifier = (SMO) weka.core.SerializationHelper.read(modelStream);
         } catch (Exception ex) {
             System.err.println("Exception loading the Model: " + ex.getMessage());
         }
