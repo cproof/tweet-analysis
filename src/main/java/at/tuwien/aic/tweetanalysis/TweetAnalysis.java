@@ -18,6 +18,7 @@
 package at.tuwien.aic.tweetanalysis;
 
 import asg.cliche.*;
+import at.tuwien.aic.tweetanalysis.aggregator.SimpleAggregator;
 import at.tuwien.aic.tweetanalysis.classifier.IClassifier;
 import at.tuwien.aic.tweetanalysis.classifier.WekaClassifier;
 import at.tuwien.aic.tweetanalysis.entities.ClassifiedTweet;
@@ -133,7 +134,8 @@ public class TweetAnalysis {
             classifiedTweetList.add(new ClassifiedTweet(tweet, classifier.classifyTweet(tweet)));
         }
 
-        return "Got " + classifiedTweetList.size() + " tweets";
+        SimpleAggregator aggregator = new SimpleAggregator();
+        return "Got " + classifiedTweetList.size() + " tweets with a combined sentiment of " + aggregator.calculate(classifiedTweetList);
     }
 
     @Command
@@ -207,7 +209,8 @@ public class TweetAnalysis {
             classifiedTweetList.add(new ClassifiedTweet(tweet, classifier.classifyTweet(tweet)));
         }
 
-        return "Got " + classifiedTweetList.size() + " tweets";
+        SimpleAggregator aggregator = new SimpleAggregator();
+        return "Got " + classifiedTweetList.size() + " tweets with a combined sentiment of " + aggregator.calculate(classifiedTweetList);
     }
 
     public static void main(String[] args) throws Exception {
