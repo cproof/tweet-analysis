@@ -292,6 +292,9 @@ public class WekaClassifier implements IClassifier {
                         inst.setValue(attribute, featureEntry.getValue());
                     }
                 }
+                /* set sentiment */
+                inst.setClassValue(t.getSentiment().toString());
+
                 new_instances.add(inst);
 
             }
@@ -303,8 +306,8 @@ public class WekaClassifier implements IClassifier {
             Instances sparseInstances =  Filter.useFilter(new_instances, toSparseeee);
 
             eval.evaluateModel(_classifier, sparseInstances);
-            log.info(eval.toSummaryString("\nResults\n======\n", false));
-            log.info(eval.toMatrixString());
+            System.out.println(eval.toSummaryString("\nResults\n======\n", false));
+            System.out.println(eval.toMatrixString());
 
         } catch (Exception ex) {
             System.err.println("Exception testing the Classifier: " + ex.getMessage());

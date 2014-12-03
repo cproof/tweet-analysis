@@ -219,6 +219,7 @@ public final class TrainingDataPreprocessor {
                         Tweet finalTweet = new Tweet();
                         finalTweet.setContent(trainingTweet.getContent());
                         finalTweet.setSentiment(sentiment);
+                        finalTweet.setFeatureMap(trainingTweet.getFeatureMap());
                         finalTweets.add(finalTweet);
                     } else {
                         log.warn("Could not read sentiment from: {}", sentimentText);
