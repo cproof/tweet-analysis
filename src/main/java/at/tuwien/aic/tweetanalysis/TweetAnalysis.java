@@ -145,13 +145,13 @@ public class TweetAnalysis {
     }
 
     @Command
-    public void load(@Param(name = "classifierName", description = "the name of the classifier. Valid: 'smo' and 'bayes'") String classifierName,
-                     @Param(name = "smilies", description = "load model with smilies") boolean smilies) throws CLIException, IOException {
+     public void load(@Param(name = "classifierName", description = "the name of the classifier. Valid: 'smo' and 'bayes'") String classifierName,
+                      @Param(name = "smilies", description = "load model with smilies") boolean smilies) throws CLIException, IOException {
         classifier = loadClassifiedFromModel(smilies, classifierName);
     }
 
     @Command
-    public void classify(@Param(name="tweet", description="Single tweet to classify") String tweet) throws Exception {
+    public void classify(@Param(name = "tweet", description="Single tweet to classify") String tweet) throws Exception {
         Tweet t = new Tweet();
         t.setContent(tweet);
 

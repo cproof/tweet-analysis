@@ -10,9 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.core.Instances;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -44,7 +42,10 @@ public final class TrainingDataPreprocessor {
 //        trainingDataPreprocessor.preprocessAndCreateInstances(new StandardTweetPreprocessor(),
 //                "/trainingData/training.1600000.csv", 1600000);
 
-        trainingDataPreprocessor.preprocessAndCreateInstances2(new StandardTweetPreprocessor(), "/tweets.csv", 6000);
+        //trainingDataPreprocessor.preprocessAndCreateInstances2(new StandardTweetPreprocessor(), "/tweets.csv", 6000);
+        trainingDataPreprocessor.preprocessAndCreateInstances2(new StandardTweetPreprocessor(), "/trainingData/manuallyCreatedTraindata/negative-tweets.csv", "preprocessed-tweets-negative.arff", 300);
+        //trainingDataPreprocessor.preprocessAndCreateInstances2(new StandardTweetPreprocessor(), "/trainingData/negative-positive-tweets.csv", "preprocessed-tweets.arff", 600);
+        //WekaUtils.mergeTwoInstances("/trainingData/preprocessed-tweets-positive.arff", "/trainingData/preprocessed-tweets-negative.arff", "ttest.arff");
 
 //        try (CSVWriter csvWriter = new CSVWriter(new BufferedWriter(new FileWriter("processedSentences.csv")))) {
 //            csvWriter.writeNext(new String[]{"Text", "Sentiment"});
@@ -121,9 +122,10 @@ public final class TrainingDataPreprocessor {
      *
      * @param tweetPreprocessor     the tweet processor that should be used on the unprocessed read tweets
      * @param inputResourceLocation the resource path of the input to read
+     * @param outputResourceLocation the resource path of the output to write
      * @param initialCapacity       the initial capacity of the created instances object
      */
-    public void preprocessAndCreateInstances2(ITweetPreprocessor tweetPreprocessor, String inputResourceLocation, int initialCapacity) {
+    public void preprocessAndCreateInstances2(ITweetPreprocessor tweetPreprocessor, String inputResourceLocation, String outputResourceLocation, int initialCapacity) {
         InputStream trainingDataStream = TweetAnalysis.class.getResourceAsStream(inputResourceLocation);
 
         /* create empty instances */
@@ -170,7 +172,8 @@ public final class TrainingDataPreprocessor {
         }
 
         /* save instances to disk */
-        WekaUtils.writeInstancesToDisk(instances, "trainData_our.arff");
+        //WekaUtils.writeInstancesToDisk(instances, "trainData_our.arff");
+        WekaUtils.writeInstancesToDisk(instances, outputResourceLocation);
     }
 
     /**

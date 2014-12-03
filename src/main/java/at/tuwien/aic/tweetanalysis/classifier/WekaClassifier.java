@@ -19,6 +19,7 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
 import weka.filters.unsupervised.instance.NonSparseToSparse;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -32,7 +33,7 @@ public class WekaClassifier implements IClassifier {
 
     public static final Logger log = LoggerFactory.getLogger(WekaClassifier.class);
 
-    private static final String _fileDataset = "/trainingData/processed-tweets.arff";
+    private static final String _fileDataset = "/trainingData/manuallyCreatedTraindata/processed-tweets.arff";
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
@@ -123,8 +124,8 @@ public class WekaClassifier implements IClassifier {
             Evaluation eval = new Evaluation(trainingData);
 
             eval.evaluateModel(classifier, testingData);
-            System.out.println(eval.toSummaryString("\nResults\n======\n", false));
-            System.out.println(eval.toMatrixString());
+            log.info(eval.toSummaryString("\nResults\n======\n", false));
+            log.info(eval.toMatrixString());
 
         } catch (Exception ex) {
             System.err.println("Exception testing the Classifier: " + ex.getMessage());
@@ -212,7 +213,6 @@ public class WekaClassifier implements IClassifier {
         return trainingDataset;
     }
 
-
     /**
      * Takes a preprocessed String and matches into the given trainingsdata-space
      *
@@ -256,9 +256,65 @@ public class WekaClassifier implements IClassifier {
         // to sparse instance (saves dataspace)
         NonSparseToSparse toSparseeee = new NonSparseToSparse();
         toSparseeee.setInputFormat(new_instances);
-        Instances sparseInstances = Filter.useFilter(new_instances, toSparseeee);
 
-        return sparseInstances;
+        return Filter.useFilter(new_instances, toSparseeee);
+    }
+
+    /**
+     * Test the Classifier against preprocessed Tweets and print out some statistics
+     *
+     */
+    public void testClassifierAgainstPreprocessedTweets(ArrayList<Tweet> tweets) {
+        try {
+            Evaluation eval = new Evaluation(_trainingDataset);
+
+            //create instance with same attributes but only one empty instance
+            Instances new_instances = new Instances(_trainingDataset,tweets.size());
+
+            for(Tweet t : tweets) {
+                _tokenizer.tokenize(t.getContent());
+
+                Instance inst = new Instance(new_instances.numAttributes());
+                inst.setDataset(new_instances);
+
+                //set the values to a zero value without the nominal i.e. the last value
+                for (int i = 0; i < new_instances.numAttributes() - 1; i++) {
+                    inst.setValue(i, 0);
+                }
+
+                //run throu the new string an match to the attributes: set the presence to 1
+                while(_tokenizer.hasMoreElements()) {
+                    String tmp = _tokenizer.nextElement().toString();
+                    if(new_instances.attribute(tmp)!=null) // if the instance exists
+                        inst.setValue(new_instances.attribute(tmp), 1);
+                }
+
+                /* also check feature model */
+                HashMap<String, Double> featureMap = t.getFeatureMap();
+                for (Map.Entry<String, Double> featureEntry : featureMap.entrySet()) {
+                    /* get corresponding attribute and set it to the value of feature  */
+                    Attribute attribute = new_instances.attribute(featureEntry.getKey());
+                    if (attribute != null) {
+                        inst.setValue(attribute, featureEntry.getValue());
+                    }
+                }
+                new_instances.add(inst);
+
+            }
+
+            // to sparse instance (saves dataspace)
+            NonSparseToSparse toSparseeee = new NonSparseToSparse();
+            toSparseeee.setInputFormat(new_instances);
+
+            Instances sparseInstances =  Filter.useFilter(new_instances, toSparseeee);
+
+            eval.evaluateModel(_classifier, sparseInstances);
+            log.info(eval.toSummaryString("\nResults\n======\n", false));
+            log.info(eval.toMatrixString());
+
+        } catch (Exception ex) {
+            System.err.println("Exception testing the Classifier: " + ex.getMessage());
+        }
     }
 
     @Override

@@ -1,0 +1,617 @@
+@relation Rel
+
+@attribute Tweet string
+@attribute ALL_CAPS_WORDS numeric
+@attribute NEGATIVE_HASHTAGS numeric
+@attribute CONSECUTIVE_QUESTION_MARKS numeric
+@attribute POSITIVE_WORDS numeric
+@attribute CONSECUTIVE_EXCLAMATIONS_MARKS numeric
+@attribute ENLARGED_WORD numeric
+@attribute NEGATIVE_WORDS numeric
+@attribute POSITIVE_SMILIES numeric
+@attribute ALL_CAPS numeric
+@attribute NEGATIVE_SMILIES numeric
+@attribute POSITIVE_HASHTAGS numeric
+@attribute Sentiment {negative,positive}
+
+@data
+'massiv pimpl near ear',0,0,0,0,0,0,1,0,0,1,0,negative
+'just realli want go home',0,0,0,0,0,0,0,0,0,1,0,negative
+'laugh loud not_shit MENTION karruech 😂 URL',2,0,0,1,0,0,1,0,0,1,0,negative
+'still not_trail',0,0,0,0,0,0,0,0,0,1,0,negative
+'mayb mask come mayb peopl final start see empti univers will ever good night',0,0,0,1,0,0,0,0,0,1,0,negative
+'just rememb work tomorrow morn asda new deal',0,0,0,0,0,0,0,0,0,1,0,negative
+imissyou,0,0,0,0,0,0,0,0,0,1,0,negative
+'wah disappoint',0,0,0,0,0,0,1,0,0,1,0,negative
+'mayb can announc next week decemb 6 bc exam 1st 3rd month',0,0,0,0,0,0,0,0,0,1,0,negative
+'chanc hope won',0,0,0,1,0,0,0,0,0,2.5,0,negative
+'make sad mice men ticket like £40',0,0,0,1,0,0,1,0,0,1,0,negative
+'cant believ sharapova murray DOTS cant see bc tix r damn ensiv ugh',0,0,0,0,0,0,2,1,0,1,0,negative
+'good bye thank god friday',1,0,0,1,0,0,0,0,0,1,0,negative
+'tax week realli need help intern candid keep bail just onboard dream hors even ride mule',0,0,0,0,0,0,1,0,0,1,0,negative
+'way love nick',0,0,0,1,0,0,0,0,0,1,0,negative
+'bloodi hell like one fave celebr one ugh',0,0,0,1,0,0,3,0,0,1.5,0,negative
+'DOTS gonna die',0,0,0,0,0,0,1,0,0,1,0,negative
+'automenfessrpw menfess djrp_kyuhyun save last memori fr know MENTION',1,0,0,0,0,0,0,0,0,1,0,negative
+'want dog sobad URL',0,0,0,0,1,0,0,0,0,1,0,negative
+'woke call hahaha',0,0,0,0,0,0,0,0,0,1.5,0,negative
+'deserv alcohol right now',0,0,0,1,0,0,0,0,0,1,0,negative
+'seem rain not_want go spend time son',0,0,0,0,0,0,0,0,0,1,0,negative
+'third part trilog becom unwieldi perhap divid two novel give complet',0,0,0,0,0,0,1,0,0,1,0,negative
+'sorri spam sale piec today like peopl might understand need sold help make new better stuff DOTS',0,0,0,2,0,0,1,0,0,1,0,negative
+'aw man drank much last night',0,0,0,0,0,0,0,0,0,1,0,negative
+'hell wrong data',0,0,0,0,0,0,2,0,0,1,0,negative
+'com back MENTION uRL',0,0,0,0,0,0,0,1,0,1,0,negative
+'2 days not_phone',0,0,0,0,0,0,0,0,0,1,0,negative
+'pretti tiffani imnida MENTION xeolovestephi orz',1,0,0,1,0,0,0,0,0,1,0,negative
+'rowan pope evil man believ olivia will pull trigga scandal',0,0,0,1,0,0,2,0,0,1,0,negative
+'much yho MENTION snapstori 300 second long',0,0,0,0,0,0,0,0,0,1,0,negative
+'throat infect </3darren morningsatanc',0,0,0,0,0,0,1,0,0,1,0,negative
+'burt fuck reynold broke sell stuff DOTS URL',0,0,0,0,0,0,2,0,0,1,0,negative
+'can never get mor suppli drop',0,0,0,0,0,0,0,0,0,1,0,negative
+'pleas beliv',0,0,0,0,0,0,0,0,0,1,0,negative
+'ticket still not_pric will one ticket not_lik last year serious not_booth ticket talaga',0,0,0,1,0,0,0,0,0,1,0,negative
+'hi ho hi ho work go DOTS save leav keywest en febrero DOTS',0,0,0,1,0,0,0,0,0,1,0,negative
+'total broken',0,0,0,0,0,0,1,0,0,1,0,negative
+nightmar,0,0,0,0,0,0,1,0,0,1,0,negative
+'im itch go get donut go shop aunt didnt invit like usual',0,0,0,1,0,0,1,0,0,1,0,negative
+'everyth favourit celeb alway time cant go annoy',0,0,0,0,0,0,1,0,0,1,0,negative
+'gotta go now not_everyon get day thanksgiv good later',0,0,0,1,0,0,0,1,0,1,0,negative
+'ok MENTION sorri MENTION ahhh plantain MENTION burnt plantain',0,0,0,0,0,2,1,0,0,1,0,negative
+'oh well get wifi ill doubt hate',13,0,0,1,0,0,2,0,1,1,0,negative
+'go long ass day work 5 30',0,0,0,1,0,0,0,0,0,1.5,0,negative
+'roll deep',0,0,0,0,0,0,0,0,0,1,0,negative
+'not_on involv beef anymor',0,0,0,0,0,0,0,0,0,1,0,negative
+'thank good friend kahit hindi tayo friend yung totoo',2,0,0,2,0,0,0,0,0,1,0,negative
+'dy hair purpl whatev stupid reason gone brown hate',0,0,0,0,0,0,2,0,0,1,0,negative
+'yee URL',0,0,0,0,0,0,0,0,0,1,0,negative
+'get readi short attend funer young man still life cruel god bless shaun worthington',0,0,0,2,0,0,1,0,0,1,0,negative
+'need start take care natur hair',0,0,0,0,0,0,0,0,0,1,0,negative
+'ugh know million ilovejalenmcmillan fan that wont even notic MENTION',1,0,0,1,0,0,1,0,0,1,0,negative
+'hate thse fell selos_ako_dun_ah',0,0,0,0,0,0,1,0,0,2,0,negative
+'make even disappoint',0,0,0,0,0,0,1,0,0,1,0,negative
+'high fever',0,0,0,0,0,0,1,0,0,1,0,negative
+'almost get hit car funni DOTS',0,0,0,0,0,0,1,0,0,1,0,negative
+shit,4,0,0,0,0,0,1,0,1,1.5,0,negative
+'just finish zelda link world now URL',0,0,0,0,0,0,0,0,0,1,0,negative
+'hiccup pleas stop',0,0,0,0,1,0,0,0,0,1,0,negative
+'aali kana daw ng adnu — um not_know yet URL',0,0,0,0,0,0,0,0,0,1,0,negative
+'soo goood sudden fall',0,0,0,1,0,1,1,0,0,1,0,negative
+'just want toffe nut sticki cinnamon bun',0,0,0,0,0,0,1,0,0,1.5,0,negative
+'MENTION duuud hey jetlag moodi',0,0,0,0,0,1,1,0,0,2,0,negative
+'feel sick',0,0,0,0,0,0,1,0,0,1,0,negative
+'not_about one favourit hijab go walki disappear life priceofthegypsylife',0,0,0,0,0,0,0,0,0,1,0,negative
+'just type 4 page essay realli want go back asleep',0,0,0,0,0,0,0,0,0,1.5,0,negative
+'fuck nightmar',0,0,0,0,0,0,1,0,0,1,0,negative
+'oh god not_websit work just want tv god sakee',1,0,0,0,0,1,0,0,0,6,0,negative
+'take turn pee side check cash store',0,0,0,0,0,0,0,0,0,1,0,negative
+'sel not_tl',0,0,0,0,0,0,0,0,0,1,0,negative
+'hand full MENTION laitan na MENTION burnt plaintain',0,0,0,0,0,0,0,0,0,2,0,negative
+'care dont care',0,0,0,0,0,0,0,0,0,1,0,negative
+'<3 — feel broken',0,0,0,0,0,0,1,0,0,1,0,negative
+'stress debit card will not_arr fanclub merch sold',0,0,0,1,0,0,0,0,0,1.5,0,negative
+'next door tree surgeon cut multipl tree garden DOTS sooo noisi DOTS go away tri work',0,0,0,1,0,1,1,0,0,1,0,negative
+'awwn babi MENTION hian abeg not_start wit love lovey oo _ MENTION yes love MENTION MENTION',0,0,0,2,0,0,0,0,0,1,0,negative
+'fuck found anoth one wall',0,0,0,0,0,0,1,0,0,1,0,negative
+'leav bike central station weekend not_get stolen honey will back soon URL',0,0,0,0,0,0,1,0,0,1,0,negative
+'want go robmag tom friendsss never ako nakipag bond friendsss',0,0,0,0,0,2,0,0,0,3,0,negative
+'realli feel inspir creativ juic not_com',0,0,0,1,0,0,0,0,0,1.5,0,negative
+'home alon sigh — feel bore',0,0,0,0,0,0,1,0,0,1,0,negative
+'even poverti not_think twice offer fruit journalist talk URL',0,0,0,0,0,0,1,0,0,1,0,negative
+'basic hate school DOTS URL',0,0,0,0,0,0,1,0,0,1.5,0,negative
+'black friday broke internet',0,0,0,0,0,0,1,0,0,1,0,negative
+'lost iphon button',0,0,0,0,0,0,1,0,0,1,0,negative
+'forgot id',1,0,0,0,0,0,0,0,0,1,0,negative
+'day work lot imodium not_stray far smallest room great',0,0,0,2,1,0,0,0,0,1,0,negative
+cold,0,0,0,0,0,0,1,0,0,1,0,negative
+'just not_know roll eye DOTS — teka lang talaga sorri swear sino ba s DOTS URL',0,0,0,0,0,0,1,0,0,3,0,negative
+'feel worri MENTION',1,0,0,0,0,0,1,0,0,1,0,negative
+'fatass breath',0,0,0,0,0,0,0,0,0,1,0,negative
+bore,0,0,0,0,0,0,1,0,0,1,0,negative
+'horrend headach just need just go lay dark room',0,0,0,0,0,0,3,0,0,1,0,negative
+'srsli fuck make genuin sad URL',0,0,0,0,0,0,2,0,0,1,0,negative
+'dmspree ka ver 28 oliverlanc day MENTION',0,0,0,0,0,0,0,0,0,1,0,negative
+'black friday shop mom kohl lost mammm',3,0,0,0,0,1,1,0,0,1,0,negative
+'sistar kpop convent 6 28th decemb oh alreadi left ph die see girl MENTION',2,0,0,0,2,0,1,0,0,1,0,negative
+'cat unaffection',0,0,0,0,0,0,0,0,0,1.5,0,negative
+'happi overload day <3 wish sissi hey queen miss much DOTS URL',1,0,0,1,0,0,1,0,0,1,0,negative
+'fm feel maganda',1,0,0,0,0,0,0,0,0,1,0,negative
+'ilovejalenmcmillan likley not_even read right now MENTION beauti 1235',0,0,0,2,0,0,0,0,0,1,0,negative
+'1yearexoshowtime gonna cri now',0,0,0,0,0,0,1,0,0,2.5,0,negative
+'embarrass pictures/video peopl kick save bob two fuck retail laugh make look like mug notme sad',0,1,0,1,0,0,3,0,0,0,0,negative
+'feel sad fa yesterday DOTS much sad DOTS',0,1,0,0,0,0,2,0,0,0,0,negative
+'instead celebr life URL leader busi declar sycoph sad',0,1,0,0,0,0,1,0,0,0,0,negative
+'not_b sad person prefer anoth person uh becox uh convinc monkey honey sweeter banana',0,1,0,1,0,0,1,1,0,0,0,negative
+'sad 2 see news realli bare anyon shopping christmas halloween hurt retail',0,1,0,0,0,0,2,0,0,0,0,negative
+'realli draw circus animals day 🐵🐒🐘 circus animals sad sketch doodle wip DOTS URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'peopl bulli sad insecure weak lost rude selfish',0,1,0,0,0,0,7,0,0,0,0,negative
+'work duniakerja duniakeras bengkel teknisi sad fuckmoment funny URL',0,1,0,1,0,0,2,0,0,0,0,negative
+'oooh man peopl perfect hug tv box u know DOTS sad fucker',0,1,0,0,0,1,1,0,0,0,0,negative
+'cold dark winterblues sad tackl depression tip URL',0,1,0,0,0,0,4,0,0,0,0,negative
+'miss bestfriend even not_miss sad',0,1,0,0,0,0,3,0,0,0,0,negative
+'wish peopl hang like old day socialproblems sad',0,1,0,1,0,0,2,0,0,1,0,negative
+'sad 😖when u send sweet message&th never answeroransw othersoransw mani hour sad 😒',1,1,0,1,0,0,2,0,0,0,0,negative
+'think fight peopl get blackfriday pathet exact never stay late get earli go sad',0,1,0,0,0,0,2,0,0,0,0,negative
+'peopl soul asham today bloodi animals £50 save blackfriday sad animals',0,1,0,0,0,0,3,0,0,0,0,negative
+'depressed eat ice cream psy cholog psy sad depressed feel feeling ksa kau DOTS URL',0,1,0,0,0,0,3,0,0,1,0,negative
+'not_filter✌ last day sad times URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'today last day MENTION 7 year realli go miss famili ❤️ bittersweet sad',0,1,0,0,0,0,2,0,0,0,0,negative
+'realli sad phillip hugh just goe show never realli know around corner young well',0,1,0,1,0,0,1,0,0,0,0,negative
+'wist feel ❄😔 ❄ winter snow cold depression sad grodno cathedral instabelarus DOTS URL',0,1,0,0,0,0,3,0,0,0,0,negative
+'pizza sad MENTION MENTION manuel',0,1,0,0,0,0,1,0,0,0,0,negative
+'america dream come die sad trending news freugeson americanbullshit nogod 🔫🔪💊💉💰 hero dead',0,1,0,1,0,0,3,0,0,0,0,negative
+'aahh tv morn suppos get daili MENTION fix sad',1,1,0,0,0,0,1,0,0,0,0,negative
+'will alon cry sad',0,1,0,0,0,0,2,0,0,0,0,negative
+'roadbike puncture not_sad will late work sad ride bus bunk fuck',0,1,0,1,0,0,4,0,0,0,0,negative
+'world sicken sad world sick sad protests ferguson',0,1,0,0,0,0,4,0,0,0,0,negative
+'dolla spent poor sad',0,2,0,0,0,0,2,0,0,1,0,negative
+'broke car sad',0,1,0,0,0,0,2,0,0,0,0,negative
+'sad tired seem sink insid alon 😔 sad tiredasf',0,1,0,0,0,0,3,0,0,0,0,negative
+'moment watch old convers long death friend sad',0,1,0,0,0,0,2,0,0,0,0,negative
+'will find way sad alone way tears URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'URL yoga meditate mudra not_tim yog 😞 sad work yoga MENTION thisisyoga 🙏',0,1,0,1,0,0,1,0,0,0,0,negative
+'rest peac phil hugh sad',0,1,0,1,0,0,1,0,0,0,0,negative
+'rip dearest carlo one cute handsom ador cat miss much 😞😢 sad URL',1,1,0,3,0,0,2,0,0,0,0,negative
+'seven mental health patient die wait bed URL sinc april 2011 total 2 179 bed cut sad',0,1,0,0,0,0,2,0,0,0,0,negative
+'also look window see light dust snow yup crazi storm last night DOTS sure get 25cm _ fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'appl resel black friday save 20 everyth URL humac fail dk blackfriday except appl product',0,1,0,0,0,0,1,0,0,0,0,negative
+'typic big store not_return polici will not_except fault even deliv wrong product MENTION fail newlook',0,1,0,1,0,0,3,0,0,0,0,negative
+'not_corrupt smartphon here proof montreal construction fail MENTION MENTION URL',0,1,0,0,0,0,2,0,0,0,0,negative
+'river island 20 server crash within minut kind embarass big retail fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'nigel oh jontybark nigel_farag ukip cameronmustgo not_idea realiti jerk knee politician fail',1,1,0,0,0,0,2,0,0,0,0,negative
+'accept fact go fail welsh exam fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'blackfriday fail websit not_built cope MENTION fail MENTION fail come guy',0,2,0,0,0,0,3,0,0,0,0,negative
+'france recognize palestinian state peace efforts fail pari reuter – france said friday DOTS URL',1,1,0,1,0,0,1,0,0,0,0,negative
+'people keep wait light turn green leav URL will never happen & fail even start',0,1,0,0,0,0,1,0,0,0,0,negative
+'think media respons caus blackfriday chaos uk hype media sheep advertising chaos sales fail yobs',1,1,0,0,0,0,4,0,0,0,0,negative
+'3 year degre pretti sure lectur never mention b2b market DOTS market b2c fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'anoth black friday websit fail cmon tesco sort server capic blackfriday fail URL',1,1,0,0,0,0,2,0,0,0,0,negative
+'feel morn DOTS blackfriday sucks retail fail shacklife URL',0,1,0,0,0,0,2,0,0,0,0,negative
+'MENTION site go site fail group',0,1,0,0,0,0,1,0,0,0,0,negative
+'think overdid first week back gym back kill today fail gymproblems',0,1,0,0,0,0,2,0,0,0,0,negative
+'first linkedin comm hi hannah free today chat servic not_know care fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'possibl favourit ever fail know mean laugh URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'friday night & kid camp free night & sleep tomorrow hub transit biz trip fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'bare sale fail blackfriday',0,1,0,0,0,0,1,0,0,0,0,negative
+'sms spam hurt brand especi connect economi will peopl understand fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'bad sock choic DOTS fail URL',0,1,0,0,0,0,2,0,0,0,0,negative
+'thank MENTION take web reserv last night tablet tell now not_valid blackfriday fail',0,1,0,0,0,0,1,0,0,0,0,negative
+'remak film standard set high origin anniemovie fail',0,1,0,0,0,0,1,0,0,0,0,negative
+'way abl work page ipad icloud share word doc open mac apple fail stupid',0,1,0,1,0,0,2,0,0,0,0,negative
+'need run payrol MENTION busi bank servic go back fail blackfriday',0,1,0,0,0,0,1,0,0,0,0,negative
+'moment realis left key home DOTS fail',0,1,0,0,0,0,1,0,0,0,0,negative
+'actual need go ikea today forgot f ing black friday fail',0,1,0,0,0,1,1,0,0,0,0,negative
+'massiv blackfriday fail curri URL',1,1,0,0,0,0,1,0,0,0,0,negative
+'uk store spend week shove blackfriday throat mani digit store not_buckl strain mcommerce fail',2,1,0,0,0,0,2,0,0,0,0,negative
+'amazon uk blackfriday fail',0,1,0,0,0,0,1,0,0,0,0,negative
+'term end 2 week suppos chosen project DOTS not_even titl yet good one leicest fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'lunchtim & not_staff half enquiri counter MENTION branch DOTS fail shake head',0,1,0,0,0,0,1,0,0,0,0,negative
+'fail save children’ pr defend blair almost wors award great blog MENTION URL',1,1,0,2,0,0,2,0,0,0,0,negative
+'phone start drop hint need replac fallen 3rd time today tech fail',0,1,0,0,0,0,2,0,0,1,0,negative
+'fall price oil will remov last tatter arrog shred pretens conserv econom polici fail cdnpoli',0,1,0,0,0,0,6,0,0,0,0,negative
+'man can fail mani time not_a failure begin blame somebodi els john burrough',0,1,0,0,0,0,3,0,0,0,0,negative
+'smarten nas 4 album 10 year homey can divid one album everi let us say two year fail obviouslycannotdivide',0,1,0,0,0,0,1,0,0,0,0,negative
+'wait car MENTION arriv need rob not_hav chang ticket machin fail',0,1,0,0,0,0,1,0,0,0,0,negative
+'photo epic fail facepalm timesofindia make disastr blunder kill sachintendulkar DOTS rip DOTS URL',0,1,0,0,0,0,5,0,0,0,0,negative
+'becki fail miss cbc',1,1,0,0,0,0,2,0,0,0,0,negative
+'never ever want nurs entir life senior quot tho 😅 fail URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'come fail life URL fuck blackfriday fail',1,1,0,0,0,0,3,0,0,0,0,negative
+'mathemat genius must left combin weight legpress gym fail URL',0,1,0,1,0,0,1,0,0,0,0,negative
+'MENTION chicken extend trail cap immigr eu citizen still screw commonwealth & row fail eu',1,1,0,0,0,0,1,0,0,0,0,negative
+'book friday quiet xmas shop catchup mum total not_appreci blackfriday mad fail',0,1,0,2,0,0,2,0,0,0,0,negative
+'much confus divers not_prop signag MENTION fail excit',0,1,0,2,0,0,2,0,0,0,0,negative
+'MENTION websit crashed cours e erienc high volum run ton tv ad press ad fail',1,1,0,0,0,0,2,1,0,0,0,negative
+'write best poem life comput turn goe masterpiec fail',0,1,0,2,0,0,1,0,0,0,0,negative
+'look like next week burger van run go e ensiv fail',0,1,0,1,0,0,1,1,0,0,0,negative
+'cfo mistaken tweet deal plan URL twittergonewrong socialmedia udontseethiseveryday fail',1,1,0,0,0,0,2,0,0,0,0,negative
+'dear googl turn top bottom bar black red actual drain batteri ole display fail',1,1,0,1,0,0,2,0,0,0,0,negative
+'say thought move prejud 2/2 prejudice fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'point blackfridaydeals none can keep site MENTION MENTION MENTION much fail',0,1,0,0,0,0,1,0,0,0,0,negative
+'secret santa present got deliv offic unwrap everyon seen even person know fail',1,1,0,0,0,0,1,0,0,0,0,negative
+'franc 2012 olymp mexico murray won wimbledon will mexico rugbi world cup england fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'success failure climb back URL success fail failure motivation entrepreneur business marketing',0,1,0,2,0,0,3,0,0,0,1,negative
+'wow capit consumer realli bring best peopl URL blackfriday fail',0,1,0,2,0,0,1,0,0,0,0,negative
+'guess MENTION noth believ blackfriday fail',1,1,0,0,0,0,1,0,0,0,0,negative
+'ha first type reverttoself add later work intellisens problem seem DOTS vs2015 fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'dear oracl pleas pleas pleas stop break link document urlsareforlife learntoredirectproperly fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'biggest report fail ever MENTION MENTION MENTION URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'time thought 1d special weekend fail',0,1,0,0,0,0,1,0,0,0,0,negative
+'10 peopl one job just total blew URL fail fails',0,1,0,0,0,0,2,0,0,0,0,negative
+'sarah palin make shit URL fail fuck palin',0,1,0,0,0,0,3,0,0,0,0,negative
+'not_let retouching fail happen URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'need work can get charger iphon 4s see mine die ars fail',0,1,0,1,0,0,2,0,0,0,0,negative
+'hey MENTION realli black friday sent 5 shower instead lamp least will clean desk skills fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'MENTION MENTION speech action said &done 5 year ago let uk descend crisi fail',1,1,0,0,0,0,2,0,0,0,0,negative
+'disappoint MENTION MENTION s onlin queue time complet inaccur fail',0,1,0,0,0,0,3,0,0,0,0,negative
+'oh bad respons employ forgot attach document email wow fail comical',0,1,0,1,0,0,3,0,0,0,0,negative
+'fail think ice coffe drank denni keep awak',0,1,0,0,0,0,1,0,0,0,0,negative
+'6 hour christma shop black friday got 2 purs one fail',0,1,0,0,0,0,1,0,0,0,0,negative
+'pay day annnddd lost bank card DOTS yes fail',0,1,0,0,0,2,2,0,0,0,0,negative
+'point onlin shop avoid queue popular site like currys/argo put us one ahahaha fail',0,1,0,2,0,0,1,0,0,0,0,negative
+'laugh loud brother tri sneak hous time fail',0,1,0,1,0,0,2,0,0,0,0,negative
+'pointless MENTION hour deal get websit buy fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'vatmoss vatmess almost though govern depart understand modern internet thing DOTS oh wait DOTS fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'tri look angry fail angry MENTION mediacorp caldecott broadcast centr URL',0,1,0,0,0,0,3,0,0,0,0,negative
+'successful people one tri fail tri sometim beauty attempt',0,1,0,2,0,0,1,0,0,0,1,negative
+'fucker tri take photo complet stranger cb never turn flash fail',15,1,0,0,0,0,1,0,1,0,0,negative
+'day6 mercedes car repair less r5000 MENTION worst servic custom world MENTION fail',0,1,0,0,0,1,2,0,0,0,0,negative
+'als ice bucket challenge fail tgp lobaseuseuheun URL',1,1,0,0,0,0,1,0,0,0,0,negative
+'amaz even tesco direct backfriday fail MENTION URL',0,1,0,1,0,0,1,0,0,0,0,negative
+'awesom blackfridaydeals MENTION just head websi oh not_wait nevermind fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'curri pc world websit also not_handl black friday fail blackfriday',1,1,0,0,0,0,1,0,0,0,0,negative
+'prepar compani black friday 37m wait time websit fail blackfriday MENTION URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'comeback key URL fail comeback business hope inspiration entrepreneur',0,1,0,1,0,0,1,0,0,0,0,negative
+'cowork monday first christma mean decemb fail',2,1,0,0,0,0,1,0,0,0,0,negative
+'talk tories strong word just fail',0,1,0,1,0,0,1,0,0,0,0,negative
+'thank u spam MENTION MENTION amd charg optout fail URL',1,1,0,1,0,0,1,0,0,0,0,negative
+'guess anoth signal failur MENTION DOTS londoncommuting fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'bust twice doublegirl fail',0,1,0,0,0,0,1,0,0,0,0,negative
+'not_th whole idea internet screw access provid countri internettv fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'decid not_to get involv blackfriday mad fail christmasgiftideas amazon got alreadi delivery come next week laugh loud',0,1,0,1,0,0,2,0,0,0,0,negative
+'know need inspir get last rep fuck take play fail gymprobz',0,1,0,1,0,0,2,0,0,0,0,negative
+'pervez rashid tri hard sound funni sarcast DOTS fail becom illeg carri cash even illog',0,1,0,0,0,0,6,0,0,0,0,negative
+'smalltim partisan hack like chris uhlmann surviv MENTION sack fail abccuts',0,1,0,1,0,0,3,0,0,0,0,negative
+'4am failps4 complain can’t start game without disc spend 15 minut forum look way resolv URL URL',0,0,0,0,0,0,1,0,0,0,0,negative
+'extrem disappoint MENTION inspiron 14 74 37 special touchpad fail',0,1,0,0,0,0,2,0,0,0,0,negative
+'biggest hate life DOTS not_even think lie DOTS not_respect URL',0,1,0,1,0,0,2,0,0,0,0,negative
+'say bye past n say hello futur hate stubborn guys dontfollowme donttalktome alert yall',2,1,0,0,0,0,2,0,0,0,0,negative
+'darkness can not_driv darkness light can hate can not_driv DOTS w/ babyboy URL',0,1,0,0,0,0,3,0,0,0,0,negative
+'see peopl just born hate not_understand god know DOTS URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'bore DOTS emo boy emo hate ungly sexy gay gayboy URL',0,1,0,1,0,0,2,0,0,0,0,negative
+'nice human => unless cours hate insecure miserable DOTS URL',0,1,0,1,0,0,3,0,0,0,1,negative
+'leav photography uni nikon love hate poetry editorial heels thelauralamb MENTION bath school DOTS URL',0,1,0,1,0,0,1,0,0,0,1,negative
+'one random low day hate kind day one random low day hate kind DOTS URL',0,1,0,0,0,0,2,0,0,1,0,negative
+'mensrights MENTION sexual abus happen everyday home abus aren’t untouch cele DOTS URL feminism hate',0,1,0,0,0,0,2,0,0,0,0,negative
+'hate everything book swagshop URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'alway chasin pie sky hate',0,1,0,0,0,0,1,0,0,0,0,negative
+'hate u s abandon tribe fought isi iraqi forc anbar provinc say need weapon DOTS URL',3,1,0,0,0,0,1,0,0,0,0,negative
+'hate peopl fuck anal family hate',0,1,0,0,0,0,3,0,0,0,0,negative
+'babi fool hate',0,1,0,0,0,0,2,0,0,0,0,negative
+'wanna see doin thing hate',0,1,0,0,0,0,1,0,0,0,0,negative
+'wonder can someth not_lik think bad hate friday weekend',0,2,0,2,0,0,2,0,0,0,0,negative
+'& comput gonna one love hate relationship URL wrap track love hate digitallove',0,1,0,2,0,0,2,0,0,0,1,negative
+'studying starbuckscoffee ao studying exile arashi music love best friend forev test hate kyoto throwback thursday DOTS URL',0,1,0,1,0,0,2,0,0,0,1,negative
+'MENTION not_that truth hate loveistheanswer URL',1,1,0,0,0,0,1,0,0,0,0,negative
+'mensrights MENTION poor guy treat like crap femal help submit b DOTS URL feminism hate',0,1,0,2,0,0,3,0,0,0,0,negative
+'URL hyrule warriors 5 hate spiders DOTS part 2 URL h âte hyrule tiger warriors woods',0,0,0,0,0,0,1,0,0,0,0,negative
+'hate tell people problems prefer candid anonymous DOTS candid android URL',0,1,0,1,0,0,2,0,0,0,0,negative
+'know evil hate',0,1,0,0,0,0,2,0,0,0,0,negative
+'fine dont laugh joke make look stupid hate teamfollowback',0,1,0,1,0,0,3,0,0,0,0,negative
+'URL today hospital finish day dayhospital love hate 5cicle penultimo forte strong cancer monster',0,1,0,2,0,0,3,0,0,0,2,negative
+'violent imag head loot kill want turn back time end hate — DOTS URL',0,1,0,0,0,0,3,0,0,0,0,negative
+'mensrights MENTION shia labeouf rape 0 submit enriqueroz link comment URL feminism hate',0,1,0,0,0,0,2,0,0,0,0,negative
+'hate will not_stop hate',0,2,0,0,0,0,2,0,0,0,0,negative
+'tri hard find hate',0,1,0,0,0,0,2,0,0,0,0,negative
+'s toss hate',0,1,0,0,0,1,1,0,0,0,0,negative
+'big brother africa ellah move wound heart romance hate sex URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'judg gavel fell hate',0,1,0,0,0,0,2,0,0,0,0,negative
+'know evil hate',0,1,0,0,0,0,2,0,0,0,0,negative
+'enemi fear think hate realli fear ghandi quote',0,1,0,0,0,0,4,0,0,0,0,negative
+'babi fool hate',0,1,0,0,0,0,2,0,0,0,0,negative
+'next moon gonna win sin citi hate',0,1,0,1,0,0,2,0,0,0,0,negative
+'wanna see doin thing hate',0,1,0,0,0,0,1,0,0,0,0,negative
+'s toss hate',0,1,0,0,0,1,1,0,0,0,0,negative
+'hate candi crush DOTS hate',0,1,0,0,0,0,3,0,0,0,0,negative
+'anoth asshat ad ban list wed night hate thick last hour hatersgonnahatehatehate URL',0,1,0,0,0,0,1,0,0,0,0,negative
+'now killer make pay follow hate URL put man awayfor smoke joint foolish URL man will come hate',0,1,0,0,0,0,3,0,0,0,0,negative
+'hate problems DOTS true URL',0,1,0,0,0,0,2,0,0,0,0,negative
+'make never want rais kid world full racism hate general',0,1,0,0,0,0,2,0,0,0,0,negative
+'hate say yes im look way yesman hate selfish breakmyback DOTS URL',0,1,0,0,0,0,3,0,0,0,0,negative
+'hate stretch mark check diy will help URL mommy moms follow baby',0,1,0,0,0,0,1,0,0,0,0,negative
+'bitch show love fake nigga hate',0,1,0,1,0,0,2,0,0,0,1,negative
+'hate caus lot problem worldbut not_solv one yet quote URL',0,1,0,0,0,0,2,0,0,0,0,negative
+'alway kind nightmares time year hate nightmares nightterrors',0,1,0,0,0,0,1,0,0,0,0,negative
+'type relationship cats love hate cuddles URL',0,1,0,1,0,0,1,0,0,0,1,negative
+'im realli start hate iphon major glitch bug io 8 worst ever apple iosdev hate MENTION',0,1,0,0,1,0,5,0,0,0,0,negative
+'hate storms current massiv storm need leav get bus half hour pleas stop storms hate work',0,1,0,1,0,0,2,0,0,0,0,negative
+'think piss akina bed boxer dog boxer hate laugh loud angry dog URL',0,1,0,1,0,0,3,0,0,0,0,negative
+'yes teach black 2 hate realli help peopl DOTS MENTION URL',0,1,0,1,0,0,1,0,0,0,0,negative
+'just say humanity lie truth words awkward hypocrite fake hate real reason people URL',0,1,0,0,0,0,5,0,0,0,0,negative
+'peopl kill anim 4 not_reason evil u handl anim home 4 whatev reason give 2 someon can hate',0,1,0,0,0,0,3,0,0,0,0,negative
+'t minus 12 hour will road wors citi ever asu nopityforthekitty fthemildcats hate',1,1,0,0,0,0,2,0,0,0,0,negative
+'alway URL qotd girls boys life relationships love hate clever URL',0,1,0,2,0,0,1,0,0,0,2,negative
+'hate peopl much especi friday morn y r stupid wake fcking peopl god damn itduh',4,1,0,0,1,0,3,0,0,0,0,negative
+'mayb hustle hard hate workhard URL',0,1,0,0,0,0,2,0,0,0,0,negative
+'want clean leaf DOTS hate fall winter URL',0,1,0,1,0,0,2,0,0,0,0,negative
+'hate snow much hate snow thissucks native canada canadianvinersgroup snowing winter wintersucks URL',0,1,0,0,0,0,2,0,0,0,0,negative
+'hate caus lot problems world not_solv one yet mayaangelo',0,1,0,0,0,0,2,0,0,0,0,negative
+'atleast happi fangirl life',0,0,0,1,0,0,0,1,0,0,0,positive
+'adaaa rasaaa friday happi thank god',1,0,0,2,0,2,0,3,0,0,0,positive
+'free today URL',1,0,0,1,0,0,0,1,0,0,0,positive
+home,0,0,0,0,0,0,0,1,0,0,0,positive
+'got need right passeng seat',0,0,0,1,0,0,0,1,0,0,0,positive
+'good even',0,0,0,1,0,0,0,1,0,0,0,positive
+'wait new music soon MENTION mtvstars justin bieber',0,0,0,0,0,0,0,1,0,0,0,positive
+'goodnight talk bali',0,0,0,0,0,0,0,1,0,0,0,positive
+'get touch bootcamp southend URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'will happi URL',1,0,0,1,0,0,0,1,0,0,0,positive
+'good even',0,0,0,1,0,0,0,1,0,0,0,positive
+'sister URL',0,0,0,0,0,0,0,1,0,0,0,positive
+hi,1,0,0,0,0,0,0,1,0,0,0,positive
+'hit like love scene URL',0,0,0,2,0,0,0,1,0,0,0,positive
+'congrat MENTION',0,0,0,0,0,0,0,1,0,0,0,positive
+'nice littl xmas pressi order made MENTION much tempt stuff display URL',0,0,0,2,0,0,0,1,0,0,0,positive
+'never excit sim card thank MENTION MENTION danandphilsim URL',1,0,0,2,0,0,0,1,0,0,0,positive
+'carnt wait tonight go twist go see MENTION excit',0,0,0,1,0,0,1,1,0,0,0,positive
+'goodeven smt',1,0,0,0,0,0,0,1,0,0,0,positive
+'man life gifts fragrance URL URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'first one arriv URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'perfect descript',1,0,0,1,0,0,0,1,0,0,0,positive
+'haha dont mention u dont fanci � just not_lik hahah URL',0,0,0,2,0,0,0,1,0,0,0,positive
+'mani good player teamoftheyear',1,0,0,1,0,0,0,1,0,0,0,positive
+'glad came back life',0,0,0,1,0,0,0,1,0,0,0,positive
+hi,0,0,0,0,0,0,0,1,0,0,0,positive
+'happi lancer day MENTION',0,0,0,1,0,0,0,1,0,0,0,positive
+'good even',0,0,0,1,0,0,0,1,0,0,0,positive
+'new idea look URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'goood morn everyon',0,0,0,1,0,1,0,1,0,0,0,positive
+'princess navya MENTION beauti URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'thank MENTION',1,0,0,1,0,0,0,1,0,0,0,positive
+'hi everyon will use page often now pleas tell friend page can share',0,0,0,0,0,0,0,1,0,0,0,positive
+'happi birthday ate MENTION',0,0,0,1,0,0,0,1,0,0,0,positive
+heeey,1,0,0,0,0,1,0,1,0,0,0,positive
+'woohoo 1000 follow two week thank guy',0,0,0,0,0,1,0,1,0,0,0,positive
+'ok im home alon selfi time',2,0,0,0,0,0,0,2,0,0,0,positive
+goodeven,0,0,0,0,0,0,0,1,0,0,0,positive
+'lazi day chill grandpar',0,0,0,0,0,0,1,2,0,0,0,positive
+'smile URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'goodluck maria sherapova',0,0,0,0,0,0,0,1,0,0,0,positive
+'good even',0,0,0,1,0,0,0,1,0,0,0,positive
+'dream make trip around world',0,0,0,0,0,0,0,1,0,0,0,positive
+'whatev said will stay',0,0,0,0,0,0,0,1,0,0,0,positive
+'beauti catch attent charact catch heart',0,0,0,1,0,0,0,1,0,0,0,positive
+'sweetheart URL',0,0,0,1,0,0,0,0,0,0,0,positive
+'lego travel URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'thank yah',0,0,0,0,0,0,0,1,0,0,0,positive
+'got final URL',1,0,0,0,0,0,0,1,0,0,0,positive
+goodnight,0,0,0,0,0,0,0,1,0,0,0,positive
+'first meetup next weekend come around fast',0,0,0,1,0,0,0,1,0,0,0,positive
+'happi birthday',0,0,0,1,0,0,0,1,0,0,0,positive
+'new life DOTS URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'got wwe ticket morn',1,0,0,0,0,0,0,1,0,0,0,positive
+'peopl home MENTION bank street social URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'mani thing look forward <3',0,0,0,0,0,0,0,0,0,0,0,positive
+'love thank u mum <3 URL',0,0,0,2,0,0,0,0,0,0,0,positive
+'loving hippos <3',2,0,0,1,0,0,0,0,0,0,0,positive
+'happi babi',0,0,0,1,0,0,0,0,0,0,0,positive
+'listen MENTION DOTS love <3',0,0,0,1,0,0,0,0,0,0,0,positive
+'look URL',0,0,0,0,0,0,0,0,0,0,0,positive
+later,0,0,0,0,0,0,0,0,0,0,0,positive
+'love classmat <3',0,0,0,1,0,0,0,0,0,0,0,positive
+'world <3 URL',1,0,0,0,0,0,0,0,0,0,0,positive
+'like see time MENTION bring much colour love life',0,0,0,2,0,0,0,1,0,0,0,positive
+'like kinda stuff <3 URL',0,0,0,1,0,0,0,0,0,0,0,positive
+'<33<3 final 105 92 believ actual won <3',1,0,0,1,1,0,0,0,0,0,0,positive
+'look URL',0,0,0,0,0,0,0,0,0,0,0,positive
+'food trip atm',1,0,0,0,0,0,0,0,0,0,0,positive
+'goodeveni <3',0,0,0,0,0,0,0,0,0,0,0,positive
+'give love christma <3',0,0,0,1,0,0,0,0,0,0,0,positive
+'look URL',0,0,0,0,0,0,0,0,0,0,0,positive
+URL,0,0,0,0,0,0,0,0,0,0,0,positive
+'realli realli u MENTION',0,0,0,0,0,0,0,0,0,0,0,positive
+'rock world <3',0,0,0,0,0,0,0,0,0,0,0,positive
+'boy love amaz mean everyth realli love pleas follow pleas beg MENTION 7 796',4,0,1,3,0,0,1,0,0,0,0,positive
+'support cousin best <3',0,0,0,2,0,0,0,0,0,0,0,positive
+'laugh receiv luck MENTION',0,0,0,1,0,0,0,0,0,0,0,positive
+'oh god laugh 10 15 min pat MENTION love <3 MENTION URL',0,0,0,1,0,0,0,0,0,0,0,positive
+'love blue hair',0,0,0,1,0,0,0,0,0,0,0,positive
+'love love <3',0,0,0,2,0,0,0,0,0,0,0,positive
+'wow error special stage amaz 3 vixx',0,0,0,2,0,0,1,0,0,0,0,positive
+'birthday birthday will spend parent money haha <3 ___ $___$',0,0,0,0,0,2,0,0,0,0,0,positive
+'visit 22 countri world <3 need travel travelstoke URL',0,0,0,0,0,0,0,0,0,0,0,positive
+'final discov band royal blood <3 royalblood',0,0,0,0,0,0,0,0,0,0,0,positive
+'ilov one boy life <3',7,0,0,0,0,0,0,0,0,0,0,positive
+'dinner <3 thank continu bless guidanc',0,0,0,2,0,0,0,0,0,0,0,positive
+'life treasur <3 URL',0,0,0,0,0,0,0,0,0,0,0,positive
+'love starship traine <3 URL',0,0,0,1,0,0,0,0,0,0,0,positive
+'want pizza',0,0,0,0,0,0,0,0,0,0,0,positive
+'good morn',0,0,0,1,0,0,0,0,0,0,0,positive
+'tell world _blank blank make happy santaswishlist URL',0,0,0,1,0,0,0,0,0,0,0,positive
+'surpris wonder mood today enjoy gdjb right now ate tasti pizza hour ago pass exam morn happy',0,0,0,4,0,0,0,0,0,0,0,positive
+'one mani peopl gave strength <3 thank happy thanksgivings � URL',0,0,0,2,0,0,0,0,0,0,0,positive
+'happy URL',0,0,0,1,1,0,0,0,0,0,0,positive
+'packag arriv happy URL',0,0,0,1,0,0,0,0,0,0,0,positive
+'best feel happi happy made somebodi els happy happy weekend guy',0,0,0,5,0,0,0,0,0,0,0,positive
+'smile wali best way make self happy URL',0,0,0,3,0,0,0,0,0,0,0,positive
+'happy thanksgiving happy thanks giving thanks thanks festival day giving givethanks grateful � URL',0,0,0,4,0,0,0,0,0,0,0,positive
+'happy friday friday happy mummy chanel chanellover chanladdict jerushaaddict klintonstyle justahawaiis DOTS URL',0,0,0,2,0,0,0,0,0,0,0,positive
+'thank MENTION anoth beauti execut order happy',0,0,0,3,0,0,0,0,0,0,0,positive
+'yeah book ticket see hellogoodbye MENTION februari happy',0,0,0,1,0,0,0,0,0,0,0,positive
+'happy friday everyone thank everyone following retweeting favorites URL',0,0,0,2,0,0,0,0,0,0,0,positive
+'beauti scarv love clutch bag just arriv MENTION love ff happy URL',0,0,0,4,0,0,0,0,0,0,1,positive
+'let us tri one good day love peace happy true URL',0,0,1,4,0,0,0,0,0,0,1,positive
+'life now complet sophiawebster samplesale love shoes happy birthday URL',0,0,0,2,0,0,0,0,0,0,1,positive
+'happy 14 way happier via MENTION URL bwn happy inspiration success motivation',0,0,0,5,0,0,0,0,0,0,1,positive
+'yay just reach 100 follow thank everyon happy travel love plantbased',0,0,0,3,0,0,0,0,0,0,1,positive
+'say merry christmas someon special hug box URL personalised gift hug happy uk URL',3,0,0,4,0,0,0,0,0,0,0,positive
+'best thnaksgiv ever happy thanksgiv URL <3 te amo URL',3,0,0,2,0,0,0,0,0,0,0,positive
+'mum best first black friday purchas coat happy',0,0,0,2,0,0,0,0,0,0,0,positive
+'two wonder peopl just told fantast news happy perfect know',0,0,0,4,0,0,0,0,0,0,1,positive
+'readi move new 3 bedroom apart wait',0,0,0,1,0,0,0,1,0,0,0,positive
+'subscrib coolgamergirl escapad youtub great weekend everyon',0,0,0,1,0,0,0,1,0,0,0,positive
+'shot week work 2 love bedroom 2 love children � feel proud',0,0,0,4,0,0,0,1,0,0,0,positive
+'good nigh nice dream ndut',0,0,0,2,0,0,0,1,0,0,0,positive
+'fantast way end week student stay back friday improv handwrit inspired MENTION',0,0,0,2,0,0,0,3,0,0,1,positive
+'ohhh pleas',0,0,0,0,0,1,0,1.5,0,0,0,positive
+'rcl1milliongiveaway hi rachel congratul 1million subscrib pleas read entri URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'thank MENTION round applaus MENTION part believ actual done high school',1,0,0,1,0,0,0,1,0,0,0,positive
+'got new pokemon URL',1,0,0,0,1,0,0,1,0,0,0,positive
+'goooll URL',0,0,0,0,0,1,0,1.5,0,0,0,positive
+'birthday shoutout twin MENTION happi birthday dear twin wish good year ahead',0,0,0,2,0,0,0,1,0,0,0,positive
+'rcl1milliongiveaway hi rachel congratul 1million subscrib pleas read entri URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'hi pleas call back 3',0,0,0,0,0,0,0,1,0,0,0,positive
+'maliyah pretti MENTION URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'MENTION MENTION MENTION MENTION MENTION MENTION good even queen beauti URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'black friday shop great love',0,0,0,2,0,0,0,1,0,0,0,positive
+'wish start everi day long hike URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'done 2pm cant wait hangout korbyn <3 good boy',0,0,0,1,0,0,0,1,0,0,0,positive
+'sleep beauti',0,0,0,1,0,0,0,1,0,0,0,positive
+'good night',0,0,0,1,0,0,0,1,0,0,0,positive
+'everyth ok',1,0,0,0,0,0,0,1,0,0,0,positive
+'whoareyou MENTION love song girl simpli perfect',0,0,0,2,0,0,0,1,0,0,0,positive
+'stay aunt bev uncl colin hous look forward 2 go 2 spend time 2 cousin laugh loud',0,0,0,1,0,0,0,1,0,0,0,positive
+'birthday activ last year URL URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'yay sniffi found DOTS not_ask DOTS just pleas',1,0,0,2,1,0,0,1,0,0,0,positive
+'myterms DOTS not_even know yet not_disrespect intend DOTS life thank DOTS URL',3,0,0,1,0,0,1,1,0,0,0,positive
+'thank trish saya MENTION',0,0,0,1,0,0,0,1,0,0,0,positive
+'goodnight na may sweet',1,0,0,1,0,0,0,1.5,0,0,0,positive
+'final MENTION watch teaser trailer star war forc awaken URL',1,0,0,0,0,0,0,1,0,0,0,positive
+'star war episod vii teaser URL wow now teaser trailer now get name forc awaken',4,0,0,1,0,0,0,1,0,0,0,positive
+'good night gone steelheart � URL',0,0,0,1,0,0,0,1,0,0,0,positive
+hey,1,0,0,0,0,0,0,1,0,0,0,positive
+'happi birthdayyy MENTION URL',0,0,0,1,0,1,0,1,0,0,0,positive
+follow,2,0,0,0,0,0,0,1,1,0,0,positive
+'get see gf today MENTION',0,0,0,0,0,0,0,1,0,0,0,positive
+'bless love waaay MENTION morn bro MENTION great one',1,0,0,2,1,1,0,1,0,0,0,positive
+'brilliant URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'look forward MENTION christmas festiv weekend come say hello sat&sun 10 4pm wakefield art cards handmade',0,0,0,0,0,0,0,1,0,0,0,positive
+'treat bodi like trophi clean take care import display everyon see',0,0,0,3,0,0,0,1,0,0,0,positive
+'got p atd ah shirt happi',3,0,0,1,0,0,0,1,0,0,0,positive
+'happi thank give american',1,0,0,1,0,0,0,1,0,0,0,positive
+'shirleen singh love URL',0,0,0,1,0,0,0,2,0,0,0,positive
+'one day not_today',0,0,0,0,0,0,0,1,0,0,0,positive
+'onlin check / URL URL',0,0,0,0,1,0,0,1,0,0,0,positive
+'follow & spring season start',0,0,0,0,0,0,0,1,0,0,0,positive
+'peopl world crack',0,0,0,0,0,0,1,1,0,0,0,positive
+'final found decent anim app phone',1,0,0,1,0,0,0,1,0,0,0,positive
+'end now just okay',0,0,0,0,0,0,0,1,0,0,0,positive
+'tonight shall fun',0,0,0,1,0,0,0,1,0,0,0,positive
+'anybodi lf1 hit MENTION sound guy great player rts appreci',1,0,0,2,0,0,0,1,0,0,0,positive
+'save feel thank',0,0,0,1,0,0,0,1,0,0,0,positive
+'holi sweet lordi ten subscrib eeehhhkkk happi day amaz yay new vid soon',1,0,0,5,5,3,0,1,0,0,0,positive
+'lot peopl read blog URL ski snowboard season seasonaire',0,0,0,0,0,0,0,1,0,0,0,positive
+'skype us',0,0,0,0,0,0,0,1,0,0,0,positive
+'super quick sketch hope like MENTION URL',1,0,0,2,0,0,0,1,0,0,0,positive
+'good night nice dream',0,0,0,2,0,0,0,1,0,0,0,positive
+'four day till birthday',0,0,0,0,0,0,0,1,0,0,0,positive
+'thank topnewfollowers MENTION MENTION MENTION MENTION happi connect via URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'happi URL',1,0,0,1,0,0,0,1,0,0,0,positive
+'hilari old wd40 ad URL',0,0,0,1,0,0,0,1,0,0,0,positive
+goodnight,0,0,0,0,0,0,0,1,0,0,0,positive
+'nice haul gotta go back make sure get liara & wrex though URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'watch grandma hous week',0,0,0,0,0,0,0,1,0,0,0,positive
+'one perfect fine lenye2 sunday DOTS',0,0,0,2,0,0,0,1,0,0,0,positive
+'thank topnewfollowers MENTION MENTION MENTION MENTION happi connect insight URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'like scratch peopl back bc make happi',0,0,0,2,0,0,0,1,0,0,0,positive
+'jasmine sweeti sweeti chocol dairymilk MENTION candy jasmine bestday URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'love snow yeg snow cozy URL',0,0,0,2,0,0,0,1,0,0,0,positive
+'never run game ever just chill enjoy love',0,0,0,2,0,0,1,1,0,0,0,positive
+'draw amaz x factor weekend 2 URL winner & rais huge amount thank sponsor MENTION URL',1,0,0,2,0,0,0,1,0,0,0,positive
+'happi birthday dearest MENTION may allah bless life love',0,0,0,3,0,0,0,1,0,0,0,positive
+'famili absolut ador craig couldnt happier',0,0,0,1,0,0,0,1,0,0,0,positive
+'stream bit come join like URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'black friday success broke yay',0,0,0,2,0,0,1,2,0,0,0,positive
+'free today gift black friday happi cyber shop raven k asher book black friday freebi URL',1,0,0,2,0,0,0,1,0,0,0,positive
+'love youuu',0,0,0,1,0,1,0,1,0,0,0,positive
+'love littl evelyn MENTION URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'blow money prank extra URL via MENTION MENTION great video',1,0,0,1,0,0,0,1,0,0,0,positive
+'wanna chill tonight text',0,0,0,0,0,0,1,1,0,0,0,positive
+'alway allow dream',0,0,0,0,0,0,0,1,0,0,0,positive
+'ff_special MENTION hamesha se classi bnda hai ye nice person',0,0,0,2,0,0,0,1,0,0,0,positive
+'hello thanksgiv love littl munchkin URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'goodmorn puppi via /r/aww URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'glenn beck theblaz theblaz radio network laugh loud URL',2,0,0,1,0,0,0,1,0,0,0,positive
+'stay URL wonder still smile blue batman URL',0,0,0,2,0,0,0,1,0,0,0,positive
+'realli excit movi & light favourit peopl tomorrow',0,0,0,1,0,0,0,1,0,0,0,positive
+'love best friend MENTION call sing happi birthday differ rendit everi year love',0,0,0,4,0,0,0,1,0,0,0,positive
+'love feel abl buy peopl thing',0,0,0,1,0,0,0,1.5,0,0,0,positive
+'nice day URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'head town short see love MENTION',1,0,0,1,0,0,0,1,0,0,0,positive
+'thank god hang one bestfriend ha yeah time fun',0,0,0,2,0,0,0,1,0,0,0,positive
+'morn URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'finland said yes sex marriag final good decis tahdon tahdon2014 URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'thank love support last night guy will see later go watch fifi URL',0,0,0,2,0,0,0,1,0,0,0,positive
+'effort thank MENTION love URL',0,0,0,2,0,0,0,2,0,0,0,positive
+'pleas support stori thankyou URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'crazi & dysfunct know love love love famili much joy URL',0,0,0,4,0,0,1,1,0,0,0,positive
+'stop send funni post hahaha MENTION go studyyi will not_repli',1,0,0,1,0,1,1,1,0,0,0,positive
+'choos zayn malik francisco lachowski � obvious francisco lachowski hahaha URL',1,0,0,0,0,0,0,1,0,0,0,positive
+'thank topcommunitymembers MENTION MENTION happi engag insight URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'hi guy istanbul turkey turkishboy view sport igers polish girl polish russian russiangirl � URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'just fun URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'thank topcommunitymembers MENTION MENTION MENTION MENTION happi engag insight URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'check lip dub lou bega mambo 5 hope guy like MENTION lipdup funfriday URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'congrat friend pass ufe go celebr deserv',0,0,0,1,0,0,0,1,0,0,0,positive
+'yes know talent drawing love imagine thefall theview amas coolkids MENTION URL',0,0,0,2,0,0,0,1,0,0,1,positive
+'megdeaangelisgiveaway megdeaangelisgiveaway pleasee URL',0,0,0,0,0,1,0,1.5,0,0,0,positive
+'back gym xx',1,0,0,0,0,0,0,1,0,0,0,positive
+'alright alright thank much love',0,0,1,2,3,0,0,11,0,0,0,positive
+'great time watch MENTION stream MENTION come join let fun URL',0,0,0,2,0,0,0,1,0,0,0,positive
+'final got phone happi',0,0,0,1,0,0,0,1,0,0,0,positive
+'excit christmasiscoming URL',1,0,0,1,0,0,0,1,0,0,0,positive
+'tri enjoy break two paper write',0,0,0,1,0,0,1,3,0,0,0,positive
+'help smile see x wing fighter fli format star war forc awaken offici teaser URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'astro comin soon',0,0,0,0,0,0,0,1,0,0,0,positive
+'look like confirm first ever gig itali someth e ect year DOTS realli excit info soon',0,0,0,2,0,0,0,2,0,0,0,positive
+'sister forc go dad hous today birthday nice',0,0,0,1,0,0,0,1,0,0,0,positive
+'get iphon 6 today yaya thank black friday sale get christma present earli',0,0,0,1,1,0,0,1,0,0,0,positive
+'happi friday philadelphia enjoy rest long weekend URL thanksgivingweekend DOTS URL',0,0,0,2,0,0,0,1,0,0,0,positive
+'thankyouuu twincam club kendal',1,0,0,0,0,1,0,1,0,0,0,positive
+'hello grade 12 youth job recommend follow MENTION MENTION',0,0,0,1,0,0,0,1,0,0,0,positive
+'hope everyon good turkey day URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'thank much rts & fave haaappi weekend MENTION MENTION MENTION MENTION MENTION',0,0,0,0,0,1,0,1,0,0,0,positive
+'im excit summer visit spain franc germani gonna great',1,0,0,2,0,0,0,1,0,0,0,positive
+'thank everyon featur followfridays import reward thank',0,0,0,2,0,0,0,1,0,0,0,positive
+'get 10k favorit not_real fuck way back bout now',0,0,0,0,0,0,1,1,0,0,0,positive
+'hii harri xx hope well thank amaz album pleas follow today love MENTION',0,0,0,3,0,0,0,1,0,0,0,positive
+'5yearsofbigtimerush MENTION MENTION MENTION MENTION thank amaz year URL',0,0,0,1,0,0,0,1,0,0,0,positive
+weekend,1,0,0,0,0,0,0,1,0,0,0,positive
+'sure MENTION MENTION okay tri sajna farhan saeed',0,0,0,0,1,0,0,2,0,0,0,positive
+'get like 100 thing final found someth tj',1,0,0,1,0,0,0,1.5,0,0,0,positive
+'snuggl kid',0,0,0,0,0,0,0,1,0,0,0,positive
+'partyyi tonight yesss',3,0,0,0,1,2,0,1,1,0,0,positive
+'never late earli fluffi sock',1,0,0,0,0,0,0,1,0,0,0,positive
+'clean jam shmoke not_i will keep ya post cam time today not_sur plan yet',0,0,0,0,0,0,0,1,0,0,0,positive
+'friendship heart warm URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'robin streamt gaming music fun uRL',1,0,0,1,0,0,0,1,0,0,0,positive
+thank,0,0,0,1,0,0,0,1,0,0,0,positive
+'sharon fruit & ground mix nut hmmm vit c overload necessari dad creation happi friday xx URL',1,0,0,1,0,1,0,1,0,0,0,positive
+'love littl music lover URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'happi allumdillah',0,0,0,1,0,0,0,1,0,0,0,positive
+'hope everyon wonder weekend check latest studio endeavor 3b4jhoy URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'new starwarstrailer super excit look amaz starwarsepisodevii',0,0,0,3,0,0,0,1,0,0,0,positive
+'MENTION make heart smile URL',0,0,1,1,0,0,0,1,0,0,0,positive
+'appar yeg know much love snow',0,0,0,1,0,0,0,1,0,0,0,positive
+'thank topcommunitymembers MENTION MENTION MENTION happi engag insight URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'look join let know im inact check tomorrow pleas everyon',0,0,0,0,0,0,0,1,0,0,0,positive
+'look came mail today MENTION URL',0,0,0,0,0,0,0,1,0,0,0,positive
+goodnight,0,0,0,0,0,0,0,1,0,0,0,positive
+'good night',1,0,0,1,0,0,0,1,0,0,1,positive
+'star war',3,0,0,0,0,0,0,1,1,0,0,positive
+'beauti photo ice rider world oldest lake URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'rob forev surpris us',0,0,0,0,0,0,0,1,0,0,0,positive
+'congrats MENTION',0,0,0,0,0,0,0,1.5,0,0,0,positive
+'good night friend uRL',3,0,0,1,0,0,0,1.5,0,0,0,positive
+'love baekhyun love eyesmil',0,0,0,2,0,0,0,1,0,0,0,positive
+'anyon wanna hang tonight',0,0,0,0,0,0,1,1,0,0,0,positive
+'buy peopl nice gift money make happi',0,0,0,2,0,0,0,1,0,0,0,positive
+'travel thing buy make richer roadtrip yay URL',1,0,0,2,0,0,0,1,0,0,0,positive
+'just nap',0,0,0,0,0,0,0,1,0,0,0,positive
+'done MENTION robin top choic URL day left cast vote',0,0,0,1,0,0,0,1,0,0,0,positive
+'hey MENTION final made nz ny see show cantwait URL',1,0,0,0,0,0,0,1,0,0,0,positive
+'just woke',0,0,0,0,0,0,0,1,0,0,0,positive
+'everyday letter goodnight dongha oppa love leedongha URL',0,0,0,1,1,0,0,2,0,0,0,positive
+'check right now pump play',0,0,0,1,0,0,0,1,0,0,0,positive
+'alway keep happiness happiness behappy good day design dilpakg URL',0,0,0,3,0,0,0,1,0,0,2,positive
+'good night',0,0,0,1,0,0,0,1,0,0,0,positive
+'say weed bad can caus death give will suffer thankyou',0,0,0,0,0,0,4,1,0,0,0,positive
+'happi birthday ps4',0,0,0,1,0,0,0,1,0,0,0,positive
+'sweet potato pie breakfast',0,0,0,1,0,0,0,1,0,0,0,positive
+'back thanksgiv 4 year ago URL URL',0,0,0,0,0,0,0,1,0,0,0,positive
+'babi best clean room',0,0,0,1,0,0,0,1,0,0,0,positive
+'happi birthday MENTION hug thank amaz voic congratul trance � URL',0,0,0,3,2,0,0,1,0,0,0,positive
+'love nice relax even',0,0,0,2,0,0,0,1,0,0,0,positive
+'happi birthday cuti MENTION',0,0,0,1,0,0,0,1,0,0,0,positive
+'babi will everyth everyth boy like girl � URL',0,0,0,1,0,0,0,1,0,0,0,positive
+'black friday shop success',0,0,0,1,0,0,0,1,0,0,0,positive
+happi,0,0,0,1,0,0,0,1,0,0,0,positive
+'life better drunk beerforthat',2,0,0,1,0,0,1,2,0,0,0,positive
+'ok now offici chrisma season happier',0,0,0,1,0,0,0,1.5,0,0,0,positive
+'just saw window thrive MENTION happi paint today',0,0,0,2,0,0,0,1,0,0,0,positive
+'home alon watch homealone DOTS yeeaaahhh buddi',1,0,0,0,0,2,0,1,0,0,0,positive
+'so happy',2,0,0,1,0,0,0,1.5,1,0,0,positive
+'MENTION p haha good weekend dear friend',0,0,0,1,0,0,0,1,0,0,0,positive
+'go paintbal boyfriend birthday tomorrow',0,0,0,0,0,0,0,1,0,0,0,positive
+'URL MENTION awesom song bajnachahiyegaana MENTION',0,0,0,1,0,0,0,1,0,0,0,positive
+glad,0,0,0,1,0,0,0,1,0,0,0,positive
+'spinnin deck residenti club music studio djlife hardcastl3 theotherone � URL',0,0,0,0,0,0,0,1,0,0,0,positive

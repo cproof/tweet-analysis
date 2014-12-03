@@ -10,6 +10,7 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +117,28 @@ public final class WekaUtils {
         } catch (Exception e) {
             log.error("Failed writing the instances to disk! {}", e.getLocalizedMessage());
         }
+    }
+
+    public static void mergeTwoInstances(String inst1, String inst2, String outputFile) {
+        Instances newData1 = null;
+        Instances newData2 = null;
+        try {
+            newData1 = loadInstancesFromStream(WekaClassifier.class.getResourceAsStream(inst1));
+            newData2 = loadInstancesFromStream(WekaClassifier.class.getResourceAsStream(inst2));
+        } catch (Exception e) {
+            log.error("Failed merging! {}", e.getLocalizedMessage());
+        }
+        Instances mergedData = Instances.mergeInstances(newData1 ,newData2);
+        writeInstancesToDisk(mergedData, outputFile);
+    }
+
+    private static Instances loadInstancesFromStream(InputStream instanceStream) throws Exception {
+        ConverterUtils.DataSource trainingDataSource =
+                new ConverterUtils.DataSource(instanceStream);
+
+        Instances dataSet = trainingDataSource.getDataSet();
+        dataSet.setClassIndex(dataSet.numAttributes() -1);
+        return dataSet;
     }
 
 
