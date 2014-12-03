@@ -175,7 +175,7 @@ public class TweetAnalysis {
     public void testAgainstTweets() throws Exception {
         System.out.println("Test classifier against a manually created testing-set...");
 
-        List<Tweet> t = TrainingDataPreprocessor.preprocessAndCreateTweets(standardTweetPreprocessor, "/trainingData/manuallyCreatedTraindata/negative-tweets.csv", 600);
+        List<Tweet> t = TrainingDataPreprocessor.preprocessAndCreateTweets(standardTweetPreprocessor, "/trainingData/manuallyCreatedTraindata/tweets.csv", 600);
         classifier.testClassifierAgainstPreprocessedTweets(t);
 
         System.out.println("done");
