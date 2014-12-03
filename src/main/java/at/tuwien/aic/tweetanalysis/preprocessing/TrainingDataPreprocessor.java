@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import weka.core.Instances;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -174,6 +175,63 @@ public final class TrainingDataPreprocessor {
         /* save instances to disk */
         //WekaUtils.writeInstancesToDisk(instances, "trainData_our.arff");
         WekaUtils.writeInstancesToDisk(instances, outputResourceLocation);
+    }
+
+    /**
+     * Simple reader and writer method that reads the unprocessed csv file, sets the content to the temp tweet class
+     * and calls the given TweetPreprocessor on it.
+     * The output is then written in a simpler format to the output file.
+     * @param tweetPreprocessor     the tweet processor that should be used on the unprocessed read tweets
+     * @param inputResourceLocation the resource path of the input to read
+     * @param initialCapacity       the initial capacity of the created instances object
+     */
+    public static List<Tweet> preprocessAndCreateTweets(ITweetPreprocessor tweetPreprocessor, String inputResourceLocation, int initialCapacity) {
+        InputStream trainingDataStream = TweetAnalysis.class.getResourceAsStream(inputResourceLocation);
+
+        List<Tweet> finalTweets = new ArrayList<>(initialCapacity);
+        try (CSVReader csvReader = new CSVReader(new InputStreamReader(trainingDataStream))) {
+            /* format: tweet = 0, sentiment = 1 */
+
+            /* consume header */
+            csvReader.readNext();
+
+            Tweet trainingTweet = new Tweet();
+            List<Tweet> trainingTweetList = Arrays.asList(trainingTweet); // workaround, since the methods for a single tweet have not been implemented fully
+            String[] nextLine;
+            /* process each csv entry separately */
+            while ((nextLine = csvReader.readNext()) != null) {
+                /* check if line size is correct */
+                if (nextLine.length == 2) {
+                    String tweetText = nextLine[0];
+                    String sentimentText = nextLine[1];
+
+                    /* preprocess the content of the tweet */
+                    trainingTweet.setContent(tweetText);
+                    tweetPreprocessor.preprocess(trainingTweetList);
+                    /* set sentiment */
+                    Sentiment sentiment = null;
+                    if ("positive".equals(sentimentText)) {
+                        sentiment = Sentiment.positive;
+                    } else if ("negative".equals(sentimentText)) {
+                        sentiment = Sentiment.negative;
+                    }
+                    if (sentiment != null) {
+                        Tweet finalTweet = new Tweet();
+                        finalTweet.setContent(trainingTweet.getContent());
+                        finalTweet.setSentiment(sentiment);
+                        finalTweets.add(finalTweet);
+                    } else {
+                        log.warn("Could not read sentiment from: {}", sentimentText);
+                    }
+                } else {
+                    log.warn("Wrong number of entries: ID: {}; {}", nextLine[0], nextLine.length);
+                }
+            }
+        } catch (IOException e) {
+            log.error("Failed to preprocess the read tweets!", e);
+        }
+
+        return finalTweets;
     }
 
     /**
