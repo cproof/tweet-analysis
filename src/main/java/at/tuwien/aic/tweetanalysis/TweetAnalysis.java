@@ -24,6 +24,7 @@ import at.tuwien.aic.tweetanalysis.classifier.WekaClassifier;
 import at.tuwien.aic.tweetanalysis.entities.ClassifiedTweet;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import at.tuwien.aic.tweetanalysis.preprocessing.StandardTweetPreprocessor;
+import at.tuwien.aic.tweetanalysis.preprocessing.TrainingDataPreprocessor;
 import at.tuwien.aic.tweetanalysis.provider.TweetProvider;
 import com.opencsv.CSVWriter;
 import org.slf4j.Logger;
@@ -168,6 +169,16 @@ public class TweetAnalysis {
         System.out.println("Train classifier on basic training set...");
         classifier = new WekaClassifier();
         System.out.println("Basic smo classifier ready");
+    }
+
+    @Command
+    public void testAgainstTweets() throws Exception {
+        System.out.println("Test classifier against a manually created testing-set...");
+
+        List<Tweet> t = TrainingDataPreprocessor.preprocessAndCreateTweets(standardTweetPreprocessor, "/testtrainingData/manuallyCreatedTraindata/negative-tweets.csv", 600);
+        classifier.testClassifierAgainstPreprocessedTweets(t);
+
+        System.out.println("done...");
     }
 
     @Command

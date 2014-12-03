@@ -19,10 +19,7 @@ import weka.filters.unsupervised.attribute.StringToWordVector;
 import weka.filters.unsupervised.instance.NonSparseToSparse;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * The Weka-NaiveBayes-Classifier for Tweets
@@ -260,11 +257,8 @@ public class WekaClassifier implements IClassifier {
         return Filter.useFilter(new_instances, toSparseeee);
     }
 
-    /**
-     * Test the Classifier against preprocessed Tweets and print out some statistics
-     *
-     */
-    public void testClassifierAgainstPreprocessedTweets(ArrayList<Tweet> tweets) {
+    @Override
+    public void testClassifierAgainstPreprocessedTweets(List<Tweet> tweets) {
         try {
             Evaluation eval = new Evaluation(_trainingDataset);
 

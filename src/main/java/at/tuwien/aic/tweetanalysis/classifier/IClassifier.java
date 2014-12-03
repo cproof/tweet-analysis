@@ -3,6 +3,8 @@ package at.tuwien.aic.tweetanalysis.classifier;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Classifier for Tweets
@@ -43,4 +45,10 @@ public interface IClassifier {
      * @param instancesStream
      */
     void loadModel(InputStream modelStream, InputStream instancesStream);
+
+    /**
+     * Test the Classifier against preprocessed Tweets and print out some statistics
+     *
+     */
+    public void testClassifierAgainstPreprocessedTweets(List<Tweet> tweets);
 }
