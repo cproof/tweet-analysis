@@ -74,5 +74,49 @@ public class CustomEnglishPreprocesorTest {
         assertThat(tweet.getContent(), equalTo("not not_yet, we hopefully will make one soon :)"));
     }
 
+    @Test
+    public void testContractions() {
+        setContentAndProcess("i'm good");
+        assertThat(tweet.getContent(), equalTo("i am good"));
+
+    }
+
+    @Test
+    public void testAbbreviations() {
+        setContentAndProcess("omfg");
+        assertThat(tweet.getContent(), equalTo("oh my fucking god"));
+
+        setContentAndProcess("omg");
+        assertThat(tweet.getContent(), equalTo("oh my god"));
+
+        setContentAndProcess("wtf");
+        assertThat(tweet.getContent(), equalTo("what the fuck"));
+
+        setContentAndProcess("omfg");
+        assertThat(tweet.getContent(), equalTo("oh my fucking god"));
+
+        setContentAndProcess("wth!?");
+        assertThat(tweet.getContent(), equalTo("what the hell!?"));
+
+        setContentAndProcess("yeah ftw");
+        assertThat(tweet.getContent(), equalTo("yeah for the win"));
+
+        setContentAndProcess("great, thx!");
+        assertThat(tweet.getContent(), equalTo("great, thanks!"));
+    }
+
+    @Test
+    public void testAbbreviations_notReplacingInsideWords() {
+        setContentAndProcess("womgi");
+        assertThat(tweet.getContent(), equalTo("womgi"));
+
+    }
+
+    @Test
+    public void testFailedContractions() {
+        setContentAndProcess("I don't think i've ever been so pissed off before.");
+        assertThat(tweet.getContent(), equalTo("I do not not_think i have ever been so pissed off before."));
+    }
+
     
 }

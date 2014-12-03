@@ -38,41 +38,79 @@ public class NaiveTweetPreprocessorTest {
     }
 
     @Test
+    public void testAllCapsFails() {
+        setContentAndProcess("Sorry, Microsoft! A Bunch Of Teenagers Just Talked About Doing School Work And None Of Them Use… http://t.co/SvxwZe0QVx #social #mobile #fb");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 0.0);
+
+        setContentAndProcess("I'M SO PISSED AT EVERYTHING WHAT IS GOING ON");
+        assertFeatureValue(ALL_CAPS_FEATURE, 1.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 9.0);
+    }
+
+    @Test
     public void testAllCapsChecks() {
         setContentAndProcess("WHAT UP?!");
         assertFeatureValue(ALL_CAPS_FEATURE, 1.0);
-        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 1.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 2.0);
 
         setContentAndProcess("WHAT Up?");
         assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
-        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 1.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 1.0);
 
         setContentAndProcess("THIs is cool");
         assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
-        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 0.0);
 
         setContentAndProcess("@YO this is cool");
         assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
-        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 0.0);
 
         setContentAndProcess("I HATE IT");
         assertFeatureValue(ALL_CAPS_FEATURE, 1.0);
-        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 1.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 2.0); // I gets ignored as count
+
+        setContentAndProcess("AN APPLE");
+        assertFeatureValue(ALL_CAPS_FEATURE, 1.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 2.0);
+    }
+
+    @Test
+    public void testAllCaps_ignoresMentionsAndHashTags() {
+        setContentAndProcess("I HATE @justinbieber");
+        assertFeatureValue(ALL_CAPS_FEATURE, 1.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 1.0);
+
+        setContentAndProcess("I HATE #beaverfever");
+        assertFeatureValue(ALL_CAPS_FEATURE, 1.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 1.0);
     }
 
     @Test
     public void testAllCapsIgnoredValues() {
         setContentAndProcess("I");
         assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
-        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 0.0);
 
         setContentAndProcess("DM");
         assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
-        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 0.0);
 
         setContentAndProcess("I DM");
         assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
-        assertFeatureValue(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 0.0);
+
+        setContentAndProcess("O");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 0.0);
+
+        setContentAndProcess("A tree");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 0.0);
+
+        setContentAndProcess("I have");
+        assertFeatureValue(ALL_CAPS_FEATURE, 0.0);
+        assertFeatureValue(ALL_CAPS_WORDS_FEATURE, 0.0);
     }
 
     @Test
@@ -149,6 +187,37 @@ public class NaiveTweetPreprocessorTest {
 //    }
 
     @Test
+    public void testFailedSmilieDetection() {
+        setContentAndProcess("#Hot #Sales Microsoft - Xbox One Console Assassin's Creed: Unity Bundle: $349.99… http://t.co/2NmAW8DyQA #Buzz http://t.co/ziA30CH0oh");
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 0.0);
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 0.0);
+
+        setContentAndProcess("Microsoft OneNote 2013 32-bit/x64 English Medialess S26-05028 US Free Shipping http://t.co/CzmUyGgLG6 #464 http://t.co/RIlVS3o0ki");
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 0.0);
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 0.0);
+    }
+
+    @Test
+    public void testReversedSmiliesMustContainASpaceBefore() {
+        setContentAndProcess("(:");
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 0.0);
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 0.0);
+
+        setContentAndProcess(" (:");
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 0.0);
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 1.0);
+
+        setContentAndProcess(" d:");
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 1.0);
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 0.0);
+
+        setContentAndProcess(":(:");
+        assertThat(tweet.getContent(), equalTo(":"));
+        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 0.0);
+        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 1.0);
+    }
+
+    @Test
     public void testRemovedSmilies() {
         setContentAndProcess(":-)");
         assertThat(tweet.getContent(), equalTo(""));
@@ -159,11 +228,6 @@ public class NaiveTweetPreprocessorTest {
         assertThat(tweet.getContent(), equalTo(""));
         assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 1.0);
         assertFeatureValue(POSITIVE_SMILIES_FEATURE, 0.0);
-
-        setContentAndProcess(":(:");
-        assertThat(tweet.getContent(), equalTo(":"));
-        assertFeatureValue(POSITIVE_SMILIES_FEATURE, 1.0); // todo: not so good
-        assertFeatureValue(NEGATIVE_SMILIES_FEATURE, 0.0);
     }
 
     @Test

@@ -31,18 +31,16 @@ public interface IClassifier {
 
     /**
      * Load a Model into the Classifier from the Filesystem
-     *  @param modelName the Path to the Model
+     * @param modelName the Path to the Model
      * @param instancesFileName
-     * @param classIndex
      */
-    public void loadModel(String modelName, String instancesFileName, int classIndex);
+    public void loadModel(String modelName, String instancesFileName);
 
     /**
      * Load a Model into the Classifier from the Filesystem
      *
      * @param modelStream the Path to the Stream
      * @param instancesStream
-     * @param classIndex
      */
-    void loadModel(InputStream modelStream, InputStream instancesStream, int classIndex);
+    void loadModel(InputStream modelStream, InputStream instancesStream);
 }

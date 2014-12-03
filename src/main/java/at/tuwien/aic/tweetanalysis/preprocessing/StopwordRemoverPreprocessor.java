@@ -16,8 +16,8 @@ import java.util.Set;
  */
 public class StopwordRemoverPreprocessor implements ITweetPreprocessor{
     private static final Set<String> stopWordsGeneral = new HashSet(Arrays.asList(new String[] {
-            ".", ",", ":", "-", "'", "\"", "“", "”", "?", "!", ",", ";", "(", ")", "[", "]", "{", "}", "~", "+", "*", "%"
-    }));
+            ".", ",", ":", "-", "\"", "“", "”", "?", "!", ",", ";", "(", ")", "[", "]", "{", "}", "~", "+", "*", "%", "|"
+    })); // note: we left out "'" on purpose, since we need "'" in the CustomEnglishPreprocessor to handle contractions
     
     //stopwords from http://www.ranks.nl/stopwords
     private static final Set<String> stopWordsEnglish = new HashSet(Arrays.asList(new String[] {

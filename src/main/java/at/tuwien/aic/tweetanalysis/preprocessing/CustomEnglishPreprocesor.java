@@ -7,9 +7,7 @@ package at.tuwien.aic.tweetanalysis.preprocessing;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,22 +21,45 @@ public class CustomEnglishPreprocesor implements ITweetPreprocessor {
 
     private final Pattern negationsPattern = Pattern.compile("(\\w*\\s|^)(not|no)(\\s\\w*|$)");
     private final Map<String, String> standardContractions = new HashMap<>();
+    private final HashMap<String, String> abbreviations;
 
     public CustomEnglishPreprocesor() {
         this.loadContractions();
+
+        abbreviations = new HashMap<>();
+        try (Scanner scanner = new Scanner(CustomEnglishPreprocesor.class.getResourceAsStream("/abbreviations.txt"))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] tokens = line.split("\t");
+                if (tokens.length == 2) {
+                    abbreviations.put(tokens[0].toLowerCase(), tokens[1].toLowerCase());
+                }
+            }
+        }
     }
 
     @Override
     public Tweet preprocess(Tweet tweet) {
         String content = tweet.getContent();
 
+        content = handleAbbreviations(content);
+
         content = handleContractions(content);
         content = handleNegations(content);
 
         content = content.trim();
 
+        content = content.replace("'", "");
+
         tweet.setContent(content);
         return tweet;
+    }
+
+    private String handleAbbreviations(String content) {
+        for (String contraction : abbreviations.keySet()) {
+            content = content.replaceAll("(?<=\\W|^)" + contraction + "(?=\\W|$)", abbreviations.get(contraction));
+        }
+        return content;
     }
 
     @Override
@@ -50,12 +71,9 @@ public class CustomEnglishPreprocesor implements ITweetPreprocessor {
     }
 
     private String handleContractions(String input) {
-        for (String contraction : this.standardContractions.keySet()) {
-            input = input.replaceAll("(?i)" + contraction, this.standardContractions.get(contraction));
+        for (String contraction : standardContractions.keySet()) {
+            input = input.replace(contraction, standardContractions.get(contraction));
         }
-        
-        
-        
         return input;
     }
 
@@ -122,11 +140,11 @@ public class CustomEnglishPreprocesor implements ITweetPreprocessor {
         standardContractions.put("how'd", "how did");
         standardContractions.put("how'll", "how will");
         standardContractions.put("how's", "how is");
-        standardContractions.put("I'd", "I would");
-        standardContractions.put("I'd've", "I would have");
-        standardContractions.put("I'll", "I will");
-        standardContractions.put("I'm", "I am");
-        standardContractions.put("I've", "I have");
+        standardContractions.put("i'd", "i would");
+        standardContractions.put("i'd've", "i would have");
+        standardContractions.put("i'll", "i will");
+        standardContractions.put("i'm", "i am");
+        standardContractions.put("i've", "i have");
         standardContractions.put("isn't", "is not");
         standardContractions.put("it'd", "it had");
         standardContractions.put("it'd've", "it would have");

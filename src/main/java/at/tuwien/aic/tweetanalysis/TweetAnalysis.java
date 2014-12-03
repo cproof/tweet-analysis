@@ -50,19 +50,25 @@ public class TweetAnalysis {
     public static final Logger log = LoggerFactory.getLogger(TweetAnalysis.class);
     public static Shell shell = null;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    TweetProvider tweetProvider = new TweetProvider();
+    TweetProvider tweetProvider;
     IClassifier classifier;
-    StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
+    StandardTweetPreprocessor standardTweetPreprocessor;
 
     public TweetAnalysis() throws Exception {
-//        classifier = loadClassifiedFromModel(true);
-        classifier = new WekaClassifier();
+        classifier = loadClassifiedFromModel(true, "smo");
+        standardTweetPreprocessor = new StandardTweetPreprocessor();
+        tweetProvider = new TweetProvider();
+//        classifier = new WekaClassifier();
     }
 
-    private static IClassifier loadClassifiedFromModel(boolean useSmilies) throws IOException {
+    private static IClassifier loadClassifiedFromModel(boolean useSmilies, String classifierType) throws IOException {
         IClassifier tweetTest;
 
-        String modelName = "/trainingData/tweet-model_new_smo";
+        if (!classifierType.startsWith("smo") && !"bayes".equals(classifierType)) {
+            throw new IllegalArgumentException("Unknown classifier type '" + classifierType + "'. Only 'smo' and 'bayes' are valid");
+        }
+
+        String modelName = "/trainingData/tweet-model_new_" + classifierType;
         String trainingInstancesName = "/trainingData/trainData_our_bigramme_selected";
         if (useSmilies) {
             modelName += "_smilies";
@@ -72,8 +78,9 @@ public class TweetAnalysis {
         trainingInstancesName += ".arff";
         try (InputStream modelStream = TweetAnalysis.class.getResourceAsStream(modelName);
              InputStream instancesStream = TweetAnalysis.class.getResourceAsStream(trainingInstancesName)) {
-            tweetTest = new WekaClassifier(modelStream, instancesStream, useSmilies ? 782 : 780);
+            tweetTest = new WekaClassifier(modelStream, instancesStream);
         }
+        System.out.println("Loaded " + classifierType + " model from file. Model contains smilies: " + useSmilies);
         return tweetTest;
     }
 
@@ -135,6 +142,32 @@ public class TweetAnalysis {
     @Command
     public void help(@Param(name="command", description="Help for command") String command) throws CLIException {
         shell.processLine("?help " + command);
+    }
+
+    @Command
+    public void load(@Param(name = "classifierName", description = "the name of the classifier. Valid: 'smo' and 'bayes'") String classifierName,
+                     @Param(name = "smilies", description = "load model with smilies") boolean smilies) throws CLIException, IOException {
+        classifier = loadClassifiedFromModel(smilies, classifierName);
+    }
+
+    @Command
+    public void classify(@Param(name="tweet", description="Single tweet to classify") String tweet) throws Exception {
+        Tweet t = new Tweet();
+        t.setContent(tweet);
+
+        ArrayList<Tweet> tweets = new ArrayList<>();
+        tweets.add(t);
+        standardTweetPreprocessor.preprocess(tweets);
+        double[] fDistribution = classifier.classifyTweet(t);
+
+        logResults(t, fDistribution, true);
+    }
+
+    @Command
+    public void selfTrain() throws Exception {
+        System.out.println("Train classifier on basic training set...");
+        classifier = new WekaClassifier();
+        System.out.println("Basic smo classifier ready");
     }
 
     @Command
@@ -246,6 +279,10 @@ public class TweetAnalysis {
         shell.commandLoop();
 //        testClassifier();
 //        testLiveData("Nike", 50);
+//        TweetProvider tweetProvider1 = new TweetProvider();
+//        getLiveData(":(", 300, "negative", "neg2.csv", false, false, tweetProvider1);
+//        getLiveData(":)", 300, "positive", "pos2.csv", false, false, tweetProvider1);
+//        tweetProvider1.shutdown();
     }
     
     private static void testLiveData(String searchTerm, int count) throws Exception {
@@ -280,29 +317,30 @@ public class TweetAnalysis {
 
     private static void testClassifier() throws Exception {
         IClassifier tweetTest;
-        tweetTest = loadClassifiedFromModel(false);
+        tweetTest = loadClassifiedFromModel(false, "smo");
 //        tweetTest = new WekaClassifier();
 
         // Use the Classifier to evaluate a Tweet
         Tweet t = new Tweet();
-        //t.setContent("bad bad bad bad :(");
+//        t.setContent("bad bad bad bad :(");
 //        t.setContent("#hate sad :( :(");
         //t.setContent("happy joy :) :) #happy congratulations");
-        t.setContent("I love them, thank u mum !! <3 http://t.co/rMQEeRYhnT");
+//        t.setContent("I love them, thank u mum !! <3 http://t.co/rMQEeRYhnT");
+        t.setContent("fuck this shit");
+//        t.setContent("fuck wit my shit http://t.co/rscJB4yd0G");
 
         StandardTweetPreprocessor standardTweetPreprocessor = new StandardTweetPreprocessor();
         ArrayList<Tweet> tweets = new ArrayList<>();
         tweets.add(t);
         standardTweetPreprocessor.preprocess(tweets);
         double[] fDistribution = tweetTest.classifyTweet(t);
-
         logResults(t, fDistribution, true);
     }
 
     private static void testClassifierOnTweets(List<Tweet> tweets) throws Exception {
         /* load model from file */
         IClassifier classifier;
-        classifier = loadClassifiedFromModel(true);
+        classifier = loadClassifiedFromModel(true, "smo");
 //        classifier = new WekaClassifier();
 
         /* preprocess tweets */
@@ -321,7 +359,7 @@ public class TweetAnalysis {
         log.info("Evaluation of Tweet: {}", tweet.getOriginalContent().replace("\n", ""));
         log.info("Processed: {}", tweet.getContent());
         log.info("positive: {}", fDistribution[1]);
-        log.info("negative: {}", fDistribution[0]);
+        log.info("negative: {}{}", fDistribution[0], verbose ? "" : "\n");
         if (verbose) {
             log.info("feature-map: {}\n", tweet.getFeatureMap());
         }

@@ -33,7 +33,7 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     public static final String ENLARGED_WORD_COUNT_FEATURE = "ENLARGED_WORD";
     public static final String CONSECUTIVE_QUESTION_MARKS_COUNT_FEATURE = "CONSECUTIVE_QUESTION_MARKS";
     public static final String CONSECUTIVE_EXCLAMATION_MARKS_COUNT_FEATURE = "CONSECUTIVE_EXCLAMATIONS_MARKS";
-    public static final String HAS_ALL_CAPS_WORDS_FEATURE = "HAS_ALL_CAPS_WORDS";
+    public static final String ALL_CAPS_WORDS_FEATURE = "ALL_CAPS_WORDS";
     public static final String ALL_CAPS_FEATURE = "ALL_CAPS";
 
     private final Pattern hashtagPattern = Pattern.compile("#[0-9a-zA-Z\\-_]*");
@@ -88,13 +88,11 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
                 "[:;=8Xx]" + // eyes
                 "[\\-o\\*']?" + // optional nose
                 "[\\)\\]\\(\\[dDpP/\\}\\{@\\|\\\\\\*]" +  // mouth
-                "|" +
+                "|\\s" +
                 "[\\)\\]\\(\\[dDpP/\\}\\{@\\|\\\\\\*]" + // mouth
                 "[\\-o\\*']?" + // optional nose
                 "[:;=8Xx]" + // eyes
                 "[<>]?" + // optional hat
-                "|" +
-                "o\\.?O|O\\.?o" + // o.O, O.o
                 "|-\\.-|\\._\\." +
                 "|\\^\\^");
 
@@ -102,7 +100,7 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
                 "[:;=8Xx]" + // eyes
                 "[\\-o\\*']?" + // optional nose
                 "[\\)\\]dDpP\\}\\*]" +  // mouth
-                "|" +
+                "|\\s" +
                 "[\\(\\[pP\\{\\*]" + // mouth
                 "[\\-o\\*']?" + // optional nose
                 "[:;=8Xx]" + // eyes
@@ -113,17 +111,15 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
                 "[:;=8Xx]" + // eyes
                 "[\\-o\\*']?" + // optional nose
                 "[\\(\\[/\\{@\\|\\\\]" +  // mouth
-                "|" +
+                "|\\s" +
                 "[\\)\\]dD/\\}@\\|\\\\]" + // mouth
                 "[\\-o\\*']?" + // optional nose
                 "[:;=8Xx]" + // eyes
                 "[<>]?" + // optional hat
-                "|" +
-                "o\\.?O|O\\.?o" + // o.O, O.o
                 "|-\\.-|\\._\\.");
 
         ignoredAllCapsWords = new HashSet<>();
-        Collections.addAll(ignoredAllCapsWords, "DM", "I");
+        Collections.addAll(ignoredAllCapsWords, "DM", "I", "A", "O", "MENTION", "URL");
 
     }
 
@@ -151,11 +147,11 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         featureHashMap.put(NEGATIVE_WORDS_FEATURE, 0.0);
         featureHashMap.put(POSITIVE_HASHTAGS_FEATURE, 0.0);
         featureHashMap.put(NEGATIVE_HASHTAGS_FEATURE, 0.0);
-        featureHashMap.put(HASHTAGS_COUNT_FEATURE, 0.0);
+//        featureHashMap.put(HASHTAGS_COUNT_FEATURE, 0.0);  commenting this out, removes the feature from generating in the model
         featureHashMap.put(ENLARGED_WORD_COUNT_FEATURE, 0.0);
         featureHashMap.put(CONSECUTIVE_EXCLAMATION_MARKS_COUNT_FEATURE, 0.0);
         featureHashMap.put(CONSECUTIVE_QUESTION_MARKS_COUNT_FEATURE, 0.0);
-        featureHashMap.put(HAS_ALL_CAPS_WORDS_FEATURE, 0.0);
+        featureHashMap.put(ALL_CAPS_WORDS_FEATURE, 0.0);
         featureHashMap.put(ALL_CAPS_FEATURE, 0.0);
 
         return featureHashMap;
@@ -166,31 +162,20 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         HashMap<String, Double> featureMap = generateFeatureHashMapTemplate();
         String content = tweet.getContent();
 
+        /* replace search term..but only if its not the training search for :) or :( */
+//        String searchTerm = tweet.getSearchTerm();
+//        if (searchTerm != null && !searchTerm.trim().isEmpty() && !":)".equals(searchTerm) && !":(".equals(searchTerm)) {
+//            content = content.replace(searchTerm.trim().toLowerCase(), " ");
+//        }
+
+        // check all caps
         checkIfWordsAreAllCaps(content, featureMap);
 
         // to lowercase
         content = content.toLowerCase();
 
-        /* replace search term..but only if its not the training search for :) or :( */
-        String searchTerm = tweet.getSearchTerm();
-        if (searchTerm != null && !searchTerm.trim().isEmpty() && !":)".equals(searchTerm) && !":(".equals(searchTerm)) {
-            content = content.replace(searchTerm.trim().toLowerCase(), " ");
-        }
-
-        // remove hash symbol from the content
-        // for equal treatment of tweets using hashtags
-        // and tweets that use none
-        tweet.setHashtags(getHashtags(content));
-//        content = replaceHashTags(content);
-        content = extractHashtagsToFeatureMap(content, featureMap);
-        content = content.replace("#", "");
-
         // same with other users
         tweet.setMentionedUsers(getUsers(content));
-        //@TODO: Experiment if it makes more sense to
-        //  1 leave users as they are, including the @
-        //  2 remove users completely including the name
-//        content = content.replace("@", "");
         content = content.replaceAll("@[0-9a-zA-Z\\-_]*", " MENTION ");
 
         // normalize urls
@@ -199,9 +184,18 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         // remove urls
         content = content.replaceAll("[a-zA-Z0-9]+\\.[a-zA-Z]{2,10}[a-zA-Z0-9/.?#&]*", " URL ");
 
+        // extract and remove smilies
         content = extractSmiliesToFeatureMap(content, featureMap);
+
         // replace all "....."
         content = replaceConsecutiveDots(content);
+
+        // remove hash symbol from the content
+        // for equal treatment of tweets using hashtags
+        // and tweets that use none
+        tweet.setHashtags(getHashtags(content));
+        content = extractHashtagsToFeatureMap(content, featureMap);
+        content = content.replace("#", "");
 
         // normalize repeated letters
         content = replaceConsecutiveLetters(content, featureMap);
@@ -209,8 +203,8 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         // normalize spaces
         content = content.replaceAll("\\s+", " ");
 
-        content = content.replace("'", "");
-        content = content.replace("\"", "");
+//        content = content.replace("'", "");
+//        content = content.replace("\"", "");
 
         // get number of positive and negative words
         extractSentimentWordsToFeatureMap(content, featureMap);
@@ -366,22 +360,23 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     private void checkIfWordsAreAllCaps(String content, HashMap<String, Double> featureMap) {
         StringTokenizer tokenizer = new StringTokenizer(content, " \n\t.,;:'\"()?!");
 
-        boolean containsAllCapsWord = false;
+        double allCapsWordCount = 0.0;
         boolean isAllCaps = true;
         boolean processedAtLeastOne = false;
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
             /* ignore special values */
             if (ignoredAllCapsWords.contains(token)) continue;
+            if (token.startsWith("@") || token.startsWith("#")) continue;
             processedAtLeastOne = true; // workaround for single word tweets with an ignored all caps word
             if (token.matches("[A-Z]+")) {
-                containsAllCapsWord = true;
+                allCapsWordCount++;
             } else if (isAllCaps) {
                 isAllCaps = false;
             }
         }
 
-        featureMap.put(HAS_ALL_CAPS_WORDS_FEATURE, containsAllCapsWord ? 1.0 : 0.0);
+        featureMap.put(ALL_CAPS_WORDS_FEATURE, allCapsWordCount);
         featureMap.put(ALL_CAPS_FEATURE, isAllCaps && processedAtLeastOne ? 1.0 : 0.0);
     }
 

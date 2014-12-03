@@ -1349,7 +1349,6 @@ donside
 doom
 doomed
 doomsday
-dope
 doubt
 doubtful
 doubtfully
@@ -2993,6 +2992,7 @@ mysteriously
 mystery
 mystify
 myth
+motherfucker
 nag
 nagging
 naive
@@ -3307,6 +3307,8 @@ pitiless
 pitilessly
 pittance
 pity
+piss
+pissed
 plagiarize
 plague
 plasticky
@@ -4782,3 +4784,12 @@ zealot
 zealous
 zealously
 zombie
+wtf
+ffs
+fml
+stfu
+gtfo
+smfh
+wth
+omfg
+tits

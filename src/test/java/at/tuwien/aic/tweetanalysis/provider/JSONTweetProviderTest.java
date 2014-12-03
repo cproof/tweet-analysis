@@ -4,12 +4,13 @@
 package at.tuwien.aic.tweetanalysis.provider;
 
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
+import org.junit.Before;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import org.junit.Before;
-import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -33,7 +34,6 @@ public class JSONTweetProviderTest {
     /**
      * Test of getTweets method, of classJSONTweetProviderr.
      */
-    @Test
     public void testGetTweets() throws InterruptedException, ExecutionException {
         System.out.println("getTweets");
         int size = 100;

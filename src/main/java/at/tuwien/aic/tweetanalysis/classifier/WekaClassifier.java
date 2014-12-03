@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import weka.attributeSelection.ChiSquaredAttributeEval;
 import weka.attributeSelection.Ranker;
+import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
 import weka.classifiers.functions.SMO;
 import weka.core.Attribute;
@@ -35,7 +36,7 @@ public class WekaClassifier implements IClassifier {
 
     private Instances _trainingDataset = null;
     private Instances _testingDataset = null;
-    private SMO _classifier = null;
+    private Classifier _classifier = null;
     private NGramTokenizer _tokenizer = null;
 
 
@@ -44,15 +45,15 @@ public class WekaClassifier implements IClassifier {
 
         _tokenizer = initTheTokenizer(); //init the tokenizer
 
-        Instances dataSet = loadInstancesFromFile(_fileDataset, 1);
+        Instances dataSet = loadInstancesFromFile(_fileDataset);
         _trainingDataset = vectorised(dataSet);
         _trainingDataset = attributeSelectionFilter(_trainingDataset);
         _testingDataset = null;
 
         // In this case we use SMO Classifier. (for Support Vector Machines)
-        _classifier = new SMO();
-        _classifier.setBuildLogisticModels(true); // classify instance returns the probability
-        _classifier = trainAClassifier(_classifier, _trainingDataset);
+        SMO smo = new SMO();
+        smo.setBuildLogisticModels(true); // classify instance returns the probability
+        _classifier = trainAClassifier(smo, _trainingDataset);
 
         testClassifierWithFold(_classifier, _trainingDataset);
     }
@@ -60,36 +61,38 @@ public class WekaClassifier implements IClassifier {
     public WekaClassifier(String trainingDataset, String testingDataset) throws Exception {
         _tokenizer = initTheTokenizer(); //init the tokenizer
 
-        _trainingDataset = vectorised(loadInstancesFromFile(trainingDataset, 1));
+        _trainingDataset = vectorised(loadInstancesFromFile(trainingDataset));
         _trainingDataset = attributeSelectionFilter(_trainingDataset);
 
-        _testingDataset = vectorised(loadInstancesFromFile(testingDataset, 1));
+        _testingDataset = vectorised(loadInstancesFromFile(testingDataset));
         _testingDataset = attributeSelectionFilter(_testingDataset);
 
         // In this case we use SMO Classifier. (for Support Vector Machines)
-        _classifier = new SMO();
-        _classifier.setBuildLogisticModels(true); // classify instance returns the probability
-        _classifier = trainAClassifier(_classifier, _trainingDataset);
+        SMO smo = new SMO();
+        smo.setBuildLogisticModels(true); // classify instance returns the probability
+        _classifier = trainAClassifier(smo, _trainingDataset);
 
         testClassifier(_classifier, _trainingDataset, _testingDataset);
     }
 
-    public WekaClassifier(InputStream model, InputStream trainingInstances, int classIndex) {
-        loadModel(model, trainingInstances, classIndex);
+    public WekaClassifier(InputStream model, InputStream trainingInstances) {
+        loadModel(model, trainingInstances);
 
         _tokenizer = initTheTokenizer();
         _testingDataset = null; // not used
     }
 
-    private Instances loadInstancesFromFile(String resourceFileName, int classIndex) throws Exception {
-        return loadInstancesFromStream(WekaClassifier.class.getResourceAsStream(resourceFileName), classIndex);
+    private Instances loadInstancesFromFile(String resourceFileName) throws Exception {
+        return loadInstancesFromStream(WekaClassifier.class.getResourceAsStream(resourceFileName));
     }
 
-    private Instances loadInstancesFromStream(InputStream instanceStream, int classIndex) throws Exception {
+    private Instances loadInstancesFromStream(InputStream instanceStream) throws Exception {
         ConverterUtils.DataSource trainingDataSource =
                 new ConverterUtils.DataSource(instanceStream);
 
-        return trainingDataSource.getDataSet(classIndex);
+        Instances dataSet = trainingDataSource.getDataSet();
+        dataSet.setClassIndex(dataSet.numAttributes() -1);
+        return dataSet;
     }
 
     /**
@@ -99,7 +102,7 @@ public class WekaClassifier implements IClassifier {
      * @param trainingdataset the training Dataset
      * @return the trained Classifier
     */
-    private SMO trainAClassifier(SMO classifier, Instances trainingdataset) {
+    private Classifier trainAClassifier(Classifier classifier, Instances trainingdataset) {
         try {
             classifier.buildClassifier(trainingdataset);
         } catch (Exception ex) {
@@ -115,7 +118,7 @@ public class WekaClassifier implements IClassifier {
      * @param trainingData the training Dataset
      * @param testingData the testing Dataset
      */
-    private void testClassifier(SMO classifier, Instances trainingData, Instances testingData) {
+    private void testClassifier(Classifier classifier, Instances trainingData, Instances testingData) {
         try {
             Evaluation eval = new Evaluation(trainingData);
 
@@ -134,7 +137,7 @@ public class WekaClassifier implements IClassifier {
      * @param classifier The Classifier
      * @param trainingData the training Dataset
      */
-    private void testClassifierWithFold(SMO classifier, Instances trainingData) {
+    private void testClassifierWithFold(Classifier classifier, Instances trainingData) {
         try {
             Evaluation eval = new Evaluation(trainingData);
             Random rand = new Random(1); // using seed = 1
@@ -309,20 +312,20 @@ public class WekaClassifier implements IClassifier {
     }
 
     @Override
-    public void loadModel(String modelName, String instancesFileName, int classIndex) {
+    public void loadModel(String modelName, String instancesFileName) {
         try {
-            _classifier = (SMO) weka.core.SerializationHelper.read(modelName);
-            _trainingDataset = loadInstancesFromFile(instancesFileName, classIndex);
+            _classifier = (Classifier) weka.core.SerializationHelper.read(modelName);
+            _trainingDataset = loadInstancesFromFile(instancesFileName);
         } catch (Exception ex) {
             System.err.println("Exception loading the Model: " + ex.getMessage());
         }
     }
 
     @Override
-    public void loadModel(InputStream modelStream, InputStream instancesStream, int classIndex) {
+    public void loadModel(InputStream modelStream, InputStream instancesStream) {
         try {
-            _classifier = (SMO) weka.core.SerializationHelper.read(modelStream);
-            _trainingDataset = loadInstancesFromStream(instancesStream, classIndex);
+            _classifier = (Classifier) weka.core.SerializationHelper.read(modelStream);
+            _trainingDataset = loadInstancesFromStream(instancesStream);
         } catch (Exception ex) {
             System.err.println("Exception loading the Model: " + ex.getMessage());
         }

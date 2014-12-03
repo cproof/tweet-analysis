@@ -71,6 +71,15 @@ public class StandardTweetPreprocessorTest {
     public void negationsTest() {
         setContentAndProcess("@indieboyash not yet, we hopefully will make one soon :)");
         assertThat(tweet.getContent(), IsEqual.equalTo("MENTION not_yet hope will make one soon"));
+
+        setContentAndProcess("I don't think I've ever been so pissed off before.");
+        assertThat(tweet.getContent(), IsEqual.equalTo("not_think ever piss"));
+    }
+
+    @Test
+    public void contractionsTest() {
+        setContentAndProcess("I've never be so pissed off in my life !");
+        assertThat(tweet.getContent(), IsEqual.equalTo("never piss life"));
     }
 
 }
