@@ -9,8 +9,8 @@
  * Patrick Löwenstein
  * Thomas Schreiber
  * Alexander Suchan
- * Stefan Victoria
- * Andreas Waltenberg
+ * Stefan Victora
+ * Andreas Waltenberger
  *
  * All rights reserved
  */
