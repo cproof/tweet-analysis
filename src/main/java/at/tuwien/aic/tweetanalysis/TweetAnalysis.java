@@ -56,13 +56,13 @@ public class TweetAnalysis {
     StandardTweetPreprocessor standardTweetPreprocessor;
 
     public TweetAnalysis() throws Exception {
-        classifier = loadClassifiedFromModel(true, "smo");
+        classifier = loadClassifiedFromModel("smo", false);
         standardTweetPreprocessor = new StandardTweetPreprocessor();
         tweetProvider = new TweetProvider();
 //        classifier = new WekaClassifier();
     }
 
-    private static IClassifier loadClassifiedFromModel(boolean useSmilies, String classifierType) throws IOException {
+    private static IClassifier loadClassifiedFromModel(String classifierType, boolean useSmilies) throws IOException {
         IClassifier tweetTest;
 
         if (!classifierType.startsWith("smo") && !"bayes".equals(classifierType)) {
@@ -148,7 +148,7 @@ public class TweetAnalysis {
     @Command
      public void load(@Param(name = "classifierName", description = "the name of the classifier. Valid: 'smo' and 'bayes'") String classifierName,
                       @Param(name = "smilies", description = "load model with smilies") boolean smilies) throws CLIException, IOException {
-        classifier = loadClassifiedFromModel(smilies, classifierName);
+        classifier = loadClassifiedFromModel(classifierName, smilies);
     }
 
     @Command
@@ -328,7 +328,7 @@ public class TweetAnalysis {
 
     private static void testClassifier() throws Exception {
         IClassifier tweetTest;
-        tweetTest = loadClassifiedFromModel(false, "smo");
+        tweetTest = loadClassifiedFromModel("smo", false);
 //        tweetTest = new WekaClassifier();
 
         // Use the Classifier to evaluate a Tweet
@@ -351,7 +351,7 @@ public class TweetAnalysis {
     private static void testClassifierOnTweets(List<Tweet> tweets) throws Exception {
         /* load model from file */
         IClassifier classifier;
-        classifier = loadClassifiedFromModel(true, "smo");
+        classifier = loadClassifiedFromModel("smo", true);
 //        classifier = new WekaClassifier();
 
         /* preprocess tweets */

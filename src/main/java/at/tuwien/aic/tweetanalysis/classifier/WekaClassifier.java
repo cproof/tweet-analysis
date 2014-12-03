@@ -308,6 +308,7 @@ public class WekaClassifier implements IClassifier {
             eval.evaluateModel(_classifier, sparseInstances);
             System.out.println(eval.toSummaryString("\nResults\n======\n", false));
             System.out.println(eval.toMatrixString());
+            System.out.println(eval.toClassDetailsString());
 
         } catch (Exception ex) {
             System.err.println("Exception testing the Classifier: " + ex.getMessage());
