@@ -1,6 +1,7 @@
 package at.tuwien.aic.tweetanalysis.aggregator;
 
 import at.tuwien.aic.tweetanalysis.entities.ClassifiedTweet;
+import at.tuwien.aic.tweetanalysis.entities.Tweet;
 
 import java.util.List;
 
@@ -59,5 +60,18 @@ public class SimpleAggregator {
         } else {
             return 1;
         }
+    }
+
+    public static double weight(Tweet tweet) {
+        double rts = tweet.getRetweetCount();
+        double favs = tweet.getFavoriteCount();
+        double result = 1.0;
+        if (rts * WEIGHT_RETWEET > 1) {
+            result += rts * WEIGHT_RETWEET;
+        }
+        if (favs * WEIGHT_FAV > 1) {
+            result += favs * WEIGHT_FAV;
+        }
+        return result;
     }
 }

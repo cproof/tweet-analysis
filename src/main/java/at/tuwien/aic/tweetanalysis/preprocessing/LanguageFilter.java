@@ -7,13 +7,12 @@ import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import com.cybozu.labs.langdetect.Detector;
 import com.cybozu.labs.langdetect.DetectorFactory;
 import com.cybozu.labs.langdetect.LangDetectException;
-import com.cybozu.labs.langdetect.util.LangProfile;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This filter will try to detect the tweet language
@@ -21,7 +20,9 @@ import java.util.logging.Logger;
  */
 public class LanguageFilter implements ITweetFilter{
     // private static final double MIN_ACCURACY = 0.9; //not supported by this library
-    
+
+    public static final org.slf4j.Logger log = LoggerFactory.getLogger(LanguageFilter.class);
+
     private final List<String> allowedLanguages;
     
     private final Map<String,String[]> langs = new HashMap<String, String[]>();
@@ -67,11 +68,11 @@ public class LanguageFilter implements ITweetFilter{
                 Detector detector = DetectorFactory.create();
                 detector.append(t.getContent());
                 String lang = detector.detect();
-                
+
                 //@TODO: check if lang is allowed
                 t.setLanguage(lang);
             } catch (LangDetectException ex) {
-                Logger.getLogger(LanguageFilter.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Error in detecting the language for: {}. {}", t, ex.getLocalizedMessage());
             }
         }
         

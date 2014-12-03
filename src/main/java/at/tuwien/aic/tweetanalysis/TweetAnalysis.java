@@ -367,13 +367,25 @@ public class TweetAnalysis {
     }
 
     private static void logResults(Tweet tweet, double[] fDistribution, boolean verbose) {
-        log.info("Evaluation of Tweet: {}", tweet.getOriginalContent().replace("\n", ""));
-        log.info("Processed: {}", tweet.getContent());
-        log.info("positive: {}", fDistribution[1]);
-        log.info("negative: {}{}", fDistribution[0], verbose ? "" : "\n");
+        log.info("Tweet text: {}", tweet.getOriginalContent().replace("\n", ""));
+        log.info("Processed:  {}", tweet.getContent());
+        log.info("positive:   {}", fDistribution[1]);
+        log.info("negative:   {}", fDistribution[0]);
+        int retweetCount = tweet.getRetweetCount();
+        int favoriteCount = tweet.getFavoriteCount();
         if (verbose) {
-            log.info("feature-map: {}\n", tweet.getFeatureMap());
+            StringBuilder str = new StringBuilder();
+            for (Map.Entry<String, Double> featureEntry : tweet.getFeatureMap().entrySet()) {
+                if (featureEntry.getValue() != 0.0) {
+                    str.append(featureEntry.getKey().toLowerCase()).append(": ").append(featureEntry.getValue()).append("; ");
+                }
+            }
+            String verboseOutput = str.toString();
+            if (!verboseOutput.isEmpty()) {
+                log.info("features:   {}", verboseOutput);
+            }
         }
+        log.info("weight:     {}; retweets: {}; favorites: {}\n", SimpleAggregator.weight(tweet), retweetCount, favoriteCount);
     }
 
 }
