@@ -18,15 +18,15 @@ public class TweetProvider implements ITweetProvider {
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private final Twitter twitter;
 
-    public TweetProvider() {
+    public TweetProvider() throws TwitterException {
         ITwitterCredentials creds = new TwitterCredentials();
         ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setOAuthConsumerKey(creds.getConsumerKey())
-                .setOAuthConsumerSecret(creds.getConsumerSecret())
-                .setOAuthAccessToken(creds.getAccessToken())
-                .setOAuthAccessTokenSecret(creds.getAccessTokenSecret());
+        cb.setApplicationOnlyAuthEnabled(true)
+          .setOAuthConsumerKey(creds.getConsumerKey())
+          .setOAuthConsumerSecret(creds.getConsumerSecret());
         TwitterFactory tf = new TwitterFactory(cb.build());
         twitter = tf.getInstance();
+        twitter.getOAuth2Token();
     }
 
     public RateLimitStatus getRateLimitStatus() {
@@ -51,6 +51,7 @@ public class TweetProvider implements ITweetProvider {
                 try {
                     Query query = new Query(searchTerm);
                     query.setResultType(Query.ResultType.recent);
+                    query.setCount(100);
                     if (beginTime != null) { query.setSince(dateFormat.format(beginTime)); }
                     if (endTime != null) { query.setUntil(dateFormat.format(endTime)); }
                     if (language != null && Arrays.asList(Locale.getISOLanguages()).contains(language)) {

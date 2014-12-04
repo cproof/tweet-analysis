@@ -62,10 +62,10 @@ public class SimpleAggregator {
         }
     }
 
-    public static double weight(Tweet tweet) {
-        double rts = tweet.getRetweetCount();
-        double favs = tweet.getFavoriteCount();
-        double result = 1.0;
+    public static int weight(Tweet tweet) {
+        int rts = tweet.getRetweetCount();
+        int favs = tweet.getFavoriteCount();
+        int result = 1;
         if (rts * WEIGHT_RETWEET > 1) {
             result += rts * WEIGHT_RETWEET;
         }
