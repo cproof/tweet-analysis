@@ -55,6 +55,10 @@ public class StandardTweetPreprocessorTest {
         t.setContent("Dies ist ein deutscher Tweet! #deutsch");
         tweets.add(t);
 
+        t = new Tweet();
+        t.setContent("Just saw the new #Transformers movie. I didn't like it, it sucked soooooo hard :-(");
+        tweets.add(t);
+        
         this.preprocessor.preprocess(tweets);
 
         //lang
@@ -65,6 +69,8 @@ public class StandardTweetPreprocessorTest {
         assertEquals(tweets.get(0).getHashtags().get(0), "english");
         assertEquals(tweets.get(1).getHashtags().get(0), "deutsch");
         assertEquals(tweets.get(1).getHashtags().size(), 1);
+        
+        System.out.println(t);
     }
 
     @Test
