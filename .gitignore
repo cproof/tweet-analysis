@@ -37,3 +37,4 @@ com_crashlytics_export_strings.xml
 server/src/main/java/at/tuwien/aic/tweetanalysis/provider/TwitterCredentials.java
 
 log.txt
+/client/nbproject/private/

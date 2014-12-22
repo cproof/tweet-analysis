@@ -4,19 +4,12 @@
    Author's custom styles
    ========================================================================== */
 
+footer ul {
+    display: inline;
+    list-style: none;
+    padding-left: 0px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+footer li {
+    display: inline;
+}

@@ -74,10 +74,14 @@ public class TweetAnalysisServerMain {
         aggregator = new SimpleAggregator();
 
 
-        Server server = new Server(8080);
+        final Server server = new Server(8080);
         server.setHandler(new TweetAnalysisServerHandler());
         server.start();
-        server.join();
+        
+        System.out.println("Server started\n\nPress return to exit");
+        System.in.read();
+        server.stop();
+        
     }
 
     public static class TweetAnalysisServerHandler extends AbstractHandler {
@@ -151,17 +155,17 @@ public class TweetAnalysisServerMain {
 
         private void handleBadRequest(Request baseRequest,HttpServletRequest request,HttpServletResponse response) throws IOException {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().print("{'Error' : 'Bad request'}");
+            response.getWriter().print("{\"Error\" : \"Bad request\"}");
         }
 
         private void handleRateLimitingExceeded(Request baseRequest,HttpServletRequest request,HttpServletResponse response) throws IOException {
             response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
-            response.getWriter().print("{'Error' : 'Rate limiting exceeded'}");
+            response.getWriter().print("{\"Error\" : \"Rate limiting exceeded\"}");
         }
 
         private void handleInternalServerError(Request baseRequest,HttpServletRequest request,HttpServletResponse response) throws IOException {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().print("{'Error' : 'Internal server error'}");
+            response.getWriter().print("{\"Error\" : \"Internal server error\"}");
         }
         
     }
