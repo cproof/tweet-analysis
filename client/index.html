@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html ng-app class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html ng-app="sentiment" class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -32,22 +32,27 @@
         <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
       </div>
     </div>
-
+    
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-6">
+          <div class="col-md-6" ng-controller="sentimentSearchController" ng-app="">
           <h2>Sentiment analysis</h2>
           <p>Please enter your search query</p>
-          <form class="form-inline">
+          <form class="form-inline" ng-submit="fetch()">
               <div class="form-group">
                   <div class="input-group">
                       <div class="input-group-addon">Query for:</div>
-                      <input type="text" class="form-control" id="sentimentInput" placeholder="Christmas">
+                      <input type="text" class="form-control" id="sentimentInput" placeholder="Christmas" ng-model="query">
                   </div>
               </div>
-              <button type="submit" class="btn btn-primary">Analyse</button>
+              <button type="submit" class="btn btn-primary" ng-disabled="currentlySearching || query==''">Analyse</button>
           </form>
+          <div ng-if="sentiment >= 0">
+              <h3>Result</h3>
+              <p>The sentiment for <em>"{{sentQuery}}"</em> is: {{sentiment}}</p>
+              <p>This means, that tweets for this query are {{impression()}}.</p>
+          </div>
         </div>
         <div class="col-md-6">
           <h2>Heading</h2>
