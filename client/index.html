@@ -16,7 +16,8 @@
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+        <script src="js/vendor/jquery-1.11.1.min.js"></script>
         <script src="js/vendor/angular.min.js"></script>
         <script src="js/sentiment.js"></script>
     </head>
@@ -36,22 +37,58 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-          <div class="col-md-6" ng-controller="sentimentSearchController" ng-app="">
+          <div class="col-md-6" ng-controller="sentimentSearchController">
           <h2>Sentiment analysis</h2>
           <p>Please enter your search query</p>
-          <form class="form-inline" ng-submit="fetch()">
+          <form ng-submit="fetch()">
               <div class="form-group">
                   <div class="input-group">
                       <div class="input-group-addon">Query for:</div>
                       <input type="text" class="form-control" id="sentimentInput" placeholder="Christmas" ng-model="query">
                   </div>
               </div>
+              
+              <div class="form-group">
+                  <label>How many tweets should be inspected?</label>
+                  <select class="form-control" ng-model="count" ng-options="value for value in countOptions"></select>
+              </div>
+              
+              <div class="checkbox">
+                  <label>
+                      <input type="checkbox" ng-model="verbose"/> Verbose output
+                  </label>
+              </div>
+              
               <button type="submit" class="btn btn-primary" ng-disabled="currentlySearching || query==''">Analyse</button>
           </form>
           <div ng-if="sentiment >= 0">
               <h3>Result</h3>
               <p>The sentiment for <em>"{{sentQuery}}"</em> is: {{sentiment}}</p>
               <p>This means, that tweets for this query are {{impression()}}.</p>
+          </div>
+          <div ng-if="verboseTweets">
+              <h3>Processed Tweets</h3>
+              <ol>
+                  <li ng-repeat="tweet in verboseTweets">
+               
+                      <h4>Tweet <a href="https://twitter.com/{{tweet.author}}/status/{{tweet.id}}">{{tweet.id}}</a> from <a href="https://twitter.com/{{tweet.author}}">@{{tweet.author}}</a></h4>
+                      Original: <pre>{{tweet.original}}</pre>
+                      Processed: <pre>{{tweet.processed}}</pre>
+                      <p>Weight: {{tweet.weight}}, Retweets: {{tweet.retweets}}, Favorites: {{tweet.favorites}}</p>
+                      
+                          <p>
+                              Positive: {{tweet.positive|number:3}}<br/>
+                              Negative: {{tweet.negative|number:3}}
+                          </p>
+                          <div ng-if="tweet.featureMap">
+                      Features:
+                      <ul>
+                          <li ng-repeat="(key, value) in tweet.featureMap"><em>{{key}}: </em> {{value}}</li>
+                      </ul>
+                      </div>
+                      
+                  </li>
+              </ol>
           </div>
         </div>
         <div class="col-md-6">

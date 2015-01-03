@@ -4,15 +4,20 @@ angular.module('sentiment', [])
         .controller('sentimentSearchController', function ($scope, $http) {
             $scope.query = "";
             $scope.currentlySearching = false; //disable form when performing a query
+            $scope.count = 2;
+            $scope.countOptions = [2,10,20,50,100,200,500];
+            $scope.verbose = true;
 
             $scope.fetch = function () {
                 $scope.sentQuery = $scope.query;
                 $scope.currentlySearching = true;
+                $scope.verboseTweets = null;
                 
-                $http.get(baseUrl + "/search?q=" + $scope.query)
+                $http.get(baseUrl + "/search?q=" + $scope.query + "&verbose=" + $scope.verbose + "&c=" + $scope.count)
                         .success(function (response) {
                             $scope.currentlySearching = false;
                             $scope.sentiment = response.sentiment;
+                            $scope.verboseTweets = response.tweets;
                         });
             };
             
