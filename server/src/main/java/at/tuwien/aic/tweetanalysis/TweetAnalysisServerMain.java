@@ -30,10 +30,7 @@ import at.tuwien.aic.tweetanalysis.provider.TweetProvider;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import twitter4j.JSONArray;
-import twitter4j.JSONException;
-import twitter4j.JSONObject;
-import twitter4j.RateLimitStatus;
+import twitter4j.*;
 
 /**
  *
@@ -137,6 +134,21 @@ public class TweetAnalysisServerMain {
                     endDate = dateFormat.parse(endDateString);
                 } catch(Exception e) {}
 
+                String locationString = baseRequest.getParameter("gl");
+                GeoLocation location = null;
+                String radiusString = baseRequest.getParameter("r");
+                Double radius = null;
+                try {
+                    String[] split = locationString.split(",");
+                    if(split.length == 2) {
+                        location = new GeoLocation(Double.parseDouble(split[0]), Double.parseDouble(split[1]));
+                        radius = Double.parseDouble(radiusString);
+                    }
+                } catch(Exception e) {
+                    location = null;
+                    radius = null;
+                }
+
                 String language = baseRequest.getParameter("l");
                 
                 boolean showTweets = (baseRequest.getParameter("verbose") != null && !baseRequest.getParameter("verbose").equals("false"));
@@ -147,7 +159,7 @@ public class TweetAnalysisServerMain {
                     return;
                 }
 
-                Future<List<Tweet>> tweets = tweetProvider.getTweets(query, count, beginDate, endDate, language, null, null);
+                Future<List<Tweet>> tweets = tweetProvider.getTweets(query, count, beginDate, endDate, language, location, radius);
                 List<Tweet> tweetList = null;
 
                 try {

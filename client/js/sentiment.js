@@ -7,6 +7,8 @@ angular.module('sentiment', [])
             $scope.language = null;
             $scope.beginDate = null;
             $scope.endDate = null;
+            $scope.location = null;
+            $scope.radius = null;
             $scope.verbose = true;
     
             $scope.countOptions = [2,10,20,50,100,200,500];
@@ -16,13 +18,14 @@ angular.module('sentiment', [])
             $scope.languageFilterActive = false; 
             $scope.beginDateFilterActive = false; 
             $scope.endDateFilterActive = false; 
+            $scope.locationFilterActive = false; 
             
             $scope.fetch = function () {
                 $scope.sentQuery = $scope.query;
                 $scope.currentlySearching = true;
                 $scope.verboseTweets = null;
                 
-                $http.get(baseUrl + "/search?q=" + $scope.query + "&verbose=" + $scope.verbose + "&c=" + $scope.count + ($scope.languageFilterActive && $scope.language != null ? "&l="+$scope.language : "") + ($scope.beginDateFilterActive && $scope.beginDate != null ? "&bd="+$scope.beginDate.toISOString().substring(0, 10) : "") + ($scope.endDateFilterActive && $scope.endDate != null ? "&ed="+$scope.endDate.toISOString().substring(0, 10) : ""))
+                $http.get(baseUrl + "/search?q=" + $scope.query + "&verbose=" + $scope.verbose + "&c=" + $scope.count + ($scope.languageFilterActive && $scope.language != null ? "&l="+$scope.language : "") + ($scope.beginDateFilterActive && $scope.beginDate != null ? "&bd="+$scope.beginDate.toISOString().substring(0, 10) : "") + ($scope.endDateFilterActive && $scope.endDate != null ? "&ed="+$scope.endDate.toISOString().substring(0, 10) : "") + ($scope.locationFilterActive && $scope.location != null && $scope.radius != null ? "&gl="+$scope.location+"&r="+$scope.radius : ""))
                         .success(function (response) {
                             $scope.currentlySearching = false;
                             $scope.sentiment = response.sentiment;
