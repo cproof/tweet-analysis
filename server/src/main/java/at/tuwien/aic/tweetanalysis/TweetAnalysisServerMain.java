@@ -10,9 +10,8 @@ import static at.tuwien.aic.tweetanalysis.TweetAnalysis.shell;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +27,6 @@ import at.tuwien.aic.tweetanalysis.entities.ClassifiedTweet;
 import at.tuwien.aic.tweetanalysis.entities.Tweet;
 import at.tuwien.aic.tweetanalysis.preprocessing.StandardTweetPreprocessor;
 import at.tuwien.aic.tweetanalysis.provider.TweetProvider;
-import java.util.Map;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
@@ -46,6 +44,8 @@ public class TweetAnalysisServerMain {
     protected static IClassifier classifier;
     protected static StandardTweetPreprocessor standardTweetPreprocessor;
     protected static SimpleAggregator aggregator;
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     private static IClassifier loadClassifiedFromModel(String classifierType, boolean useSmilies) throws IOException {
         IClassifier tweetTest;
@@ -125,6 +125,18 @@ public class TweetAnalysisServerMain {
                     count = 10;
                 }
 
+                String beginDateString = baseRequest.getParameter("bd");
+                Date beginDate = null;
+                try {
+                    beginDate = dateFormat.parse(beginDateString);
+                } catch(Exception e) {}
+
+                String endDateString = baseRequest.getParameter("ed");
+                Date endDate = null;
+                try {
+                    endDate = dateFormat.parse(endDateString);
+                } catch(Exception e) {}
+
                 String language = baseRequest.getParameter("l");
                 
                 boolean showTweets = (baseRequest.getParameter("verbose") != null && !baseRequest.getParameter("verbose").equals("false"));
@@ -135,7 +147,7 @@ public class TweetAnalysisServerMain {
                     return;
                 }
 
-                Future<List<Tweet>> tweets = tweetProvider.getTweets(query, count, null, null, language, null, null);
+                Future<List<Tweet>> tweets = tweetProvider.getTweets(query, count, beginDate, endDate, language, null, null);
                 List<Tweet> tweetList = null;
 
                 try {

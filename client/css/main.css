@@ -13,3 +13,8 @@ footer ul {
 footer li {
     display: inline;
 }
+
+input.ng-invalid:not([disabled]) {
+    background: red;
+    color: white;
+}
