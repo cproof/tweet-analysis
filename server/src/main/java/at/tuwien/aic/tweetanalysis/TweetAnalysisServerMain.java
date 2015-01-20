@@ -124,7 +124,8 @@ public class TweetAnalysisServerMain {
                 } catch(Exception e) {
                     count = 10;
                 }
-                
+
+                String language = baseRequest.getParameter("l");
                 
                 boolean showTweets = (baseRequest.getParameter("verbose") != null && !baseRequest.getParameter("verbose").equals("false"));
 
@@ -134,7 +135,7 @@ public class TweetAnalysisServerMain {
                     return;
                 }
 
-                Future<List<Tweet>> tweets = tweetProvider.getTweets(query, count);
+                Future<List<Tweet>> tweets = tweetProvider.getTweets(query, count, null, null, language, null, null);
                 List<Tweet> tweetList = null;
 
                 try {
