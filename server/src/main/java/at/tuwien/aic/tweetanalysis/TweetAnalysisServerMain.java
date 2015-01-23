@@ -3,22 +3,14 @@
 
 package at.tuwien.aic.tweetanalysis;
 
-import asg.cliche.Shell;
-import asg.cliche.ShellFactory;
-import static at.tuwien.aic.tweetanalysis.TweetAnalysis.log;
-import static at.tuwien.aic.tweetanalysis.TweetAnalysis.shell;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 
 import at.tuwien.aic.tweetanalysis.aggregator.SimpleAggregator;
 import at.tuwien.aic.tweetanalysis.classifier.IClassifier;
@@ -44,7 +36,7 @@ public class TweetAnalysisServerMain {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    private static IClassifier loadClassifiedFromModel(String classifierType, boolean useSmilies) throws IOException {
+    private static IClassifier loadClassifierFromModel(String classifierType, boolean useSmilies) throws IOException {
         IClassifier tweetTest;
 
         if (!classifierType.startsWith("smo") && !"bayes".equals(classifierType)) {
@@ -68,7 +60,7 @@ public class TweetAnalysisServerMain {
     }
     
     public static void main(String[] args) throws InterruptedException, Exception {
-        classifier = loadClassifiedFromModel("smo", false);
+        classifier = loadClassifierFromModel("smo", false);
         standardTweetPreprocessor = new StandardTweetPreprocessor();
         tweetProvider = new TweetProvider();
         aggregator = new SimpleAggregator();
@@ -113,13 +105,32 @@ public class TweetAnalysisServerMain {
                     return;
                 }
 
-
                 String countString = baseRequest.getParameter("c");
                 int count;
                 try {
                     count = Integer.parseInt(countString);
                 } catch(Exception e) {
                     count = 10;
+                }
+
+                String classifierString = baseRequest.getParameter("cl");
+                if(classifierString == null) {
+                    classifier = loadClassifierFromModel("smo", false);
+                } else {
+                    switch(classifierString) {
+                        case "smoSmileys":
+                            classifier = loadClassifierFromModel("smo", true);
+                            break;
+                        case "bayes":
+                            classifier = loadClassifierFromModel("bayes", false);
+                            break;
+                        case "bayesSmileys":
+                            classifier = loadClassifierFromModel("bayes", true);
+                            break;
+                        default:
+                            classifier = loadClassifierFromModel("smo", false);
+                            break;
+                    }
                 }
 
                 String beginDateString = baseRequest.getParameter("bd");

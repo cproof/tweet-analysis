@@ -54,6 +54,13 @@
               </div>
               
               <div class="form-group">
+                  <label>Which classifier should be used?</label>
+                  <select class="form-control" ng-model="classifier">
+                    <option ng-repeat="(key , value) in classifierOptions" ng-selected="key == 'smo'" value="{{key}}">{{value}}</option>
+                  </select>
+              </div>
+              
+              <div class="form-group">
                   <input type="checkbox" ng-model="languageFilterActive"/>
                   <label>Only show tweets written in a specific language?</label>
                   <select class="form-control" ng-model="language" ng-disabled="!languageFilterActive" ng-show="languageFilterActive">
