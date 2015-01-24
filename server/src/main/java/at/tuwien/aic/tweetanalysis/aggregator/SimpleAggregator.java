@@ -28,6 +28,8 @@ public class SimpleAggregator {
     }
 
     public double calculate(List<ClassifiedTweet> tweets) {
+        positive = 0;
+        negative = 0;
         for(ClassifiedTweet tweet : tweets) {
             double rts = tweet.tweet.getRetweetCount();
             double favs = tweet.tweet.getFavoriteCount();

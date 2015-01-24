@@ -136,10 +136,64 @@ angular.module('sentiment', ['nvd3'])
                     }
                 },
                 
+                time: {
+                    options: {
+                        chart: {
+                            type: 'discreteBarChart',
+                            height: 450,
+                            margin: {
+                                top: 20,
+                                right: 20,
+                                bottom: 60,
+                                left: 55
+                            },
+                            x: function (d) {
+                                return d.label;
+                            },
+                            y: function (d) {
+                                return d.value;
+                            },
+                            showValues: true,
+                            valueFormat: function (d) {
+                                return d3.format(',.4f')(d);
+                            },
+                            transitionDuration: 500,
+                            xAxis: {
+                                axisLabel: 'Time'
+                            },
+                            yAxis: {
+                                axisLabel: 'Y Axis',
+                                axisLabelDistance: 30
+                            }
+                        }},
+                    data: [],
+                    refresh : function() {
+                        var tmpArray= {};
+                        var times = [];
+                        $.each($scope.verboseTweets, function(i,data) {
+                            var date = new Date(data.timestamp);
+                            var day = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+                            if (tmpArray[day] === undefined) {
+                                tmpArray[day] = 0;
+                                times.push(day);
+                            }
+                            tmpArray[day]++;
+                        });
+                        times.sort();
+                        this.data = [];
+                        this.data.push({key: "Tweets", values: []});
+                        var t = this;
+                        $.each(times, function(i,val) {
+                            t.data[0].values.push({label: val, value: tmpArray[val]});
+                        });
+                    }
+                    
+                },
                 
                 refreshAll : function() {
                     this.general.refresh();
                     this.donut.refresh();
+                    this.time.refresh();
                 }
             };
             
