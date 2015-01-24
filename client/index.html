@@ -13,12 +13,17 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/nv.d3.css">
         <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
         <script src="js/vendor/jquery-1.11.1.min.js"></script>
         <script src="js/vendor/angular.min.js"></script>
+        <script src="js/vendor/d3.js"></script>
+        <script src="js/vendor/nv.d3.js"></script>
+        <script src="js/vendor/angular-nvd3.js"></script>
+        
         <script src="js/sentiment.js"></script>
     </head>
     <body>
@@ -36,8 +41,8 @@
     
     <div class="container">
       <!-- Example row of columns -->
-      <div class="row">
-          <div class="col-md-6" ng-controller="sentimentSearchController">
+      <div class="row" ng-controller="sentimentSearchController">
+          <div class="col-md-6" >
           <h2>Sentiment analysis</h2>
           <p>Please enter your search query</p>
           <form ng-submit="fetch()" name="queryForm">
@@ -142,9 +147,10 @@
           </div>
         </div>
         <div class="col-md-6">
-          <h2>Heading</h2>
+          <h2>Heading</h2> 
           <p>Gelbe Rüam Wurschtsolod boarischer hoam, eana Broadwurschtbudn wea nia ausgähd, kummt nia hoam Trachtnhuat kloan resch! Wo hi sei a ganze weida, hoid. Schnacksln in da Schdeckalfisch ja, wo samma denn. Schdarmbeaga See Sauakraud koa Wurschtsolod Schdeckalfisch, spernzaln boarischer auf gehds beim Schichtl. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <nvd3 options="diagrams.general.options" data="diagrams.general.data" api="api"></nvd3>
        </div>
 
       </div>
