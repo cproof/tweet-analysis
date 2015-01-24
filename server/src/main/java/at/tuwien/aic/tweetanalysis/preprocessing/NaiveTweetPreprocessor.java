@@ -46,6 +46,9 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
     private final Pattern allEmoticonPattern;
     private final Pattern positiveEmoticonsPattern;
     private final Pattern negativeEmoticonsPattern;
+    
+    private final Pattern positiveUnicodeEmoticonsPattern;
+    private final Pattern negativeUnicodeEmoticonsPattern;
 
     private final Pattern bigNegativeEmoticonsPattern = Pattern.compile(":-?\\({2,}");
     private final Pattern bigPositiveEmoticonsPattern = Pattern.compile(":-?\\){2,}");
@@ -118,6 +121,8 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
                 "[<>]?" + // optional hat
                 "|-\\.-|\\._\\.");
 
+        positiveUnicodeEmoticonsPattern = Pattern.compile("[\\x{1F600}\\x{1F601}\\x{1F602}}\\x{1F603}\\x{1F604}\\x{1F605}\\x{1F606}\\x{1F607}\\x{1F608}\\x{1F609}\\x{1F60A}\\x{1F60B}\\x{1F60C}\\x{1F60D}\\x{1F60E}\\x{1F60F}\\x{263A}\\x{263B}]");
+        negativeUnicodeEmoticonsPattern = Pattern.compile("[\\x{1F610}\\x{1F611}\\x{1F612}\\x{1F613}\\x{1F614}\\x{1F615}\\x{1F616}\\x{1F620}\\x{1F621}\\x{1F622}\\x{1F623}\\x{1F624}\\x{1F625}\\x{1F626}\\x{1F627}\\x{1F628}\\x{1F629}\\x{1F62A}\\x{1F62B}\\x{1F62C}\\x{1F62D}\\x{1F62E}\\x{1F62F}]");
         ignoredAllCapsWords = new HashSet<>();
         Collections.addAll(ignoredAllCapsWords, "DM", "I", "A", "O", "MENTION", "URL");
 
@@ -310,6 +315,13 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         }
         /* remove positive smilies */
         output = positiveMatcher.replaceAll(" ");
+        
+        /* normal unicode positive smilies */
+        Matcher positiveUnicodeMatcher = positiveUnicodeEmoticonsPattern.matcher(output);
+        while (positiveUnicodeMatcher.find()) {
+            positiveSmiliesCounter++;
+        }
+        output = positiveUnicodeMatcher.replaceAll(" ");
         featureMap.put(POSITIVE_SMILIES_FEATURE, positiveSmiliesCounter);
 
         double negativeSmiliesCounter = 0;
@@ -327,6 +339,14 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         }
         /* remove negative smilies */
         output = negativeMatcher.replaceAll(" ");
+        
+        /* normal unicode positive smilies */
+        Matcher negativeUnicodeMatcher = negativeUnicodeEmoticonsPattern.matcher(output);
+        while (negativeUnicodeMatcher.find()) {
+            negativeSmiliesCounter++;
+        }
+        output = negativeUnicodeMatcher.replaceAll(" ");
+        
         featureMap.put(NEGATIVE_SMILIES_FEATURE, negativeSmiliesCounter);
 
         return output;
