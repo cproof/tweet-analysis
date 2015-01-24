@@ -1,41 +1,181 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Tweet-analysis by cproof</title>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html ng-app="sentiment" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Tweet Sentiment Analysis</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Tweet-analysis</h1>
-        <p></p>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/nv.d3.css">
+        <link rel="stylesheet" href="css/main.css">
 
-        <p class="view"><a href="https://github.com/cproof/tweet-analysis">View the Project on GitHub <small>cproof/tweet-analysis</small></a></p>
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+        <script src="js/vendor/jquery-1.11.1.min.js"></script>
+        <script src="js/vendor/angular.min.js"></script>
+        <script src="js/vendor/d3.js"></script>
+        <script src="js/vendor/nv.d3.js"></script>
+        <script src="js/vendor/angular-nvd3.js"></script>
+        
+        <script src="js/sentiment.js"></script>
+    </head>
+    <body>
 
-
-        <ul>
-          <li><a href="https://github.com/cproof/tweet-analysis/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/cproof/tweet-analysis/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/cproof/tweet-analysis">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <p>test</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/cproof">cproof</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Hello, TU Vienna!</h1>
+        <p>
+            Bavaria ipsum dolor sit amet oamoi Buam griasd eich midnand! Glacht i hob di narrisch gean i bin a woschechta Bayer, Zidern Sauakraud a. Gfreit mi Sauwedda is des liab, griaß God beinand Ramasuri jo mei wia da Buachbinda Wanninger Steckerleis gwiss! Enzian jedza is pfundig i waar soweid Griasnoggalsubbm, Spotzerl singd! Greichats Hemad Ledahosn!
+        </p>
+        <!-- <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p> -->
+      </div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
     
-  </body>
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row" ng-controller="sentimentSearchController">
+          <div class="col-md-6" >
+          <h2>Sentiment analysis</h2>
+          <p>Please enter your search query</p>
+          <form ng-submit="fetch()" name="queryForm">
+              <div class="form-group">
+                  <div class="input-group">
+                      <div class="input-group-addon">Query for:</div>
+                      <input type="text" class="form-control" id="sentimentInput" placeholder="Christmas" ng-model="query">
+                  </div>
+              </div>
+              
+              <div class="form-group">
+                  <label for="count">How many tweets should be inspected?</label>
+                  <select id="count" class="form-control" ng-model="count" ng-options="value for value in countOptions"></select>
+              </div>
+
+              <div class="form-group">
+                  <label for="classifier">Which classifier should be used?</label>
+                  <select id="classifier" class="form-control" ng-model="classifier">
+                      <option ng-repeat="(key , value) in classifierOptions" ng-selected="key == 'smo'" value="{{key}}">{{value}}</option>
+                  </select>
+              </div>
+
+              <div class="form-group">
+                  <div class="checkbox">
+                      <label for="languageCheckbox">
+                          <input id="languageCheckbox" type="checkbox" ng-model="languageFilterActive"/>
+                          Only show tweets written in a specific language?
+                      </label>
+                  </div>
+                  <select class="form-control" ng-model="language" ng-disabled="!languageFilterActive" ng-show="languageFilterActive">
+                      <option ng-repeat="(key , value) in languageOptions" value="{{key}}">{{value}}</option>
+                  </select>
+              </div>
+              
+              <div class="form-group">
+                  <div class="checkbox">
+                      <label for="beginDateCheckbox"><input type="checkbox" id="beginDateCheckbox" ng-model="beginDateFilterActive"/>
+                          Only show tweets starting at a specific date?
+                      </label>
+                  </div>
+                  <input name="beginDate" class="form-control" type="date" placeholder="yyyy-MM-dd" ng-model="beginDate" ng-disabled="!beginDateFilterActive" ng-show="beginDateFilterActive"/>
+              </div>
+              
+              <div class="form-group">
+                  <div class="checkbox">
+                  <label for="endDateCheckbox">
+                      <input id="endDateCheckbox" type="checkbox" ng-model="endDateFilterActive"/> Only show tweets until a specific date?
+                  </label>
+                  </div>
+                  <input name="endDate" class="form-control" type="date" placeholder="yyyy-MM-dd" ng-model="endDate" ng-disabled="!endDateFilterActive" ng-show="endDateFilterActive"/>
+              </div>
+              
+              <div class="form-group">
+                  <div class="checkbox">
+                  <label for="locationCheckbox">
+                  <input type="checkbox" id="locationCheckbox" ng-model="locationFilterActive"/>
+                  Only show tweets from a specific location?</label>
+                  </div>
+                  <div ng-show="locationFilterActive">
+                    <input name="location" ng-pattern="/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/" placeholder="41.12345,10.65432" ng-model="location" ng-disabled="!locationFilterActive"/>
+                    (lat,long) <label> with radius</label>
+                    <input name="radius" type="number" min="1" placeholder="10" ng-model="radius" ng-disabled="!locationFilterActive"/> km
+                  </div>
+              </div>
+              
+              <div class="checkbox">
+                  <label>
+                      <input type="checkbox" ng-model="verbose"/> Verbose output
+                  </label>
+              </div>
+              
+              <button type="submit" class="btn btn-primary" ng-disabled="(locationFilterActive && (!queryForm.location.$valid || !queryForm.radius.$valid || location == null || radius == null)) || (endDateFilterActive && (!queryForm.endDate.$valid || endDate == null)) ||(beginDateFilterActive && (!queryForm.beginDate.$valid || beginDate == null)) || currentlySearching || query==''">Analyse</button>
+          </form>
+          <div ng-if="sentiment >= 0 && !currentlySearching">
+              <h3>Result</h3>
+              <p>The sentiment for <em>"{{sentQuery}}"</em> is: {{sentiment}}</p>
+              <p>This means, that tweets for this query are {{impression()}}.</p>
+          </div>
+          <div ng-if="verboseTweets">
+              <h3>Processed Tweets</h3>
+              <ol>
+                  <li ng-repeat="tweet in verboseTweets">
+               
+                      <h4>Tweet #{{tweet.id}} from <a href="https://twitter.com/{{tweet.author}}">@{{tweet.author}}</a></h4>
+                      Original: <pre>{{tweet.original}}</pre>
+                      Processed: <pre>{{tweet.processed}}</pre>
+                      <p>Weight: {{tweet.weight}}, Retweets: {{tweet.retweets}}, Favorites: {{tweet.favorites}}</p>
+                      
+                          <p>
+                              Positive: {{tweet.positive|number:3}}<br/>
+                              Negative: {{tweet.negative|number:3}}
+                          </p>
+                          <div ng-if="tweet.featureMap">
+                      Features:
+                      <ul>
+                          <li ng-repeat="(key, value) in tweet.featureMap"><em>{{key}}: </em> {{value}}</li>
+                      </ul>
+                      </div>
+                      
+                  </li>
+              </ol>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <div ng-if="sentiment >= 0 && !currentlySearching">
+                <h2>Charts</h2>
+                <h3>Sentiment</h3> 
+                <nvd3 options="diagrams.general.options" data="diagrams.general.data" api="api"></nvd3>
+                <div ng-if="verboseTweets">
+                    <h3>Sentiment distribution</h3>
+                    <nvd3 options="diagrams.donut.options" data="diagrams.donut.data"></nvd3>
+                    <h3>Tweets by time</h3>
+                    <nvd3 options="diagrams.time.options" data="diagrams.time.data"></nvd3>
+                    <h3>Sentiment by time</h3>
+                    <nvd3 options="diagrams.time.optionsSentiment" data="diagrams.time.dataSentiment"></nvd3>
+                </div>
+            </div>
+       </div>
+
+      </div>
+
+      <hr>
+
+      <footer>
+          &copy; <ul>
+              <li>Patrick Löwenstein, </li>
+              <li> Thomas Schreiber, </li>
+              <li> Alexander Suchan, </li>
+              <li> Stefan Victora, </li>
+              <li> Andreas Waltenberger</li>
+          </ul>
+      </footer>
+    </div> <!-- /container -->        
+
+    </body>
 </html>

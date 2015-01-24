@@ -1,0 +1,20 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+footer ul {
+    display: inline;
+    list-style: none;
+    padding-left: 0px;
+}
+
+footer li {
+    display: inline;
+}
+
+input.ng-invalid:not([disabled]) {
+    background: red;
+    color: white;
+}
