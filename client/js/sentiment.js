@@ -34,7 +34,7 @@ angular.module('sentiment', ['nvd3'])
                             $scope.verboseTweets = response.tweets;
                             $scope.diagrams.refreshAll();
                             //$scope.api.refresh();
-                            $scope.api.update();
+                            //$scope.api.update();
                             
                         });
             };
@@ -162,29 +162,71 @@ angular.module('sentiment', ['nvd3'])
                                 axisLabel: 'Time'
                             },
                             yAxis: {
-                                axisLabel: 'Y Axis',
+                                axisLabel: 'Tweets',
                                 axisLabelDistance: 30
                             }
                         }},
                     data: [],
+                    
+                    optionsSentiment: {
+                        chart: {
+                            type: 'discreteBarChart',
+                            height: 450,
+                            margin: {
+                                top: 20,
+                                right: 20,
+                                bottom: 60,
+                                left: 55
+                            },
+                            x: function (d) {
+                                return d.label;
+                            },
+                            y: function (d) {
+                                return d.value;
+                            },
+                            showValues: true,
+                            valueFormat: function (d) {
+                                return d3.format(',.4f')(d);
+                            },
+                            transitionDuration: 500,
+                            xAxis: {
+                                axisLabel: 'Time'
+                            },
+                            yAxis: {
+                                axisLabel: 'Sentiment',
+                                axisLabelDistance: 30
+                            },
+                            forceY: [0,1]
+                        }
+                    },
+                    
+                    dataSentiment: [],
                     refresh : function() {
                         var tmpArray= {};
+                        var tmpArraySentiment={}
                         var times = [];
                         $.each($scope.verboseTweets, function(i,data) {
                             var date = new Date(data.timestamp);
                             var day = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
                             if (tmpArray[day] === undefined) {
                                 tmpArray[day] = 0;
+                                tmpArraySentiment[day] = 0;
                                 times.push(day);
                             }
                             tmpArray[day]++;
+                            tmpArraySentiment[day] += data.positive;
                         });
                         times.sort();
                         this.data = [];
+                        this.dataSentiment = [];
                         this.data.push({key: "Tweets", values: []});
+                        this.dataSentiment.push({key: "Sentiment", values: []});
                         var t = this;
                         $.each(times, function(i,val) {
                             t.data[0].values.push({label: val, value: tmpArray[val]});
+                            var sentiment = tmpArraySentiment[val] / tmpArray[val];
+                            sentiment = Math.max(0.01, sentiment);
+                            t.dataSentiment[0].values.push({label: val, value: sentiment});
                         });
                     }
                     

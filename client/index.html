@@ -116,7 +116,7 @@
               
               <button type="submit" class="btn btn-primary" ng-disabled="(locationFilterActive && (!queryForm.location.$valid || !queryForm.radius.$valid || location == null || radius == null)) || (endDateFilterActive && (!queryForm.endDate.$valid || endDate == null)) ||(beginDateFilterActive && (!queryForm.beginDate.$valid || beginDate == null)) || currentlySearching || query==''">Analyse</button>
           </form>
-          <div ng-if="sentiment >= 0">
+          <div ng-if="sentiment >= 0 && !currentlySearching">
               <h3>Result</h3>
               <p>The sentiment for <em>"{{sentQuery}}"</em> is: {{sentiment}}</p>
               <p>This means, that tweets for this query are {{impression()}}.</p>
@@ -147,13 +147,19 @@
           </div>
         </div>
         <div class="col-md-6">
-          <h2>Charts</h2>
-          <h3>Sentiment</h3> 
-          <nvd3 options="diagrams.general.options" data="diagrams.general.data" api="api"></nvd3>
-          <h3>Sentiment distribution</h3>
-          <nvd3 options="diagrams.donut.options" data="diagrams.donut.data"></nvd3>
-          <h3>Tweets by time</h3>
-          <nvd3 options="diagrams.time.options" data="diagrams.time.data"></nvd3>
+            <div ng-if="sentiment >= 0 && !currentlySearching">
+                <h2>Charts</h2>
+                <h3>Sentiment</h3> 
+                <nvd3 options="diagrams.general.options" data="diagrams.general.data" api="api"></nvd3>
+                <div ng-if="verboseTweets">
+                    <h3>Sentiment distribution</h3>
+                    <nvd3 options="diagrams.donut.options" data="diagrams.donut.data"></nvd3>
+                    <h3>Tweets by time</h3>
+                    <nvd3 options="diagrams.time.options" data="diagrams.time.data"></nvd3>
+                    <h3>Sentiment by time</h3>
+                    <nvd3 options="diagrams.time.optionsSentiment" data="diagrams.time.dataSentiment"></nvd3>
+                </div>
+            </div>
        </div>
 
       </div>
