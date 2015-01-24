@@ -155,7 +155,7 @@ angular.module('sentiment', ['nvd3'])
                             },
                             showValues: true,
                             valueFormat: function (d) {
-                                return d3.format(',.4f')(d);
+                                return d3.format(',.0f')(d);
                             },
                             transitionDuration: 500,
                             xAxis: {
