@@ -3,15 +3,6 @@
 
 package at.tuwien.aic.tweetanalysis;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.Future;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import at.tuwien.aic.tweetanalysis.aggregator.SimpleAggregator;
 import at.tuwien.aic.tweetanalysis.classifier.IClassifier;
 import at.tuwien.aic.tweetanalysis.classifier.WekaClassifier;
@@ -23,6 +14,18 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import twitter4j.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Future;
 
 /**
  *
@@ -39,12 +42,27 @@ public class TweetAnalysisServerMain {
     private static IClassifier loadClassifierFromModel(String classifierType, boolean useSmilies) throws IOException {
         IClassifier tweetTest;
 
-        if (!classifierType.startsWith("smo") && !"bayes".equals(classifierType)) {
-            throw new IllegalArgumentException("Unknown classifier type '" + classifierType + "'. Only 'smo' and 'bayes' are valid");
+//        if (!classifierType.startsWith("smo") && !"bayes".equals(classifierType)) {
+//            throw new IllegalArgumentException("Unknown classifier type '" + classifierType + "'. Only 'smo' and 'bayes' are valid");
+//        }
+
+        int size = 6000;
+        String baseDirectory = "/trainingData";
+
+        if (classifierType.endsWith("_large")) {
+            baseDirectory += "/large_models";
+            classifierType = classifierType.replace("_large", "");
+            size = 13000;
+        } else if (classifierType.endsWith("_small")) {
+            baseDirectory += "/small_models";
+            classifierType = classifierType.replace("_small", "");
+            size = 1000;
+        } else {
+            baseDirectory += "/models";
         }
 
-        String modelName = "/trainingData/tweet-model_new_" + classifierType;
-        String trainingInstancesName = "/trainingData/trainData_our_bigramme_selected";
+        String modelName = baseDirectory + "/" + classifierType;
+        String trainingInstancesName = baseDirectory + "/" + "trainData_bigramme";
         if (useSmilies) {
             modelName += "_smilies";
             trainingInstancesName += "_smilies";
@@ -55,7 +73,7 @@ public class TweetAnalysisServerMain {
              InputStream instancesStream = TweetAnalysis.class.getResourceAsStream(trainingInstancesName)) {
             tweetTest = new WekaClassifier(modelStream, instancesStream);
         }
-        System.out.println("Loaded " + classifierType + " model from file. Model contains smilies: " + useSmilies);
+        System.out.println("Loaded " + classifierType + " model from file. Model contains smilies: " + useSmilies + ". Instances used for training: " + size);
         return tweetTest;
     }
     
@@ -124,12 +142,45 @@ public class TweetAnalysisServerMain {
                         case "smoSmileys":
                             classifier = loadClassifierFromModel("smo", true);
                             break;
+                        case "smo_large_Smileys":
+                            classifier = loadClassifierFromModel("smo_large", true);
+                            break;
+                        case "smo_small_Smileys":
+                            classifier = loadClassifierFromModel("smo_small", true);
+                            break;
                         case "bayes":
                             classifier = loadClassifierFromModel("bayes", false);
                             break;
                         case "bayesSmileys":
                             classifier = loadClassifierFromModel("bayes", true);
                             break;
+                        case "bayes_large_Smileys":
+                            classifier = loadClassifierFromModel("bayes_large", true);
+                            break;
+                        case "bayes_small_Smileys":
+                            classifier = loadClassifierFromModel("bayes_small", true);
+                            break;
+
+                        case "c_svcSmileys":
+                            classifier = loadClassifierFromModel("c-svc", true);
+                            break;
+                        case "c_svc_large_Smileys":
+                            classifier = loadClassifierFromModel("c-svc_large", true);
+                            break;
+                        case "c_svc_small_Smileys":
+                            classifier = loadClassifierFromModel("c-svc_small", true);
+                            break;
+
+                        case "nu_svcSmileys":
+                            classifier = loadClassifierFromModel("nu-svc", true);
+                            break;
+                        case "nu_svc_large_Smileys":
+                            classifier = loadClassifierFromModel("nu-svc_large", true);
+                            break;
+                        case "nu_svc_small_Smileys":
+                            classifier = loadClassifierFromModel("nu-svc_small", true);
+                            break;
+
                         default:
                             classifier = loadClassifierFromModel("smo", false);
                             break;

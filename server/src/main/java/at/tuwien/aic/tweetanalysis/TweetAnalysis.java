@@ -65,12 +65,27 @@ public class TweetAnalysis {
     private static IClassifier loadClassifiedFromModel(String classifierType, boolean useSmilies) throws IOException {
         IClassifier tweetTest;
 
-        if (!classifierType.startsWith("smo") && !"bayes".equals(classifierType)) {
-            throw new IllegalArgumentException("Unknown classifier type '" + classifierType + "'. Only 'smo' and 'bayes' are valid");
+//        if (!classifierType.startsWith("smo") && !"bayes".equals(classifierType)) {
+//            throw new IllegalArgumentException("Unknown classifier type '" + classifierType + "'. Only 'smo' and 'bayes' are valid");
+//        }
+
+        int size = 6000;
+        String baseDirectory = "/trainingData";
+
+        if (classifierType.endsWith("_large")) {
+            baseDirectory += "/large_models";
+            classifierType = classifierType.replace("_large", "");
+            size = 13000;
+        } else if (classifierType.endsWith("_small")) {
+            baseDirectory += "/small_models";
+            classifierType = classifierType.replace("_small", "");
+            size = 1000;
+        } else {
+            baseDirectory += "/models";
         }
 
-        String modelName = "/trainingData/tweet-model_new_" + classifierType;
-        String trainingInstancesName = "/trainingData/trainData_our_bigramme_selected";
+        String modelName = baseDirectory + "/" + classifierType;
+        String trainingInstancesName = baseDirectory + "/" + "trainData_bigramme";
         if (useSmilies) {
             modelName += "_smilies";
             trainingInstancesName += "_smilies";
@@ -81,7 +96,7 @@ public class TweetAnalysis {
              InputStream instancesStream = TweetAnalysis.class.getResourceAsStream(trainingInstancesName)) {
             tweetTest = new WekaClassifier(modelStream, instancesStream);
         }
-        System.out.println("Loaded " + classifierType + " model from file. Model contains smilies: " + useSmilies);
+        System.out.println("Loaded " + classifierType + " model from file. Model contains smilies: " + useSmilies + ". Instances used for training: " + size);
         return tweetTest;
     }
 
@@ -291,8 +306,8 @@ public class TweetAnalysis {
 //        testClassifier();
 //        testLiveData("Nike", 50);
 //        TweetProvider tweetProvider1 = new TweetProvider();
-//        getLiveData(":(", 300, "negative", "neg2.csv", false, false, tweetProvider1);
-//        getLiveData(":)", 300, "positive", "pos2.csv", false, false, tweetProvider1);
+//        getLiveData(":(", ".*:-?\\).*", 1000, "negative", "neg2.csv", true, false, tweetProvider1);
+//        getLiveData(":)", ".*:-?\\(.*", 1000, "positive", "pos2.csv", true, false, tweetProvider1);
 //        tweetProvider1.shutdown();
     }
     
@@ -308,7 +323,7 @@ public class TweetAnalysis {
         tweetProvider.shutdown();
     }
 
-    private static void getLiveData(String searchTerm, int count, String sentiment, String fileName, boolean append, boolean writeHeader, TweetProvider tweetProvider) throws Exception {
+    private static void getLiveData(String searchTerm, String ignorePattern, int count, String sentiment, String fileName, boolean append, boolean writeHeader, TweetProvider tweetProvider) throws Exception {
         Future<List<Tweet>> tweets = tweetProvider.getTweets(searchTerm, count);
         List<Tweet> tweetList = tweets.get();
 
@@ -321,7 +336,11 @@ public class TweetAnalysis {
                 String z = tweet.getContent();
                 z = z.replace("\n", "");
 
-                csvOutput.writeNext(new String[]{z, sentiment}, true);
+                if (!z.matches(ignorePattern)) {
+                    csvOutput.writeNext(new String[]{z, sentiment}, true);
+                } else {
+                    log.trace("Ignoring '{}'. It contains the ignore pattern.", z);
+                }
             }
         }
     }

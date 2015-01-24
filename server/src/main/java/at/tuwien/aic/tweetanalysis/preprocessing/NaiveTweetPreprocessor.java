@@ -64,26 +64,38 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         positiveHashTags = new HashSet<>();
         try (Scanner scanner = new Scanner(NaiveTweetPreprocessor.class.getResourceAsStream("/positive-hashtags.txt"))) {
             while (scanner.hasNextLine()) {
-                positiveHashTags.add(scanner.nextLine());
+                String s = scanner.nextLine();
+                if (!s.startsWith("#")) {
+                    positiveHashTags.add(s);
+                }
             }
         }
         negativeHashTags = new HashSet<>();
         try (Scanner scanner = new Scanner(NaiveTweetPreprocessor.class.getResourceAsStream("/negative-hashtags.txt"))) {
             while (scanner.hasNextLine()) {
-                negativeHashTags.add(scanner.nextLine());
+                String s = scanner.nextLine();
+                if (!s.startsWith("#")) {
+                    negativeHashTags.add(s);
+                }
             }
         }
 
         positiveWords = new HashSet<>();
         try (Scanner scanner = new Scanner(NaiveTweetPreprocessor.class.getResourceAsStream("/positive-words.txt"))) {
             while (scanner.hasNextLine()) {
-                positiveWords.add(scanner.nextLine());
+                String s = scanner.nextLine();
+                if (!s.startsWith("#")) {
+                    positiveWords.add(s);
+                }
             }
         }
         negativeWords = new HashSet<>();
         try (Scanner scanner = new Scanner(NaiveTweetPreprocessor.class.getResourceAsStream("/negative-words.txt"))) {
             while (scanner.hasNextLine()) {
-                negativeWords.add(scanner.nextLine());
+                String s = scanner.nextLine();
+                if (!s.startsWith("#")) {
+                    negativeWords.add(s);
+                }
             }
         }
         /* modified versions from: http://sentiment.christopherpotts.net/code-data/happyfuntokenizing.py; Copyright 2011, Christopher Potts */
@@ -274,27 +286,6 @@ public class NaiveTweetPreprocessor implements ITweetPreprocessor {
         }
 
         return urls;
-    }
-
-    /**
-     *
-     * @param input
-     * @return
-     */
-    private String replaceSmilies(String input) {
-        String output = input;
-        if (output.matches(".*:-?\\({2,}.*|.*</3.*")) {
-            output += ENLARGED_NEGATIVE_SMILE;
-        } else if (output.matches(".*:-?\\){2,}.*|.*♥.*|.*<3.*")) {
-            output += ENLARGED_POSITIVE_SMILE;
-        }
-
-        // todo: fix reversed smilies like "(:" and "):". they should not match for example :(: as positive. currently they are just removed
-
-        output = output.replaceAll(":(-?|\\s)\\)+|:-?d|8-?d|\\sxd|x-d|=d|:o\\)|:-?]|:3|:>|=]|=\\)|;-?\\)|;d|;-?d|\\\\o//|:'-?\\)|:-?p=p|\\sxp|\\^\\^|♥|<3|ツ", POSITIVE_SMILE);
-        output = output.replaceAll(":(-?|\\s)\\(+|>:-?\\[|:c|:-?<|:-?\\[|=\\[|:-?\\{|:'-?\\(|\\sd-?:|:-?@|>:-?\\(|:-?\\|\\||:-?\\$|=/|</3", NEGATIVE_SMILE);
-
-        return output;
     }
 
     private String extractSmiliesToFeatureMap(String input, HashMap<String, Double> featureMap) {

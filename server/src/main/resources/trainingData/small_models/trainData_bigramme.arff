@@ -1,0 +1,1226 @@
+@relation 'Rel-weka.filters.unsupervised.attribute.StringToWordVector-R1-W10000-prune-rate-1.0-N0-stemmerweka.core.stemmers.NullStemmer-M2-tokenizerweka.core.tokenizers.NGramTokenizer -delimiters \" \\r\\n\\t.,;:\\\'\\\"()?!\" -max 2 -min 1-weka.filters.supervised.attribute.AttributeSelection-Eweka.attributeSelection.InfoGainAttributeEval-Sweka.attributeSelection.Ranker -T 0.0 -N -1-weka.filters.unsupervised.attribute.Remove-R12-weka.filters.unsupervised.attribute.Remove-R125-weka.filters.unsupervised.attribute.Remove-R1-2'
+
+@attribute NEGATIVE_WORDS numeric
+@attribute POSITIVE_WORDS numeric
+@attribute sad numeric
+@attribute thank numeric
+@attribute ALL_CAPS_WORDS numeric
+@attribute miss numeric
+@attribute sorri numeric
+@attribute URL numeric
+@attribute need numeric
+@attribute morn numeric
+@attribute happi numeric
+@attribute cam numeric
+@attribute done numeric
+@attribute 'MENTION thank' numeric
+@attribute hate numeric
+@attribute great numeric
+@attribute cri numeric
+@attribute smile numeric
+@attribute yes numeric
+@attribute go numeric
+@attribute ALL_CAPS numeric
+@attribute 'MENTION sorri' numeric
+@attribute fuck numeric
+@attribute 'MENTION good' numeric
+@attribute 'MENTION follow' numeric
+@attribute 'follow back' numeric
+@attribute want numeric
+@attribute beth numeric
+@attribute shit numeric
+@attribute damn numeric
+@attribute 'MENTION happi' numeric
+@attribute haha numeric
+@attribute welcom numeric
+@attribute 'good morn' numeric
+@attribute im numeric
+@attribute love numeric
+@attribute wanna numeric
+@attribute sick numeric
+@attribute day numeric
+@attribute sleep numeric
+@attribute 'MENTION dont' numeric
+@attribute super numeric
+@attribute xbox numeric
+@attribute funni numeric
+@attribute definit numeric
+@attribute 'MENTION great' numeric
+@attribute job numeric
+@attribute star numeric
+@attribute beauti numeric
+@attribute got numeric
+@attribute good numeric
+@attribute not_even numeric
+@attribute 'MENTION yes' numeric
+@attribute ashton numeric
+@attribute studi numeric
+@attribute wrong numeric
+@attribute xboxlive numeric
+@attribute 'feel better' numeric
+@attribute 'MENTION ya' numeric
+@attribute your numeric
+@attribute 'im sorri' numeric
+@attribute rn numeric
+@attribute realiz numeric
+@attribute 'just want' numeric
+@attribute 'MENTION miss' numeric
+@attribute cool numeric
+@attribute rock numeric
+@attribute 'MENTION make' numeric
+@attribute later numeric
+@attribute via numeric
+@attribute told numeric
+@attribute 'now URL' numeric
+@attribute 'let us' numeric
+@attribute ha numeric
+@attribute '— URL' numeric
+@attribute share numeric
+@attribute 'MENTION welcom' numeric
+@attribute 'good luck' numeric
+@attribute 'MENTION u' numeric
+@attribute ignor numeric
+@attribute seen numeric
+@attribute site numeric
+@attribute 'wanna go' numeric
+@attribute broke numeric
+@attribute mouth numeric
+@attribute 'realli want' numeric
+@attribute not_on numeric
+@attribute 'MENTION pleas' numeric
+@attribute ugh numeric
+@attribute 'MENTION damn' numeric
+@attribute ugli numeric
+@attribute cold numeric
+@attribute ass numeric
+@attribute wear numeric
+@attribute 'MENTION cam' numeric
+@attribute bore numeric
+@attribute close numeric
+@attribute bye numeric
+@attribute dead numeric
+@attribute episod numeric
+@attribute 'ripbeth URL' numeric
+@attribute 'miss MENTION' numeric
+@attribute 'sad realiz' numeric
+@attribute p numeric
+@attribute 'xbox live' numeric
+@attribute direct numeric
+@attribute 'MENTION sad' numeric
+@attribute 'laugh ass' numeric
+@attribute 'MENTION need' numeric
+@attribute ripbeth numeric
+@attribute tea numeric
+@attribute die numeric
+@attribute not_work numeric
+@attribute face numeric
+@attribute less numeric
+@attribute 'MENTION DOTS' numeric
+@attribute 'yet come' numeric
+@attribute hang numeric
+@attribute 'DOTS love' numeric
+@attribute album numeric
+@attribute without numeric
+@attribute 'good job' numeric
+@attribute 5 numeric
+@attribute gorgeous numeric
+@attribute impress numeric
+@attribute ambitionista numeric
+@attribute bc numeric
+@attribute 21st numeric
+@attribute 'hi MENTION' numeric
+@attribute celebr numeric
+@attribute plan numeric
+@attribute not_to numeric
+@attribute 'MENTION ok' numeric
+@attribute came numeric
+@attribute order numeric
+@attribute sir numeric
+@attribute sister numeric
+@attribute 'one day' numeric
+@attribute post numeric
+@attribute record numeric
+@attribute recommend numeric
+@attribute deserv numeric
+@attribute Sentiment {negative,positive}
+
+@data
+{12 1,142 positive}
+{0 1,7 1,49 1,117 1,142 positive}
+{1 2,142 positive}
+{132 1,142 positive}
+{0 1,6 1,21 1,142 positive}
+{49 1,142 positive}
+{3 1,13 1,75 1,142 positive}
+{142 positive}
+{142 positive}
+{1 1,142 positive}
+{1 4,10 1,142 positive}
+{1 1,38 1,120 1,137 1,142 positive}
+{0 1,142 positive}
+{1 2,15 1,35 1,142 positive}
+{1 2,3 1,7 1,142 positive}
+{1 1,4 2,10 1,19 1,38 1,136 1,142 positive}
+{4 1,142 positive}
+{1 1,142 positive}
+{142 positive}
+{1 2,128 1,142 positive}
+{0 1,142 positive}
+{1 3,4 1,7 1,32 1,142 positive}
+{1 1,142 positive}
+{142 positive}
+{142 positive}
+{7 1,142 positive}
+{3 1,13 1,142 positive}
+{142 positive}
+{38 1,129 1,142 positive}
+{1 1,142 positive}
+{1 3,15 1,46 1,49 1,142 positive}
+{1 2,4 1,49 1,125 1,142 positive}
+{0 1,142 positive}
+{0 1,133 1,142 positive}
+{0 2,6 1,142 positive}
+{7 1,142 positive}
+{3 1,7 1,142 positive}
+{0 1,142 positive}
+{4 4,142 positive}
+{1 1,3 1,7 1,35 1,142 positive}
+{1 1,3 1,4 1,35 1,142 positive}
+{1 3,4 3,15 1,19 1,115 1,142 positive}
+{3 1,13 1,142 positive}
+{26 1,142 positive}
+{0 1,1 1,4 1,142 positive}
+{1 1,35 1,142 positive}
+{0 1,1 1,10 1,142 positive}
+{1 1,4 3,7 1,47 1,71 1,129 1,142 positive}
+{49 1,142 positive}
+{0 2,14 1,142 positive}
+{1 1,48 1,142 positive}
+{0 2,1 3,35 1,43 1,48 1,120 1,142 positive}
+{38 1,142 positive}
+{142 positive}
+{1 1,38 1,142 positive}
+{142 positive}
+{68 1,142 positive}
+{131 1,142 positive}
+{0 1,4 5,142 positive}
+{1 1,15 1,45 1,142 positive}
+{4 6,136 1,142 positive}
+{1 1,12 1,35 1,73 1,142 positive}
+{4 1,9 1,139 1,142 positive}
+{1 2,142 positive}
+{4 2,142 positive}
+{4 1,142 positive}
+{4 1,142 positive}
+{1 3,124 1,142 positive}
+{0 1,7 1,142 positive}
+{4 1,26 1,142 positive}
+{1 2,50 1,77 1,142 positive}
+{142 positive}
+{0 1,1 1,142 positive}
+{1 1,142 positive}
+{1 1,123 1,142 positive}
+{1 1,142 positive}
+{142 positive}
+{115 1,142 positive}
+{1 1,65 1,70 1,142 positive}
+{1 1,123 1,142 positive}
+{139 1,142 positive}
+{70 1,142 positive}
+{1 4,3 1,142 positive}
+{1 1,4 2,142 positive}
+{1 1,23 1,50 1,142 positive}
+{7 1,142 positive}
+{142 positive}
+{1 2,7 1,35 1,118 1,142 positive}
+{0 1,1 1,142 positive}
+{142 positive}
+{142 positive}
+{24 1,25 1,142 positive}
+{1 1,4 1,35 1,142 positive}
+{142 positive}
+{1 2,142 positive}
+{142 positive}
+{9 1,135 1,142 positive}
+{1 1,142 positive}
+{1 2,7 1,15 1,65 1,142 positive}
+{68 1,116 1,142 positive}
+{19 1,142 positive}
+{4 2,142 positive}
+{3 1,142 positive}
+{1 2,4 3,7 1,38 1,133 1,142 positive}
+{1 1,142 positive}
+{24 1,25 1,142 positive}
+{4 1,142 positive}
+{1 1,48 1,135 1,142 positive}
+{1 2,7 1,142 positive}
+{0 1,31 1,142 positive}
+{0 2,1 1,142 positive}
+{12 1,142 positive}
+{1 2,7 1,142 positive}
+{1 2,141 1,142 positive}
+{3 1,142 positive}
+{1 2,4 2,7 1,35 1,142 positive}
+{7 1,142 positive}
+{34 1,142 positive}
+{38 1,142 positive}
+{1 2,142 positive}
+{142 positive}
+{4 1,18 1,142 positive}
+{7 1,142 positive}
+{0 1,1 2,50 1,77 1,116 1,142 positive}
+{1 2,3 1,13 1,142 positive}
+{1 2,3 1,10 1,142 positive}
+{142 positive}
+{0 1,134 1,142 positive}
+{142 positive}
+{1 3,48 1,136 1,142 positive}
+{1 1,50 1,142 positive}
+{0 1,4 1,142 positive}
+{1 1,122 1,142 positive}
+{7 1,142 positive}
+{1 2,65 1,142 positive}
+{1 2,48 1,142 positive}
+{1 1,4 1,50 1,142 positive}
+{1 1,7 1,133 1,142 positive}
+{132 1,142 positive}
+{1 1,4 1,38 1,137 1,142 positive}
+{142 positive}
+{4 1,19 1,73 1,78 1,142 positive}
+{66 1,142 positive}
+{7 1,142 positive}
+{78 1,142 positive}
+{128 1,142 positive}
+{1 3,44 1,142 positive}
+{1 2,7 1,35 1,142 positive}
+{1 2,3 1,13 1,17 1,142 positive}
+{1 1,7 1,35 1,127 1,142 positive}
+{142 positive}
+{142 positive}
+{142 positive}
+{142 positive}
+{1 1,10 1,30 1,142 positive}
+{142 positive}
+{1 2,50 1,142 positive}
+{1 1,4 1,12 1,49 1,72 1,129 1,142 positive}
+{1 1,3 1,13 1,142 positive}
+{142 positive}
+{0 1,1 2,4 4,7 1,35 1,75 1,142 positive}
+{1 2,4 1,7 1,35 1,142 positive}
+{0 1,1 1,5 1,23 1,50 1,142 positive}
+{19 1,142 positive}
+{49 1,127 1,142 positive}
+{1 1,4 1,142 positive}
+{0 1,142 positive}
+{0 1,4 1,5 1,7 1,38 1,70 1,142 positive}
+{0 1,1 1,142 positive}
+{4 1,142 positive}
+{25 1,142 positive}
+{1 1,32 1,76 1,142 positive}
+{1 3,9 1,23 1,33 1,35 1,38 1,50 1,135 1,142 positive}
+{0 1,1 1,4 2,17 1,142 positive}
+{1 2,10 1,30 1,142 positive}
+{4 1,142 positive}
+{7 1,142 positive}
+{1 1,125 1,142 positive}
+{0 1,142 positive}
+{1 1,18 1,50 1,52 1,142 positive}
+{18 1,52 1,142 positive}
+{1 3,4 1,9 1,33 1,50 1,142 positive}
+{0 1,1 1,44 1,51 1,117 1,142 positive}
+{1 1,142 positive}
+{4 2,142 positive}
+{1 2,7 1,142 positive}
+{142 positive}
+{1 1,10 1,142 positive}
+{142 positive}
+{1 1,23 1,50 1,142 positive}
+{0 1,1 1,4 1,7 1,22 1,48 1,142 positive}
+{1 1,4 1,7 1,142 positive}
+{0 2,1 1,26 1,138 1,142 positive}
+{138 1,142 positive}
+{38 1,142 positive}
+{0 1,1 1,7 1,37 1,142 positive}
+{1 1,7 1,35 1,142 positive}
+{0 1,3 1,4 3,142 positive}
+{142 positive}
+{38 1,142 positive}
+{1 1,4 1,50 1,142 positive}
+{1 1,142 positive}
+{1 1,7 1,142 positive}
+{7 1,66 1,115 1,142 positive}
+{0 1,142 positive}
+{1 1,142 positive}
+{1 1,4 1,7 1,142 positive}
+{142 positive}
+{142 positive}
+{1 1,35 1,142 positive}
+{1 1,7 1,38 1,142 positive}
+{1 1,34 1,78 1,142 positive}
+{0 1,142 positive}
+{26 1,142 positive}
+{49 1,142 positive}
+{4 1,142 positive}
+{4 1,7 1,24 1,142 positive}
+{0 1,1 2,4 1,35 1,47 1,142 positive}
+{1 1,7 1,12 1,130 1,142 positive}
+{0 1,5 1,7 1,142 positive}
+{0 1,1 1,142 positive}
+{7 1,142 positive}
+{7 1,9 1,69 1,142 positive}
+{1 1,3 1,47 1,142 positive}
+{1 1,35 1,70 1,118 1,142 positive}
+{1 1,142 positive}
+{1 2,3 1,32 1,76 1,142 positive}
+{1 1,7 1,142 positive}
+{1 1,142 positive}
+{1 2,35 1,142 positive}
+{0 1,1 2,10 1,50 1,142 positive}
+{1 1,4 1,15 1,45 1,72 1,142 positive}
+{1 1,35 1,142 positive}
+{142 positive}
+{0 2,1 2,12 1,69 1,142 positive}
+{142 positive}
+{1 1,10 1,30 1,142 positive}
+{0 1,142 positive}
+{0 1,1 1,142 positive}
+{1 1,4 5,20 1,142 positive}
+{1 1,142 positive}
+{4 1,7 1,142 positive}
+{1 1,7 1,142 positive}
+{0 1,142 positive}
+{1 1,38 1,142 positive}
+{1 1,4 2,7 1,142 positive}
+{1 1,4 3,142 positive}
+{4 1,142 positive}
+{1 2,130 1,142 positive}
+{1 4,3 1,10 1,30 1,35 1,38 1,142 positive}
+{142 positive}
+{0 1,142 positive}
+{4 1,9 1,142 positive}
+{7 1,19 1,73 1,142 positive}
+{1 1,26 1,142 positive}
+{142 positive}
+{1 1,142 positive}
+{0 1,4 1,142 positive}
+{3 1,13 1,142 positive}
+{1 2,35 1,118 1,142 positive}
+{7 1,69 1,142 positive}
+{4 1,142 positive}
+{4 1,7 1,74 1,142 positive}
+{1 1,142 positive}
+{142 positive}
+{142 positive}
+{0 1,1 1,142 positive}
+{0 1,1 1,4 1,142 positive}
+{1 1,19 1,142 positive}
+{49 1,142 positive}
+{1 1,15 1,45 1,142 positive}
+{1 1,10 1,30 1,38 1,119 1,142 positive}
+{1 1,3 1,142 positive}
+{7 1,127 1,142 positive}
+{1 3,4 8,142 positive}
+{142 positive}
+{0 1,1 1,142 positive}
+{142 positive}
+{7 1,71 1,142 positive}
+{1 2,9 1,23 1,33 1,38 1,48 1,50 1,142 positive}
+{7 1,142 positive}
+{1 3,7 1,142 positive}
+{142 positive}
+{34 1,142 positive}
+{142 positive}
+{7 1,19 1,72 1,142 positive}
+{19 1,34 1,142 positive}
+{1 1,7 1,142 positive}
+{142 positive}
+{1 1,35 1,142 positive}
+{1 1,4 1,35 1,138 1,142 positive}
+{7 1,142 positive}
+{0 1,26 1,142 positive}
+{1 1,23 1,46 1,50 1,121 1,142 positive}
+{36 1,142 positive}
+{1 3,4 1,17 1,50 1,142 positive}
+{142 positive}
+{1 2,3 1,142 positive}
+{4 1,12 1,142 positive}
+{49 1,142 positive}
+{7 1,142 positive}
+{1 1,65 1,142 positive}
+{1 1,4 1,122 1,142 positive}
+{1 1,26 1,72 1,126 1,142 positive}
+{18 1,52 1,142 positive}
+{7 1,142 positive}
+{0 1,1 1,4 1,142 positive}
+{1 2,142 positive}
+{7 1,47 1,142 positive}
+{132 1,142 positive}
+{1 1,4 1,142 positive}
+{142 positive}
+{1 1,18 1,52 1,142 positive}
+{1 2,10 1,142 positive}
+{0 1,4 1,7 1,142 positive}
+{1 1,142 positive}
+{142 positive}
+{1 1,35 1,142 positive}
+{1 1,142 positive}
+{34 1,142 positive}
+{0 1,4 1,7 1,142 positive}
+{1 1,142 positive}
+{0 1,1 2,140 1,142 positive}
+{1 1,46 1,140 1,142 positive}
+{1 1,10 1,31 1,142 positive}
+{142 positive}
+{0 1,1 3,12 1,48 1,142 positive}
+{0 1,142 positive}
+{0 1,43 1,142 positive}
+{142 positive}
+{0 1,142 positive}
+{1 1,7 1,142 positive}
+{1 1,142 positive}
+{142 positive}
+{1 1,26 1,124 1,142 positive}
+{142 positive}
+{0 1,1 1,142 positive}
+{1 2,4 1,142 positive}
+{4 4,31 1,142 positive}
+{1 1,125 1,142 positive}
+{0 1,7 1,142 positive}
+{1 1,4 1,15 1,18 1,52 1,142 positive}
+{1 1,7 1,71 1,142 positive}
+{1 2,48 1,141 1,142 positive}
+{142 positive}
+{0 2,1 2,4 4,120 1,142 positive}
+{3 1,49 1,142 positive}
+{0 1,1 2,3 1,43 1,142 positive}
+{1 1,7 1,38 1,142 positive}
+{0 1,1 2,18 1,48 1,52 1,142 positive}
+{1 1,7 1,35 1,142 positive}
+{1 2,48 1,142 positive}
+{0 1,7 1,74 1,142 positive}
+{4 1,24 1,142 positive}
+{78 1,142 positive}
+{0 1,142 positive}
+{24 1,142 positive}
+{1 1,7 1,35 1,142 positive}
+{142 positive}
+{1 1,4 1,142 positive}
+{0 1,142 positive}
+{1 2,7 1,142 positive}
+{75 1,142 positive}
+{0 1,4 3,142 positive}
+{142 positive}
+{1 5,4 1,17 1,142 positive}
+{1 2,3 1,15 1,45 1,142 positive}
+{0 1,1 2,142 positive}
+{1 1,67 1,142 positive}
+{0 1,1 1,43 1,142 positive}
+{1 1,142 positive}
+{142 positive}
+{1 1,9 1,23 1,33 1,50 1,142 positive}
+{1 2,35 1,142 positive}
+{142 positive}
+{1 1,50 1,142 positive}
+{1 1,35 1,142 positive}
+{24 1,25 1,142 positive}
+{4 1,38 1,134 1,142 positive}
+{0 1,1 1,3 1,4 4,35 1,142 positive}
+{142 positive}
+{0 1,142 positive}
+{24 1,25 1,142 positive}
+{68 1,116 1,142 positive}
+{4 1,142 positive}
+{38 1,142 positive}
+{1 1,3 1,35 1,142 positive}
+{1 1,3 1,142 positive}
+{7 1,142 positive}
+{1 1,142 positive}
+{0 1,7 1,142 positive}
+{4 1,142 positive}
+{1 1,4 1,142 positive}
+{1 1,142 positive}
+{1 1,4 1,8 1,44 1,142 positive}
+{142 positive}
+{1 2,3 1,13 1,15 1,142 positive}
+{1 3,15 1,49 1,142 positive}
+{4 1,142 positive}
+{142 positive}
+{7 1,142 positive}
+{1 1,4 1,10 1,30 1,142 positive}
+{1 2,9 1,10 1,17 1,142 positive}
+{67 1,119 1,142 positive}
+{1 2,35 1,142 positive}
+{1 2,4 2,7 1,35 1,142 positive}
+{0 1,1 1,142 positive}
+{142 positive}
+{1 2,7 1,50 1,142 positive}
+{1 1,4 3,35 1,142 positive}
+{142 positive}
+{1 1,3 1,142 positive}
+{1 1,4 1,15 1,142 positive}
+{1 2,142 positive}
+{1 1,38 1,49 1,137 1,142 positive}
+{142 positive}
+{1 3,23 1,50 1,77 1,142 positive}
+{1 1,142 positive}
+{4 1,142 positive}
+{1 1,142 positive}
+{4 2,19 1,20 1,142 positive}
+{1 2,3 1,4 1,139 1,142 positive}
+{142 positive}
+{0 2,1 4,4 4,5 1,10 1,15 1,38 1,123 1,142 positive}
+{24 1,25 1,142 positive}
+{1 1,15 1,45 1,142 positive}
+{4 1,7 1,71 1,142 positive}
+{18 1,142 positive}
+{1 2,3 1,13 1,35 1,142 positive}
+{26 1,126 1,142 positive}
+{1 1,3 1,142 positive}
+{1 1,3 1,24 1,25 1,142 positive}
+{68 1,142 positive}
+{1 1,142 positive}
+{0 2,1 2,3 1,7 1,13 1,50 1,142 positive}
+{1 1,4 1,7 1,32 1,76 1,142 positive}
+{142 positive}
+{0 1,142 positive}
+{1 1,35 1,142 positive}
+{19 1,142 positive}
+{0 1,1 1,26 1,35 1,44 1,142 positive}
+{1 1,4 1,142 positive}
+{142 positive}
+{142 positive}
+{1 1,4 1,7 1,142 positive}
+{1 2,7 1,131 1,142 positive}
+{1 1,9 1,23 1,33 1,38 1,50 1,66 1,142 positive}
+{1 1,128 1,142 positive}
+{142 positive}
+{7 1,49 1,142 positive}
+{4 6,20 1,142 positive}
+{1 1,4 1,142 positive}
+{0 2,1 1,142 positive}
+{7 1,142 positive}
+{7 1,142 positive}
+{1 1,10 1,67 1,142 positive}
+{4 1,24 1,142 positive}
+{1 1,142 positive}
+{1 1,142 positive}
+{7 1,142 positive}
+{1 1,7 1,10 1,74 1,142 positive}
+{4 1,19 1,117 1,142 positive}
+{1 1,3 1,7 1,142 positive}
+{1 1,23 1,46 1,50 1,121 1,142 positive}
+{7 1,142 positive}
+{0 1,4 1,7 1,74 1,142 positive}
+{0 1,126 1,130 1,142 positive}
+{1 1,4 1,7 1,142 positive}
+{18 1,52 1,142 positive}
+{1 3,4 1,10 1,50 1,77 1,142 positive}
+{142 positive}
+{7 1,141 1,142 positive}
+{1 2,142 positive}
+{1 1,4 4,32 1,73 1,142 positive}
+{1 1,3 1,4 1,13 1,46 1,50 1,121 1,142 positive}
+{1 1,7 1,35 1,142 positive}
+{7 1,142 positive}
+{0 1,1 2,44 1,69 1,142 positive}
+{1 1,23 1,50 1,142 positive}
+{0 1,142 positive}
+{1 1,119 1,142 positive}
+{1 2,4 1,7 1,142 positive}
+{4 1,7 1,142 positive}
+{0 1,14 1,142 positive}
+{1 1,142 positive}
+{142 positive}
+{0 1,1 1,31 1,142 positive}
+{0 1,1 1,4 1,9 1,142 positive}
+{0 1,1 1,3 1,4 1,142 positive}
+{1 1,8 1,142 positive}
+{0 1,1 1,140 1,142 positive}
+{0 3,1 1,43 1,50 1,142 positive}
+{0 1,4 1,26 1,142 positive}
+{142 positive}
+{47 1,142 positive}
+{4 1,18 1,142 positive}
+{7 1,49 1,142 positive}
+{142 positive}
+{1 1,142 positive}
+{1 1,142 positive}
+{142 positive}
+{4 1,142 positive}
+{1 1,17 1,142 positive}
+{142 positive}
+{142 positive}
+{1 1,142 positive}
+{0 1,1 1,142 positive}
+{142 positive}
+{1 1,35 1,142 positive}
+{1 1,3 1,13 1,142 positive}
+{142 positive}
+{0 1,142 positive}
+{0 1,1 1,5 1,142 positive}
+{1 2,4 1,7 1,17 1,35 1,142 positive}
+{1 1,31 1,50 1,142 positive}
+{12 1,31 1,142 positive}
+{142 positive}
+{18 1,52 1,142 positive}
+{1 1,9 1,50 1,142 positive}
+{3 1,13 1,142 positive}
+{142 positive}
+{0 1,1 2,142 positive}
+{0 3,1 2,122 1,142 positive}
+{24 1,142 positive}
+{1 1,134 1,142 positive}
+{142 positive}
+{38 1,66 1,142 positive}
+{1 2,34 1,142 positive}
+{1 1,50 1,142 positive}
+{4 1,131 1,142 positive}
+{1 1,9 1,33 1,50 1,142 positive}
+{1 1,142 positive}
+{1 2,7 1,15 1,75 1,124 1,142 positive}
+{4 1,7 1,142 positive}
+{4 1,142 positive}
+{0 1,1 3,14 1,18 1,32 1,76 1,142 positive}
+{1 1,142 positive}
+{4 2,142 positive}
+{1 1,17 1,67 1,142 positive}
+{1 1,4 1,7 1,142 positive}
+{59 1}
+{0 2,5 1,28 1,59 1}
+{1 1}
+{0 1,2 1,4 1,7 1}
+{0 1,8 1,90 1}
+{}
+{0 1}
+{1 1,35 1}
+{92 1,107 1}
+{0 1,1 1,6 1,21 1}
+{26 1}
+{1 1,11 1,94 1}
+{}
+{0 1,1 1,7 1,110 1}
+{}
+{}
+{0 1,1 1,6 1,21 1}
+{4 1}
+{0 1,1 1,5 1}
+{0 1,1 1,2 1,41 1,62 1,102 1}
+{1 1}
+{}
+{0 1,1 1,35 1,81 1}
+{4 4,20 1,79 1}
+{0 2,1 2}
+{1 1}
+{}
+{0 2,5 1,8 1,108 1}
+{0 1,6 1,21 1}
+{}
+{0 4,14 1,37 1}
+{0 1,5 1}
+{0 1,14 1}
+{0 1}
+{4 5,8 1,20 1}
+{0 2,6 1,21 1,37 1}
+{}
+{}
+{0 1,1 1,5 1,101 1}
+{4 1,7 1,27 1,100 1,109 1}
+{}
+{1 1,19 1}
+{7 1,59 1}
+{}
+{1 1,58 1}
+{1 3,3 1,15 1,38 1,50 1,110 1}
+{0 1,38 1}
+{0 1,1 2,6 1}
+{}
+{1 1,57 1}
+{0 2,4 1,22 1,28 1,42 1,56 1,104 1}
+{}
+{4 1,26 1}
+{}
+{0 1}
+{0 1,14 1}
+{11 1,26 1}
+{}
+{34 1,83 1}
+{0 3,4 1,98 1}
+{0 2,1 1,8 1,35 1}
+{0 1,6 1}
+{}
+{7 1,100 1,109 1}
+{1 1,35 1}
+{0 2,1 1,2 1,5 1}
+{26 1}
+{1 2,19 1,41 1}
+{4 1,7 1}
+{0 1,26 1}
+{19 1}
+{19 1,34 1,36 1,58 1,82 1}
+{0 2,1 1,29 1,42 1,89 1,104 1}
+{8 1}
+{4 2,7 1,8 1}
+{}
+{4 1,42 1,104 1}
+{1 1,36 1,39 1}
+{0 1,4 1,5 1,7 1}
+{1 1,4 5,11 1,35 1}
+{0 1,2 1,8 1,62 1,102 1}
+{26 1}
+{0 1,1 1,8 1,28 1,108 1}
+{}
+{40 1}
+{0 1,16 1}
+{0 1}
+{0 2,6 1,21 1}
+{0 1,14 1}
+{0 1,4 2}
+{0 1,37 1}
+{}
+{1 1}
+{0 2,1 1,16 1,35 1}
+{}
+{0 1}
+{0 1,4 1}
+{1 1}
+{0 1,29 1,56 1,89 1}
+{0 1,6 1,34 1,60 1}
+{}
+{}
+{}
+{26 1}
+{1 1,50 1}
+{}
+{7 1,97 1}
+{0 1}
+{0 1,1 1,2 1}
+{1 1,4 1}
+{}
+{1 1,4 1,35 1}
+{0 1,4 5,20 1}
+{1 1}
+{4 4,7 1}
+{0 1,14 1}
+{0 1,1 2,4 1}
+{1 1}
+{}
+{}
+{1 1}
+{0 1,1 1,19 1,34 1,50 1}
+{0 1}
+{0 2,5 1}
+{1 2,56 1}
+{26 1,63 1}
+{0 1}
+{4 2,11 1,20 1,87 1}
+{0 2,1 2,4 1,7 1,11 1,79 1,90 1}
+{0 2,7 1,88 1}
+{1 1}
+{51 1}
+{0 1,1 1,2 1,10 1,62 1,102 1}
+{}
+{1 1,4 3,50 1,103 1}
+{}
+{1 1,4 2,20 1}
+{0 2,6 1}
+{0 1,1 1,26 1,57 1}
+{0 1,1 1,5 1,8 1,19 1,64 1}
+{4 1,49 1}
+{0 2,1 2,2 1,4 2,28 1}
+{7 1}
+{26 1}
+{0 1}
+{0 1,5 1,7 1}
+{19 1,105 1}
+{0 1,26 1,111 1}
+{0 1,2 1}
+{}
+{0 3,19 1,34 1}
+{0 1}
+{0 2}
+{0 1,4 6,6 1,19 1,20 1,34 1,60 1}
+{0 1,1 1,22 1}
+{51 1}
+{0 1,79 1}
+{0 1,4 1}
+{0 1,80 1,99 1}
+{0 1,6 1,21 1}
+{58 1}
+{}
+{1 1,4 1,7 1}
+{0 1,5 1,7 1,101 1}
+{0 1,5 1}
+{0 1,5 1}
+{0 1,14 1}
+{}
+{34 1}
+{0 1,5 1}
+{0 1,1 1,113 1}
+{19 1}
+{49 1}
+{4 1,20 1,27 1}
+{1 1,4 9,7 1,26 1}
+{0 1,14 1}
+{40 1}
+{36 1}
+{1 1,11 1,35 1}
+{0 2,1 1,37 1,38 1}
+{0 1,7 1}
+{}
+{0 1,2 1,106 1}
+{0 1,1 1,14 1}
+{}
+{0 2,1 1,22 1,37 1}
+{}
+{}
+{0 1}
+{0 3,1 1,5 1}
+{0 1,1 1,6 1}
+{}
+{}
+{8 1,108 1}
+{0 1,19 1,36 1,82 1}
+{0 1,1 1,2 1}
+{}
+{1 1}
+{19 1}
+{0 1,1 3,8 1,14 1,41 1,114 1}
+{0 2}
+{51 1}
+{0 1,5 1}
+{}
+{26 1,63 1}
+{8 1}
+{}
+{0 1,28 1,38 1}
+{0 1,14 1}
+{0 1,6 1,21 1}
+{}
+{}
+{}
+{}
+{0 1,4 1,86 1}
+{0 3,2 1,6 1,7 1,29 1}
+{0 2,7 1,29 1,91 1}
+{}
+{1 1}
+{0 1,22 1}
+{26 1}
+{1 1}
+{}
+{0 1,22 1}
+{}
+{4 1}
+{0 1,5 1,101 1}
+{}
+{7 1,93 1}
+{0 1,7 1,19 1,29 1,89 1,92 1,107 1}
+{0 1,5 1}
+{1 1,19 1,51 1}
+{7 1}
+{1 1,57 1}
+{40 1}
+{}
+{26 1}
+{0 2,1 1,6 1,34 1,50 1}
+{1 2}
+{86 1}
+{}
+{}
+{0 1,1 1,4 1}
+{4 1}
+{0 1,1 1,7 1}
+{0 1,86 1,111 1}
+{4 10}
+{0 1,34 1}
+{}
+{1 1,35 1}
+{1 1,4 4,20 1}
+{0 1,5 1,64 1}
+{19 1}
+{0 1}
+{0 1}
+{}
+{0 3,1 4,10 1,93 1}
+{7 1}
+{}
+{4 1}
+{1 1}
+{0 5,2 1,14 1,16 1,55 1}
+{1 1}
+{34 1}
+{8 1}
+{16 1}
+{4 3,11 1,20 1,24 1}
+{1 2,35 1}
+{}
+{}
+{}
+{}
+{0 1,1 1}
+{0 1,14 1}
+{1 1,35 1}
+{0 1,1 1}
+{40 1}
+{1 1,50 1}
+{0 1,6 1,21 1}
+{0 1,1 1}
+{0 1,34 1,95 1}
+{7 1}
+{}
+{0 3,1 2,16 1,19 1,28 1,37 1}
+{}
+{1 1,48 1}
+{}
+{0 1,5 1,64 1}
+{4 1}
+{1 1,34 1,51 1,53 1}
+{7 1}
+{1 1,8 1,58 1}
+{}
+{}
+{1 1,19 1,39 1,50 1}
+{}
+{113 1}
+{0 2,1 1,6 1,34 1,60 1}
+{0 1,4 2,5 1,7 1,27 1,103 1}
+{}
+{0 1,1 1,6 1}
+{0 1,2 1,7 1,106 1}
+{0 2,1 1,4 2,6 1}
+{0 1}
+{0 2}
+{}
+{1 1}
+{0 1,1 1,51 1,80 1}
+{19 1,26 1}
+{0 1,4 6,20 1}
+{0 1,14 1,19 1}
+{}
+{1 1,7 1,10 1,26 1}
+{}
+{0 2,1 1,19 1}
+{0 1,1 1,37 1}
+{}
+{0 1,1 2,22 1,80 1}
+{0 2,8 1,14 1,22 1}
+{7 1}
+{3 1,8 1,13 1,81 1}
+{1 1,8 1}
+{0 2,1 1,35 1}
+{26 1}
+{0 1,19 1}
+{}
+{0 1,6 1,21 1}
+{1 1,53 1}
+{0 1,4 1,6 1,96 1,105 1}
+{0 1}
+{0 1}
+{}
+{42 1}
+{38 1}
+{1 3,15 1}
+{}
+{}
+{}
+{}
+{}
+{0 1,19 1,36 1,82 1}
+{4 2,20 1}
+{19 1,34 1,38 1}
+{0 1,5 1}
+{}
+{}
+{114 1}
+{1 3,35 1}
+{0 2,6 1,21 1}
+{1 1}
+{}
+{96 1}
+{0 1}
+{0 1,1 1,55 1,84 1}
+{0 1}
+{0 1,83 1,113 1}
+{0 1,2 1}
+{1 2,57 1}
+{1 1,110 1}
+{27 1}
+{1 1,87 1}
+{}
+{}
+{0 2,4 1}
+{0 1,1 1,4 1,26 1}
+{0 1}
+{}
+{0 1,2 1}
+{1 1,35 1}
+{0 1,5 1,19 1,99 1}
+{}
+{}
+{}
+{}
+{0 3,34 1,91 1,95 1,111 1}
+{0 1}
+{0 1,1 1,50 1}
+{19 1}
+{0 2,4 5,6 1,20 1,34 1,88 1}
+{}
+{0 1,7 1}
+{0 2,14 1,53 1}
+{8 1,61 1}
+{}
+{4 2,11 1,20 1,94 1}
+{7 1,49 1}
+{}
+{0 1}
+{}
+{19 1,26 1,85 1}
+{1 2,4 1,35 1,112 1}
+{}
+{1 1,3 1}
+{4 2}
+{1 4,18 1,52 1}
+{1 1,105 1}
+{0 1,4 10,20 1,98 1}
+{0 1,4 1}
+{1 1,54 1}
+{0 2,2 1,37 1}
+{}
+{19 1}
+{0 3,88 1}
+{1 1}
+{54 1}
+{}
+{0 1,1 1}
+{0 1,1 1,2 1,50 1}
+{0 1,1 1,26 1,96 1}
+{1 2}
+{1 1,7 1,27 1,50 1,97 1,100 1,109 1}
+{4 2,8 1}
+{1 1,7 1,35 1}
+{0 2,5 1}
+{0 1,2 1,38 1}
+{0 1,1 1,41 1,98 1,99 1}
+{}
+{}
+{1 1}
+{0 1,90 1}
+{0 1,37 1,39 1}
+{26 1}
+{0 1,5 1,64 1}
+{0 1,5 1}
+{26 1}
+{}
+{0 2,1 2,7 1}
+{0 4,5 1,6 1,21 1}
+{4 10,11 1,94 1}
+{0 1,5 1}
+{0 1,1 1,4 3,5 1}
+{0 1,1 1,4 5}
+{0 1,1 2,19 1,22 1,93 1}
+{0 1,2 1}
+{1 1,35 1}
+{0 1,14 1,53 1,62 1}
+{0 1,5 1}
+{}
+{8 1}
+{19 1,26 1}
+{36 1}
+{19 1,84 1}
+{1 1,7 1}
+{1 2,35 1}
+{0 1,1 1,55 1}
+{1 1,50 1}
+{0 1,84 1}
+{}
+{0 2,1 1,3 1,7 1,38 1}
+{}
+{4 7}
+{}
+{0 1,14 1,16 1}
+{}
+{0 1,4 1,22 1}
+{0 1,36 1}
+{0 1,1 1}
+{0 1,4 7,20 1,26 1}
+{0 1,39 1,95 1}
+{}
+{0 1,4 1,8 1}
+{}
+{51 1}
+{0 1,5 1}
+{7 1}
+{}
+{}
+{39 1}
+{54 1}
+{}
+{0 3,1 1,22 1,51 1}
+{7 1}
+{1 2,34 1,59 1}
+{1 2,42 1}
+{}
+{0 1,7 1,16 1,27 1}
+{8 1}
+{0 2,1 1,19 1,29 1,34 1,92 1,97 1,107 1}
+{}
+{}
+{0 1,2 1,106 1}
+{26 1,61 1,63 1}
+{1 1,81 1}
+{}
+{}
+{0 1,5 1}
+{}
+{0 1,16 1}
+{1 1,34 1}
+{4 3,20 1}
+{1 2,35 1}
+{56 1}
+{7 1}
+{}
+{36 1,112 1}
+{}
+{}
+{0 1,1 2,4 4,5 1,7 1,19 1,48 1,103 1}
+{0 1,4 7,54 1}
+{}
+{1 1,26 1,50 1,85 1}
+{0 3,1 1,2 1,6 1,14 1,36 1}
+{0 1,1 1}
+{1 1}
+{}
+{4 2,61 1}
+{0 1,5 1}
+{}
+{0 1,55 1}
+{0 3,2 1,83 1}
+{0 1,1 1,3 1}
+{61 1}
+{0 1,4 1,5 1,26 1,63 1}
+{1 1}
+{1 1,50 1,112 1}
+{1 2,4 8,26 1}
+{40 1}
+{0 1,8 1,87 1}
+{1 1,114 1}
+{0 1,6 1,34 1,60 1}
+{0 1}
+{1 3,19 1,41 1,49 1}
+{4 1}
+{0 3}
+{0 2}
+{1 1}
+{}
+{0 1,91 1}
+{3 1}
+{26 1,85 1}
+{0 1,22 1}
+{7 1,23 1,50 1}
+{}
+{}
+{}
+{0 1,38 1}
+{}
+{1 1}
+{}
