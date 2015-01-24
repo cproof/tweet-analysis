@@ -40,21 +40,7 @@ angular.module('sentiment', ['nvd3'])
             };
             
             $scope.impression = function() {
-                if ($scope.sentiment > 0.8) {
-                    return 'strongly positive';
-                }
-                else if ($scope.sentiment > 0.6) {
-                    return 'positive';
-                }
-                else if ($scope.sentiment > 0.4) {
-                    return 'neutral';
-                }
-                else if ($scope.sentiment > 0.2) {
-                    return 'negative';
-                }
-                else {
-                    return 'strongly negative';
-                }
+               return getImpression($scope.sentiment);
             };
             
             
@@ -80,12 +66,101 @@ angular.module('sentiment', ['nvd3'])
                         }
                     }
                 },
+
+                donut: {
+                    options: {
+                        chart: {
+                            type: 'pieChart',
+                            height: 450,
+                            donut: true,
+                            x: function (d) {
+                                return d.key;
+                            },
+                            y: function (d) {
+                                return d.y;
+                            },
+                            showLabels: true,
+                            pie: {
+                                startAngle: function (d) {
+                                    return d.startAngle / 2 - Math.PI / 2
+                                },
+                                endAngle: function (d) {
+                                    return d.endAngle / 2 - Math.PI / 2
+                                }
+                            },
+                            transitionDuration: 500,
+                            legend: {
+                                margin: {
+                                    top: 5,
+                                    right: 140,
+                                    bottom: 5,
+                                    left: 0
+                                }
+                            }
+                        }
+                    },
+                    data: null,
+                    refresh: function () {
+                        //prepare array
+                        var tmpArray = {0:0, 1:0, 2:0, 3:0, 4:0};
+                        
+                        //iterate all tweets
+                        $.each($scope.verboseTweets, function(i,data) {
+                            var segment = Math.min(4,Math.floor(data.positive * 5));
+                            tmpArray[segment]++;
+                        });
+                        
+                        this.data =
+                                [
+                                    {
+                                        key: getImpression(0.1),
+                                        y: tmpArray[0]
+                                    },
+                                    {
+                                        key: getImpression(0.3),
+                                        y: tmpArray[1]
+                                    },
+                                    {
+                                        key: getImpression(0.5),
+                                        y: tmpArray[2]
+                                    },
+                                     {
+                                        key: getImpression(0.7),
+                                        y: tmpArray[3]
+                                    },
+                                     {
+                                        key: getImpression(0.9),
+                                        y: tmpArray[4]
+                                    }
+                                ]
+                    }
+                },
+                
                 
                 refreshAll : function() {
                     this.general.refresh();
+                    this.donut.refresh();
                 }
             };
             
-            $scope.diagrams.refreshAll();
+            //$scope.diagrams.refreshAll();
             
         });
+        
+function getImpression(sentiment) {
+    if (sentiment > 0.8) {
+        return 'strongly positive';
+    }
+    else if (sentiment > 0.6) {
+        return 'positive';
+    }
+    else if (sentiment > 0.4) {
+        return 'neutral';
+    }
+    else if (sentiment > 0.2) {
+        return 'negative';
+    }
+    else {
+        return 'strongly negative';
+    }
+}

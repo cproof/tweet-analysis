@@ -72,7 +72,10 @@ public class TweetAnalysisServerMain {
         
         System.out.println("Server started\n\nPress return to exit");
         System.in.read();
+        
+        //server.join();
         server.stop();
+        server.join();
         
     }
 
@@ -225,6 +228,7 @@ public class TweetAnalysisServerMain {
             ret.put("negative", fDistribution[0]);
             ret.put("id", tweet.getId());
             ret.put("author", tweet.getAuthor());
+            ret.put("timestamp", tweet.getTimestamp().getTime());
             
             int retweetCount = tweet.getRetweetCount();
             int favoriteCount = tweet.getFavoriteCount();
