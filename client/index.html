@@ -69,7 +69,7 @@
                   <div class="checkbox">
                       <label for="languageCheckbox">
                           <input id="languageCheckbox" type="checkbox" ng-model="languageFilterActive"/>
-                          Only show tweets written in a specific language?
+                          Only analyze tweets written in a specific language?
                       </label>
                   </div>
                   <select class="form-control" ng-model="language" ng-disabled="!languageFilterActive" ng-show="languageFilterActive">
@@ -80,7 +80,7 @@
               <div class="form-group">
                   <div class="checkbox">
                       <label for="beginDateCheckbox"><input type="checkbox" id="beginDateCheckbox" ng-model="beginDateFilterActive"/>
-                          Only show tweets starting at a specific date?
+                          Only analyze tweets starting at a specific date?
                       </label>
                   </div>
                   <input name="beginDate" class="form-control" type="date" placeholder="yyyy-MM-dd" ng-model="beginDate" ng-disabled="!beginDateFilterActive" ng-show="beginDateFilterActive"/>
@@ -89,7 +89,7 @@
               <div class="form-group">
                   <div class="checkbox">
                   <label for="endDateCheckbox">
-                      <input id="endDateCheckbox" type="checkbox" ng-model="endDateFilterActive"/> Only show tweets until a specific date?
+                      <input id="endDateCheckbox" type="checkbox" ng-model="endDateFilterActive"/> Only analyze tweets until a specific date?
                   </label>
                   </div>
                   <input name="endDate" class="form-control" type="date" placeholder="yyyy-MM-dd" ng-model="endDate" ng-disabled="!endDateFilterActive" ng-show="endDateFilterActive"/>
@@ -99,7 +99,7 @@
                   <div class="checkbox">
                   <label for="locationCheckbox">
                   <input type="checkbox" id="locationCheckbox" ng-model="locationFilterActive"/>
-                  Only show tweets from a specific location?</label>
+                  Only analyze tweets from a specific location?</label>
                   </div>
                   <div ng-show="locationFilterActive">
                     <input name="location" ng-pattern="/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/" placeholder="41.12345,10.65432" ng-model="location" ng-disabled="!locationFilterActive"/>
