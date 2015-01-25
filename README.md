@@ -2,11 +2,13 @@
 
 This is a Sentiment-Analysis Tool for Twitter
 
-
 How to start the Programm
+---
 
 - Download the sources
-- compile with maven
-- start the "ServerMainMethod"
-- connect with the client by clicking on the index.main in the client folder
+- Go into the subfolder *server*
+- Execute **mvn exec:java**
+- Launch the *index.html* file from the *client* directory
+
+(c) 2015, Patrick Löwenstein, Thomas Schreiber, Alexander Suchan, Stefan Victora, Andreas Waltenberger
 
