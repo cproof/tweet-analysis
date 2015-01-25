@@ -50,5 +50,5 @@ public interface IClassifier {
      * Test the Classifier against preprocessed Tweets and print out some statistics
      *
      */
-    public void testClassifierAgainstPreprocessedTweets(List<Tweet> tweets);
+    public void testClassifierAgainstPreprocessedTweets(List<Tweet> tweets, boolean verbose);
 }

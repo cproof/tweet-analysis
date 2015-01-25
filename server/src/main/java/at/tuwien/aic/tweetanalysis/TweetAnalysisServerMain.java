@@ -139,6 +139,16 @@ public class TweetAnalysisServerMain {
                     classifier = loadClassifierFromModel("smo", false);
                 } else {
                     switch(classifierString) {
+                        case "smo":
+                            classifier = loadClassifierFromModel("smo", false);
+                            break;
+                        case "smo_large":
+                            classifier = loadClassifierFromModel("smo_large", false);
+                            break;
+                        case "smo_small":
+                            classifier = loadClassifierFromModel("smo_small", false);
+                            break;
+
                         case "smoSmileys":
                             classifier = loadClassifierFromModel("smo", true);
                             break;
@@ -148,9 +158,17 @@ public class TweetAnalysisServerMain {
                         case "smo_small_Smileys":
                             classifier = loadClassifierFromModel("smo_small", true);
                             break;
+
                         case "bayes":
                             classifier = loadClassifierFromModel("bayes", false);
                             break;
+                        case "bayes_large":
+                            classifier = loadClassifierFromModel("bayes_large", false);
+                            break;
+                        case "bayes_small":
+                            classifier = loadClassifierFromModel("bayes_small", false);
+                            break;
+
                         case "bayesSmileys":
                             classifier = loadClassifierFromModel("bayes", true);
                             break;
@@ -161,6 +179,16 @@ public class TweetAnalysisServerMain {
                             classifier = loadClassifierFromModel("bayes_small", true);
                             break;
 
+                        case "c_svc":
+                            classifier = loadClassifierFromModel("c-svc", false);
+                            break;
+                        case "c_svc_small":
+                            classifier = loadClassifierFromModel("c-svc_small", false);
+                            break;
+                        case "c_svc_large":
+                            classifier = loadClassifierFromModel("c-svc_large", false);
+                            break;
+
                         case "c_svcSmileys":
                             classifier = loadClassifierFromModel("c-svc", true);
                             break;
@@ -169,6 +197,16 @@ public class TweetAnalysisServerMain {
                             break;
                         case "c_svc_small_Smileys":
                             classifier = loadClassifierFromModel("c-svc_small", true);
+                            break;
+
+                        case "nu_svc":
+                            classifier = loadClassifierFromModel("nu-svc", false);
+                            break;
+                        case "nu_svc_small":
+                            classifier = loadClassifierFromModel("nu-svc_small", false);
+                            break;
+                        case "nu_svc_large":
+                            classifier = loadClassifierFromModel("nu-svc_large", false);
                             break;
 
                         case "nu_svcSmileys":

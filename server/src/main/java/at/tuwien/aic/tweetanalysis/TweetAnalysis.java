@@ -56,13 +56,13 @@ public class TweetAnalysis {
     StandardTweetPreprocessor standardTweetPreprocessor;
 
     public TweetAnalysis() throws Exception {
-        classifier = loadClassifiedFromModel("smo", false);
+        classifier = loadClassifierFromModel("smo", false);
         standardTweetPreprocessor = new StandardTweetPreprocessor();
         tweetProvider = new TweetProvider();
 //        classifier = new WekaClassifier();
     }
 
-    private static IClassifier loadClassifiedFromModel(String classifierType, boolean useSmilies) throws IOException {
+    private static IClassifier loadClassifierFromModel(String classifierType, boolean useSmilies) throws IOException {
         IClassifier tweetTest;
 
 //        if (!classifierType.startsWith("smo") && !"bayes".equals(classifierType)) {
@@ -163,7 +163,7 @@ public class TweetAnalysis {
     @Command
      public void load(@Param(name = "classifierName", description = "the name of the classifier. Valid: 'smo' and 'bayes'") String classifierName,
                       @Param(name = "smilies", description = "load model with smilies") boolean smilies) throws CLIException, IOException {
-        classifier = loadClassifiedFromModel(classifierName, smilies);
+        classifier = loadClassifierFromModel(classifierName, smilies);
     }
 
     @Command
@@ -191,7 +191,32 @@ public class TweetAnalysis {
         System.out.println("Test classifier against a manually created testing-set...");
 
         List<Tweet> t = TrainingDataPreprocessor.preprocessAndCreateTweets(standardTweetPreprocessor, "/trainingData/manuallyCreatedTraindata/tweets.csv", 600);
-        classifier.testClassifierAgainstPreprocessedTweets(t);
+        classifier.testClassifierAgainstPreprocessedTweets(t, true);
+
+        System.out.println("done");
+    }
+
+    @Command
+    public void testAgainstTweetsAll() throws Exception {
+        System.out.println("Test all classifiers against a manually created testing-set...");
+
+        ArrayList<String> classifiers = new ArrayList<>();
+        Collections.addAll(classifiers, "smo_small", "smo", "smo_large",
+                "bayes_small", "bayes", "bayes_large",
+                "c-svc_small", "c-svc", "c-svc_large",
+                "nu-svc_small", "nu-svc", "nu-svc_large");
+
+        List<Tweet> t = TrainingDataPreprocessor.preprocessAndCreateTweets(standardTweetPreprocessor, "/trainingData/manuallyCreatedTraindata/tweets.csv", 600);
+        for (String c : classifiers) {
+            // without smilies
+            classifier = loadClassifierFromModel(c, false);
+            classifier.testClassifierAgainstPreprocessedTweets(t, true);
+
+            // with smilies
+            classifier = loadClassifierFromModel(c, true);
+            classifier.testClassifierAgainstPreprocessedTweets(t, true);
+
+        }
 
         System.out.println("done");
     }
@@ -347,7 +372,7 @@ public class TweetAnalysis {
 
     private static void testClassifier() throws Exception {
         IClassifier tweetTest;
-        tweetTest = loadClassifiedFromModel("smo", false);
+        tweetTest = loadClassifierFromModel("smo", false);
 //        tweetTest = new WekaClassifier();
 
         // Use the Classifier to evaluate a Tweet
@@ -370,7 +395,7 @@ public class TweetAnalysis {
     private static void testClassifierOnTweets(List<Tweet> tweets) throws Exception {
         /* load model from file */
         IClassifier classifier;
-        classifier = loadClassifiedFromModel("smo", true);
+        classifier = loadClassifierFromModel("smo", true);
 //        classifier = new WekaClassifier();
 
         /* preprocess tweets */
