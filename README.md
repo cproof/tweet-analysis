@@ -2,7 +2,7 @@
 
 This is a Sentiment-Analysis Tool for Twitter
 
-How to start the Programm
+How to start the Program
 ---
 
 - Download the sources
