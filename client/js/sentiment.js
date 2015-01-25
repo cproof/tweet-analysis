@@ -3,7 +3,7 @@ var baseUrl = "http://localhost:8080";
 angular.module('sentiment', ['nvd3'])
         .controller('sentimentSearchController', function ($scope, $http) {
             $scope.query = "";
-            $scope.count = 2;
+            $scope.count = 20;
             $scope.classifier = "smo";
             $scope.language = null;
             $scope.beginDate = null;
@@ -43,6 +43,9 @@ angular.module('sentiment', ['nvd3'])
                             //$scope.api.refresh();
                             //$scope.api.update();
                             
+                        })
+                        .error(function (response) {
+                            alert("Something didn't work. Are you sure that the server is started and listening on port 8000?")
                         });
             };
             
