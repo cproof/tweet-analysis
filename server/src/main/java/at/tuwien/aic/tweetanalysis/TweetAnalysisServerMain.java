@@ -46,19 +46,20 @@ public class TweetAnalysisServerMain {
 //            throw new IllegalArgumentException("Unknown classifier type '" + classifierType + "'. Only 'smo' and 'bayes' are valid");
 //        }
 
-        int size = 6000;
+        int size;
         String baseDirectory = "/trainingData";
 
         if (classifierType.endsWith("_large")) {
             baseDirectory += "/large_models";
             classifierType = classifierType.replace("_large", "");
-            size = 13000;
+            size = 18000;
         } else if (classifierType.endsWith("_small")) {
             baseDirectory += "/small_models";
             classifierType = classifierType.replace("_small", "");
             size = 1000;
         } else {
             baseDirectory += "/models";
+            size = 6000;
         }
 
         String modelName = baseDirectory + "/" + classifierType;

@@ -43,7 +43,8 @@ public final class TrainingDataPreprocessor {
 //        trainingDataPreprocessor.preprocessAndCreateInstances(new StandardTweetPreprocessor(),
 //                "/trainingData/training.1600000.csv", 1600000);
 
-        trainingDataPreprocessor.preprocessAndCreateInstances2(new StandardTweetPreprocessor(), "/trainingData/tweets_small.csv", "processed-tweets_1000.arff", 1200);
+//        trainingDataPreprocessor.preprocessAndCreateInstances2(new StandardTweetPreprocessor(), "/trainingData/tweets_small.csv", "processed-tweets_1000.arff", 1200);
+        trainingDataPreprocessor.preprocessAndCreateInstances2(new StandardTweetPreprocessor(), "/trainingData/tweets_large.csv", "processed-tweets_18000.arff", 18000);
 //        trainingDataPreprocessor.preprocessAndCreateInstances2(new StandardTweetPreprocessor(), "/trainingData/manuallyCreatedTraindata/negative-tweets.csv", "preprocessed-tweets-negative.arff", 300);
         //trainingDataPreprocessor.preprocessAndCreateInstances2(new StandardTweetPreprocessor(), "/trainingData/negative-positive-tweets.csv", "preprocessed-tweets.arff", 600);
         //WekaUtils.mergeTwoInstances("/trainingData/preprocessed-tweets-positive.arff", "/trainingData/preprocessed-tweets-negative.arff", "ttest.arff");
