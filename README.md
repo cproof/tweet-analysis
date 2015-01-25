@@ -11,7 +11,9 @@ How to start the Program
 - Execute **mvn exec:java**
 - Launch the *index.html* file from the *client* directory
 
-Copyright (c) 2015, Patrick Löwenstein, Thomas Schreiber, Alexander Suchan, Stefan Victora, Andreas Waltenberger
+The MIT License
+
+Copyright (c) 2015 Patrick Löwenstein, Thomas Schreiber, Alexander Suchan, Stefan Victora, Andreas Waltenberger https://github.com/cproof/tweet-analysis
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
