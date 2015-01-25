@@ -69,19 +69,20 @@ public class TweetAnalysis {
 //            throw new IllegalArgumentException("Unknown classifier type '" + classifierType + "'. Only 'smo' and 'bayes' are valid");
 //        }
 
-        int size = 6000;
+        int size;
         String baseDirectory = "/trainingData";
 
         if (classifierType.endsWith("_large")) {
             baseDirectory += "/large_models";
             classifierType = classifierType.replace("_large", "");
-            size = 13000;
+            size = 18000;
         } else if (classifierType.endsWith("_small")) {
             baseDirectory += "/small_models";
             classifierType = classifierType.replace("_small", "");
             size = 1000;
         } else {
             baseDirectory += "/models";
+            size = 6000;
         }
 
         String modelName = baseDirectory + "/" + classifierType;
@@ -197,8 +198,8 @@ public class TweetAnalysis {
     }
 
     @Command
-    public void testAgainstTweetsAll() throws Exception {
-        System.out.println("Test all classifiers against a manually created testing-set...");
+    public void testAgainstTweetsAll(@Param(name = "smilies", description = "test models that contain smilies") boolean smilies) throws Exception {
+        System.out.println("Test all classifiers against a manually created testing-set. Test models with smilies: " + smilies);
 
         ArrayList<String> classifiers = new ArrayList<>();
         Collections.addAll(classifiers, "smo_small", "smo", "smo_large",
@@ -212,10 +213,11 @@ public class TweetAnalysis {
             classifier = loadClassifierFromModel(c, false);
             classifier.testClassifierAgainstPreprocessedTweets(t, true);
 
-            // with smilies
-            classifier = loadClassifierFromModel(c, true);
-            classifier.testClassifierAgainstPreprocessedTweets(t, true);
-
+            if (smilies) {
+                // with smilies
+                classifier = loadClassifierFromModel(c, true);
+                classifier.testClassifierAgainstPreprocessedTweets(t, true);
+            }
         }
 
         System.out.println("done");
@@ -331,8 +333,9 @@ public class TweetAnalysis {
 //        testClassifier();
 //        testLiveData("Nike", 50);
 //        TweetProvider tweetProvider1 = new TweetProvider();
-//        getLiveData(":(", ".*:-?\\).*", 1000, "negative", "neg2.csv", true, false, tweetProvider1);
-//        getLiveData(":)", ".*:-?\\(.*", 1000, "positive", "pos2.csv", true, false, tweetProvider1);
+//        getLiveData(":(", ".*:-?\\).*|.*@Harry_Styles.*|.*follow\\s?(me|back).*", 10000, "negative", "neg3.csv", false, true, tweetProvider1);
+//        getLiveData(":)", ".*:-?\\(.*|.*@Harry_Styles.*|.*follow\\s?(me|back).*", 10000, "positive", "pos3.csv", false, true, tweetProvider1);
+        // yeah..one direction gets lots of spam bots..I mean an ridiculous amount..so just ignore him. He will not be missed in our analysis.
 //        tweetProvider1.shutdown();
     }
     

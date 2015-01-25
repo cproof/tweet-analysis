@@ -36,23 +36,22 @@ public class SimpleAggregator {
 
             if(tweet.fDistribution[POS] - tweet.fDistribution[NEG] > THRESHOLD) {           // tweet is positive
                 positive++;
-                if(rts * WEIGHT_RETWEET > 1) {
+                if(rts * WEIGHT_RETWEET >= 1) {
                     positive += rts * WEIGHT_RETWEET;
                 }
-                if(favs * WEIGHT_FAV > 1) {
+                if(favs * WEIGHT_FAV >= 1) {
                     positive += favs * WEIGHT_FAV;
                 }
             } else if(tweet.fDistribution[NEG] - tweet.fDistribution[POS] > THRESHOLD){     // tweet is negative
                 negative++;
-                if(rts * WEIGHT_RETWEET > 1) {
+                if(rts * WEIGHT_RETWEET >= 1) {
                     negative += rts * WEIGHT_RETWEET;
                 }
-                if(favs * WEIGHT_FAV > 1) {
+                if(favs * WEIGHT_FAV >= 1) {
                     negative += favs * WEIGHT_FAV;
                 }
-            } else {                                                                        // threshold is not met, discard tweet
-                continue;
             }
+            // threshold is not met, discard twee
         }
 
         double sum = positive + negative;
@@ -68,10 +67,10 @@ public class SimpleAggregator {
         int rts = tweet.getRetweetCount();
         int favs = tweet.getFavoriteCount();
         int result = 1;
-        if (rts * WEIGHT_RETWEET > 1) {
+        if (rts * WEIGHT_RETWEET >= 1) {
             result += rts * WEIGHT_RETWEET;
         }
-        if (favs * WEIGHT_FAV > 1) {
+        if (favs * WEIGHT_FAV >= 1) {
             result += favs * WEIGHT_FAV;
         }
         return result;
