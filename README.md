@@ -3,13 +3,20 @@
 This is a Sentiment-Analysis Tool for Twitter
 
 
-How to start the Program
+How to start the Program (Instructions for Ubuntu 14.04)
 ---
 
+- Make sure you have all required packages installed or install them via apt-get
+-- git
+-- maven2
+-- openjdk-7-jdk
 - Download the sources from github.com/cproof/tweet-analysis
+-- git clone https://github.com/cproof/tweet-analysis.git
+- Add your Twitter credentials in at.tuwien.aic.tweetanalysis.provider.TwitterCredentials.java
 - Go into the subfolder *server*
+- Run **mvn clean install**
 - Execute **mvn exec:java**
-- Launch the *index.html* file from the *client* directory
+- Launch the *index.html* file from the *client* directory in your browser
 
 The MIT License
 
