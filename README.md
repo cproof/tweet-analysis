@@ -3,8 +3,7 @@
 This is a Sentiment-Analysis Tool for Twitter
 
 
-## How to start the Program (Instructions for Ubuntu 14.04)
----
+## How to start the tool (Instructions for Ubuntu 14.04)
 
 - Make sure you have all required packages installed or install them via apt-get
   - git
@@ -18,9 +17,8 @@ This is a Sentiment-Analysis Tool for Twitter
 - Execute **mvn exec:java**
 - Launch the *index.html* file from the *client* directory in your browser
 
----
 
-## The MIT License
+## MIT License
 
 Copyright (c) 2015 Patrick Löwenstein, Thomas Schreiber, Alexander Suchan, Stefan Victora, Andreas Waltenberger https://github.com/cproof/tweet-analysis
 
